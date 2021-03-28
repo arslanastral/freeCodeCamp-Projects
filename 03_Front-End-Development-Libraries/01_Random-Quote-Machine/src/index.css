@@ -1,0 +1,149 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=EB+Garamond:wght@700&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body,
+html {
+  background: url("https://images.unsplash.com/photo-1545294477-c0a0b8033797")
+    no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.card {
+  width: 415px;
+  height: 608px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+  position: absolute;
+  overflow: hidden;
+}
+
+.quote-text {
+  margin: 30px;
+  font-family: "EB Garamond", serif;
+  font-weight: 700;
+  font-size: 54px;
+  line-height: 104%;
+  letter-spacing: -0.045em;
+}
+
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.author {
+  margin: 30px;
+  font-family: "Inter", sans-serif;
+  font-weight: 300;
+  font-size: 35px;
+  letter-spacing: -0.09em;
+}
+
+/* CSS Waves */
+.wave {
+  top: 75%;
+  left: -117%;
+  width: 1100px;
+  height: 1125px;
+  background: linear-gradient(180deg, #1e2fff 0%, rgba(129, 167, 196, 0) 100%);
+  position: absolute;
+  border-radius: 40%;
+}
+
+.wave.one {
+  animation: wave 25s linear -1s infinite;
+}
+
+.wave.two {
+  animation: wave 31s linear -1s infinite;
+}
+
+@keyframes wave {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+/* CSS Waves */
+
+.control-panel {
+  width: 203px;
+  height: 79px;
+  background: #ffffff;
+  box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 49px;
+  z-index: 100;
+  position: absolute;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  top: 500px;
+  left: 100px;
+}
+
+/* Buttons */
+.button {
+  width: 61px;
+  height: 61px;
+  background-color: black;
+  border-radius: 50px;
+  color: white;
+  border: none;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
+  box-shadow: 0 2px 25px rgba(255, 0, 130, 0.5);
+}
+
+.button:focus {
+  outline: 0;
+}
+
+.button:before,
+.button:after {
+  position: absolute;
+  content: "";
+  display: block;
+  width: 140%;
+  height: 100%;
+  left: -20%;
+  z-index: -1000;
+  transition: all ease-in-out 0.5s;
+  background-repeat: no-repeat;
+}
+
+.button:active {
+  transform: scale(0.9);
+  background-color: #212025;
+  box-shadow: 0 2px 25px rgba(255, 0, 130, 0.2);
+}
+
+.svgIcon {
+  margin-top: 2px;
+}
+
+/* Buttons */

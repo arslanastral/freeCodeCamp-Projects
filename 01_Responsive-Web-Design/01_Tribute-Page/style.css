@@ -1,0 +1,305 @@
+html {
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+/* end of reset */
+
+section {
+  position: relative;
+  background: #f4f4f4;
+  width: 100%;
+  height: 100vh;
+}
+
+#curve path {
+  fill: url(#img1);
+}
+
+.intro {
+  display: flex;
+  flex-direction: row-reverse;
+  position: absolute;
+  top: 10px;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #f4f4f4;
+}
+
+.carl-image {
+  border-radius: 50%;
+  width: 15vw;
+  height: 15vw;
+  border: 4px solid #FFFFFF;
+}
+
+
+
+#title {
+  color: white;
+  font-family: 'Unica One', cursive;
+  font-style: normal;
+  font-size: 50px;
+  text-transform: uppercase;
+  position: relative;
+  left: -20px;
+  
+}
+
+.title_subtitle {
+  text-transform: none;
+  font-family: EB Garamond;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 4vmin;
+  position: relative;
+  top: -20px;
+}
+
+
+
+.paragraph {
+  min-height: 800px;
+  width: 70vw;
+  background-color: white;
+  padding: 4em;
+	border: .5px solid #ededed;
+	box-shadow: 0px 1px 5px rgba(0,0,0,0.05);
+  
+}
+
+.pcontent {
+  font-family: Vollkorn;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 30px;
+  text-align: justify;
+}
+
+/* The actual timeline (the vertical ruler) */
+.timeline {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* The actual timeline (the vertical ruler) */
+.timeline::after {
+  content: '';
+  position: absolute;
+  width: 6px;
+  background-color: blue;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  margin-left: -3px;
+}
+
+/* Container around content */
+.container {
+  padding: 10px 40px;
+  position: relative;
+  background-color: inherit;
+  width: 50%;
+}
+
+/* The circles on the timeline */
+.container::after {
+  content: '';
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  right: -17px;
+  background-color: white;
+  border: 4px solid #FF9F55;
+  top: 15px;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+/* Place the container to the left */
+.left {
+  left: 0;
+}
+
+/* Place the container to the right */
+.right {
+  left: 50%;
+}
+
+/* Add arrows to the left container (pointing right) */
+.left::before {
+  content: " ";
+  height: 0;
+  position: absolute;
+  top: 22px;
+  width: 0;
+  z-index: 1;
+  right: 30px;
+  border: medium solid white;
+  border-width: 10px 0 10px 10px;
+  border-color: transparent transparent transparent white;
+}
+
+/* Add arrows to the right container (pointing left) */
+.right::before {
+  content: " ";
+  height: 0;
+  position: absolute;
+  top: 22px;
+  width: 0;
+  z-index: 1;
+  left: 30px;
+  border: medium solid white;
+  border-width: 10px 10px 10px 0;
+  border-color: transparent white transparent transparent;
+}
+
+/* Fix the circle for containers on the right side */
+.right::after {
+  left: -16px;
+}
+
+/* The actual content */
+h2 {
+  font-family: 'Poppins', sans-serif;
+}
+.content {
+  padding: 20px 30px;
+  background-color: white;
+  font-family: EB Garamond;
+  font-size: 20px;
+  position: relative;
+  border-radius: 6px;
+}
+
+#image {
+  /*   only to pass test. i'm using flexbox */
+  display: block;
+ /*   only to pass test. i'm using flexbox */
+  margin: 0 auto;
+  margin-top: 50px;
+  max-width: 50vw;
+	box-shadow: 0px 1px 5px rgba(0,0,0,0.5);
+}
+
+#img-caption {
+  text-align: center;
+  font-family: EB Garamond;
+  visibility: hidden;
+}
+
+.carl-timeline {
+  font-family: EB Garamond;
+  font-size: 35px;
+  font-weight: normal;
+  margin-bottom: 50px;
+}
+
+.quote {
+  margin-top: 50px;
+  color: black;
+  font-family: EB Garamond;
+  font-weight: normal;
+  font-size: 30px;
+  width: 80%;
+}
+
+.quote__author {
+  font-family: EB Garamond;
+  font-size: 20px;
+}
+
+#readmore {
+  color: #333;
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  align-self: center;
+  font-weight: normal;
+  margin-top: 50px;
+  margin-left: 60px;
+}
+
+@media only screen and (max-width: 700px) {
+  #title {
+    font-size: 6vmin;
+  }
+  .title_subtitle {
+    top: -10px;
+  }
+  section {
+    background-color: white;
+  }
+  .flex-container {
+    background-color: white;
+    
+  }
+  .paragraph {
+  min-height: 800px;
+  width: 90vw;
+  background-color: white;
+  padding: 1em;
+   border: none;
+	box-shadow: none;
+  }
+ }
+
+@media only screen and (min-width: 946px) {
+  #title {
+    top: 20px;
+  }
+}
+
+@media only screen and (min-width: 1268px) {
+  #title {
+    top: 30px;
+  }
+}
+
+@media only screen and (min-width: 1500px) {
+  #title {
+    top: 40px;
+  }
+}
+
+/* Media queries - Responsive timeline on screens less than 600px wide */
+@media screen and (max-width: 600px) {
+/* Place the timelime to the left */
+  .timeline::after {
+    left: 31px;
+  }
+
+/* Full-width containers */
+  .container {
+    width: 100%;
+    padding-left: 70px;
+    padding-right: 25px;
+  }
+
+/* Make sure that all arrows are pointing leftwards */
+  .container::before {
+    left: 60px;
+    border: medium solid white;
+    border-width: 10px 10px 10px 0;
+    border-color: transparent white transparent transparent;
+  }
+
+/* Make sure all circles are at the same spot */
+  .left::after, .right::after {
+    left: 15px;
+  }
+
+/* Make all right containers behave like the left ones */
+  .right {
+    left: 0%;
+  }
+}

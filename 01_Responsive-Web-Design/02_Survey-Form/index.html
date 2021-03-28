@@ -1,0 +1,65 @@
+<div class="container">
+ 
+  <h1 id="title">Player Survey </h1>
+  <p id="description">Tell us what we can do to improve your experience.</p>
+  
+  
+  <div class="form-wrapper">
+    <form id="survey-form">
+    
+      <label for="name" id="name-label">Name</label>
+      <input type="text" id="name" placeholder="Enter your name here" required>
+    
+      <label for="email" id="email-label">Email</label>
+      <input type="email" id="email" placeholder="Enter your email here" required>
+    
+      <label for="Age" id="number-label">Age</label>
+      <input type="number" id="number" placeholder="Enter your age here" min="4" max="120">
+      
+      <label for="playerType">What Type of Player Are You?</label>
+      <div class="player-category">
+            <input type="radio" name="playerType" value="Newbie" checked>Newbie<br>
+<input type="radio" name="playerType" value="Casual" checked>Casual<br>
+        <input type="radio" name="playerType" value="Hardcore Gamer" >Hardcore Gamer<br>
+    
+  <input type="radio" name="playerType" value="Competitive">Competitive<br>
+      </div>
+    
+      <label for="deviceType">Which Platform Do You Usually Play On?</label>
+      <div class="device-type">
+        <input type="checkbox" name="device1" value="PC">PC<br>
+      <input type="checkbox" name="device2" value="PS4">PS4<br>
+        <input type="checkbox" name="device3" value="Xbox One">Xbox One<br>
+        <input type="checkbox" name="device4" value="ios">iOS<br>
+        <input type="checkbox" name="android" value="Xbox One">Android<br>
+        <input type="checkbox" name="device6" value="Nintendo Switch">Nintendo Switch<br>
+        <input type="checkbox" name="other" value="other">Other<br>
+      </div>
+      
+      <label for="favSeason">Which Multiplayer Game Do You Play The Most?</label>
+      <div class="season-select">
+     <select name="seasonlist" form="seasonlist" id="dropdown">
+  <option value="Fortnite">Fortnite</option>
+       <option value="apex">Apex Legends</option>
+       <option value="pubg">PUBG</option>
+  <option value="cod">Call of Duty</option>
+  <option value="r6">Rainbow Six Siege</option>
+  <option value="micecraft">Minecraft</option>
+  <option value="gtav">GTA V</option>
+  <option value="Overwatch">Overwatch</option>
+  <option value="csgo">Counter Strike: Global Offensive</option>
+  <option value="Dota 2">Dota 2</option>
+  <option value="wow">World of Warcraft</option>
+  <option value="lol">League of Legends</option>
+        <option value="Other">Other</option>
+</select>
+      </div>
+      
+      <label for="message">What Improvements Would You Like To See in Future Games?</label>
+      <textarea rows="6" id="message" placeholder="More photorealistic graphics..."></textarea>
+    
+      <button id="submit" type="submit">Submit</button>
+    
+    </form>
+</div>
+</div>
