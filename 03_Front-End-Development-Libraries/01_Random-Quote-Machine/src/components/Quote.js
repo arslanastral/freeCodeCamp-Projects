@@ -16,7 +16,7 @@ const Quote = () => {
 
   const getQuotes = () => {
     fetch(
-      "https://gist.githubusercontent.com/arslanastral/76e5e4154ae134a0111fed74c2a5cf23/raw/7afd9ef790171c73d08a87392600c76d85355abe/quotes.json"
+      "https://gist.githubusercontent.com/arslanastral/c00e147ebbb2e22fddc228437bb45ff7/raw/f0c7272e09a58fe17b3d8957f5e13fb029d9185a/quotes.json"
     )
       .then((res) => res.json())
       .then((data) => {
