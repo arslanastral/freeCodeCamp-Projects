@@ -27,9 +27,16 @@ html {
   min-width: 80vw;
   min-height: 80vh;
   background-color: black;
+  border-radius: 12px;
 }
 
-.titlebar {
+.titlebar-container {
+  display: flex;
+  justify-content: space-between;
+  min-height: 25px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  background-color: white;
 }
 
 .markdown-pane {
