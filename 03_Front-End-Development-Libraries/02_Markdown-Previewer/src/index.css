@@ -33,10 +33,14 @@ html {
 .titlebar-container {
   display: flex;
   justify-content: space-between;
-  min-height: 25px;
+  /* min-height: 25px; */
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
-  background-color: white;
+  /* background-color: white; */
+}
+
+.window-controls {
+  margin: 10px 0 0 12px;
 }
 
 .markdown-pane {
