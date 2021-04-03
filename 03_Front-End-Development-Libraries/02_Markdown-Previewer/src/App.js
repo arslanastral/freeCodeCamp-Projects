@@ -1,7 +1,9 @@
+import Editor from "./components/Editor";
+
 function App() {
   return (
     <div className="app-container">
-      <p>Hello World</p>
+      <Editor />
     </div>
   );
 }

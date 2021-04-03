@@ -24,6 +24,9 @@ html {
 }
 
 .editor-container {
+  min-width: 80vw;
+  min-height: 80vh;
+  background-color: black;
 }
 
 .titlebar {
