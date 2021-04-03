@@ -43,8 +43,28 @@ html {
   margin: 10px 0 0 12px;
 }
 
+.panes-container {
+  display: flex;
+}
+
 .markdown-pane {
+  /* background-color: teal; */
+  min-height: 80vh;
+  min-width: 50%;
+  border-bottom-left-radius: 12px;
+}
+
+.pane-title {
+  color: white;
+  font-family: "Inter", sans-serif;
+  font-size: 2.4rem;
+  margin: 20px 0 0 20px;
 }
 
 .preview-pane {
+  /* background-color: silver; */
+  min-height: 80vh;
+  min-width: 50%;
+  border-left: 0.3px solid rgb(36, 36, 36);
+  border-bottom-right-radius: 12px;
 }
