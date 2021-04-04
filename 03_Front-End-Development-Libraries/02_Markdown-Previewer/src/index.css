@@ -24,6 +24,7 @@ html {
 }
 
 .editor-container {
+  /* margin: 45px 0 45px 0; */
   min-width: 80vw;
   min-height: 80vh;
   background-color: black;
@@ -45,6 +46,7 @@ html {
 
 .panes-container {
   display: flex;
+  /* flex-direction: column; */
 }
 
 .markdown-pane {
