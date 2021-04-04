@@ -14,7 +14,7 @@ const WindowControls = () => {
             cx="6"
             cy="6"
             r="6"
-            fill="#FF5F56"
+            fill="#FF4742"
             stroke="#E0443E"
             strokeWidth=".5"
           ></circle>
@@ -22,7 +22,7 @@ const WindowControls = () => {
             cx="26"
             cy="6"
             r="6"
-            fill="#FFBD2E"
+            fill="#FCD019"
             stroke="#DEA123"
             strokeWidth=".5"
           ></circle>
@@ -30,7 +30,7 @@ const WindowControls = () => {
             cx="46"
             cy="6"
             r="6"
-            fill="#27C93F"
+            fill="#AD00EE"
             stroke="#1AAB29"
             strokeWidth=".5"
           ></circle>
