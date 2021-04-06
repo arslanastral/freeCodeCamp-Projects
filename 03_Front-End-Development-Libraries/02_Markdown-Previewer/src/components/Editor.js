@@ -1,28 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import Titlebar from "./Titlebar/Titlebar";
-import Pane from "./Pane";
-
-import styled from "styled-components";
-
-const TextArea = styled.textarea`
-  width: 100%;
-  max-width: 100%;
-  background: black;
-  color: white;
-  font-family: "Inter", sans-serif;
-`;
+import MarkdownPane from "./MarkdownPane";
+import PreviewPane from "./PreviewPane";
 
 const Editor = () => {
+  const [markdown, setMarkdown] = useState(`# Batman`);
+
   return (
     <div className="editor-container">
       <Titlebar />
       <div className="panes-container">
-        <Pane
-          className="markdown-pane"
+        <MarkdownPane
           title="Markdown"
-          textArea={<TextArea />}
-        ></Pane>
-        <Pane className="preview-pane" title="Preview" />
+          markdown={markdown}
+          setMarkdown={setMarkdown}
+        />
+        <PreviewPane title="Preview" markdown={markdown} />
       </div>
     </div>
   );
