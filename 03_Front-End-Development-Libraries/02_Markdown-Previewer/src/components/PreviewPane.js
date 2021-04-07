@@ -24,13 +24,15 @@ function CodeBlock({ language, value }) {
 }
 
 const Preview = styled.div`
-  background: #f8f8f8;
-  color: black;
+  color: white;
   font-family: "Inter", sans-serif;
+  font-weight: 400;
+  border-radius: 8px;
   margin: 15px;
 
   pre {
     background: #333;
+    font-family: "JetBrains Mono", monospace;
     border-radius: 8px;
     margin: 10px;
     color: #eee;

@@ -5,8 +5,15 @@ const TextArea = styled.textarea`
   // width: 100%;
   background: black;
   color: white;
-  font-family: "Inter", sans-serif;
+  font-family: "JetBrains Mono", monospace;
   border-radius: 5px;
+  border: none;
+  overflow: auto;
+  outline: none;
+
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
   margin: 15px;
 `;
 
