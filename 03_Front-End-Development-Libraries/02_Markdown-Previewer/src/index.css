@@ -71,3 +71,16 @@ html {
   border-left: 0.3px solid rgb(36, 36, 36);
   border-bottom-right-radius: 12px;
 }
+
+#markdown-editor {
+  background: black;
+  margin-top: 30px;
+  width: 100% !important;
+  min-height: 84.7%;
+  border-bottom-left-radius: 12px;
+  font-family: "JetBrains Mono", monospace;
+}
+
+.ace_gutter {
+  background: black !important;
+}

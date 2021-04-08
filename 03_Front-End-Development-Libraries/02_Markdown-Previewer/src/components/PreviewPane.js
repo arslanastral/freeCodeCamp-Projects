@@ -24,7 +24,8 @@ function CodeBlock({ language, value }) {
 }
 
 const Preview = styled.div`
-  color: white;
+  background: white;
+  color: black;
   font-family: "Inter", sans-serif;
   font-weight: 400;
   border-radius: 8px;
@@ -37,10 +38,6 @@ const Preview = styled.div`
     margin: 10px;
     color: #eee;
     padding: 30px;
-  }
-
-  * {
-    margin: 10px;
   }
 `;
 
