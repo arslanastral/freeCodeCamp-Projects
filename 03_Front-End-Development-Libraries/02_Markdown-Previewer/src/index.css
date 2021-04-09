@@ -9,12 +9,13 @@
 
 body,
 html {
-  background: url("https://images.unsplash.com/photo-1487621167305-5d248087c724")
+  /* background: url("https://images.unsplash.com/photo-1487621167305-5d248087c724")
     no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: cover;
+  background-size: cover; */
+  background: rgb(34, 34, 39);
 }
 
 .app-container {
@@ -26,8 +27,11 @@ html {
 
 .editor-container {
   /* margin: 45px 0 45px 0; */
-  min-width: 80vw;
-  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  width: 90vw;
+  height: 90vh;
   background-color: black;
   border-radius: 12px;
 }
@@ -35,6 +39,7 @@ html {
 .titlebar-container {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 25px;
   /* min-height: 25px; */
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
@@ -47,14 +52,15 @@ html {
 
 .panes-container {
   display: flex;
+  height: 100%;
+  min-height: 0;
+
+  /* min-height: 0; */
   /* flex-direction: column; */
 }
 
 .markdown-pane {
-  /* background-color: teal; */
-  min-height: 80vh;
-  min-width: 50%;
-  border-bottom-left-radius: 12px;
+  width: 50%;
 }
 
 .pane-title {
@@ -65,20 +71,16 @@ html {
 }
 
 .preview-pane {
-  /* background-color: silver; */
-  min-height: 80vh;
-  min-width: 50%;
-  border-left: 0.3px solid rgb(36, 36, 36);
-  border-bottom-right-radius: 12px;
+  width: 50%;
+  overflow-y: scroll;
 }
 
 #markdown-editor {
   background: black;
-  margin-top: 30px;
   width: 100% !important;
-  min-height: 84.7%;
-  border-bottom-left-radius: 12px;
+  height: 100% !important;
   font-family: "JetBrains Mono", monospace;
+  border-bottom-left-radius: 12px;
 }
 
 .ace_gutter {

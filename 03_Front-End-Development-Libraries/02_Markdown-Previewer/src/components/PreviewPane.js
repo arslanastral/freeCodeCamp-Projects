@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 import ReactMarkdown from "react-markdown";
 import Prism from "prismjs";
 
@@ -23,31 +22,13 @@ function CodeBlock({ language, value }) {
   );
 }
 
-const Preview = styled.div`
-  background: white;
-  color: black;
-  font-family: "Inter", sans-serif;
-  font-weight: 400;
-  border-radius: 8px;
-  margin: 15px;
-
-  pre {
-    background: #333;
-    font-family: "JetBrains Mono", monospace;
-    border-radius: 8px;
-    margin: 10px;
-    color: #eee;
-    padding: 30px;
-  }
-`;
-
-const PreviewPane = ({ title, markdown }) => {
+const PreviewPane = ({ markdown }) => {
   return (
     <div className="preview-pane">
-      <h1 className="pane-title">{title}</h1>
-      <Preview>
+      {/* <h1 className="pane-title">{title}</h1> */}
+      <div className="markdown-body">
         <ReactMarkdown source={markdown} renderers={{ code: CodeBlock }} />
-      </Preview>
+      </div>
     </div>
   );
 };

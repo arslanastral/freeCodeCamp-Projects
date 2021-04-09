@@ -21,10 +21,10 @@ import "ace-builds/src-noconflict/theme-twilight";
 //   margin: 15px;
 // `;
 
-const MarkdownPane = ({ title, markdown, setMarkdown }) => {
+const MarkdownPane = ({ markdown, setMarkdown }) => {
   return (
     <div className="markdown-pane">
-      <h1 className="pane-title">{title}</h1>
+      {/* <h1 className="pane-title">{title}</h1> */}
 
       <AceEditor
         placeholder=""
@@ -32,7 +32,7 @@ const MarkdownPane = ({ title, markdown, setMarkdown }) => {
         theme="twilight"
         name="markdown-editor"
         onChange={(e) => setMarkdown(e)}
-        fontSize={14}
+        fontSize={15}
         showPrintMargin={true}
         showGutter={true}
         highlightActiveLine={true}
