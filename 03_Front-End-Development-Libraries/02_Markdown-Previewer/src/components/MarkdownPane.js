@@ -31,9 +31,12 @@ const MarkdownPane = ({ markdown, setMarkdown }) => {
         mode="markdown"
         theme="twilight"
         name="markdown-editor"
-        onChange={(e) => setMarkdown(e)}
-        fontSize={15}
-        showPrintMargin={true}
+        onChange={(e) => {
+          console.log(e);
+          setMarkdown(e);
+        }}
+        fontSize={16}
+        showPrintMargin={false}
         showGutter={true}
         highlightActiveLine={true}
         value={markdown}
