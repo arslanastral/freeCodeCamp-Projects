@@ -32,7 +32,6 @@ const MarkdownPane = ({ markdown, setMarkdown }) => {
         theme="twilight"
         name="markdown-editor"
         onChange={(e) => {
-          console.log(e);
           setMarkdown(e);
         }}
         fontSize={16}

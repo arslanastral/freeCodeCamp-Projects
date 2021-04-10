@@ -1,29 +1,49 @@
 import React, { useState } from "react";
 import Titlebar from "./Titlebar/Titlebar";
+import PanelGroup from "react-panelgroup";
 import MarkdownPane from "./MarkdownPane";
 import PreviewPane from "./PreviewPane";
 
 const Editor = () => {
   const [markdown, setMarkdown] = useState(placeholder);
+  const [panelSize, setPanelSize] = useState([
+    { size: 600, minSize: 0, resize: "dynamic" },
+    { size: 500, minSize: 0, resize: "dynamic" },
+  ]);
 
   return (
     <div className="editor-container">
       <Titlebar />
       <div className="panes-container">
-        <MarkdownPane
-          title="Markdown"
-          markdown={markdown}
-          setMarkdown={setMarkdown}
-        />
-        <PreviewPane title="Preview" markdown={markdown} />
+        <PanelGroup onUpdate={(w) => setPanelSize(w)} panelWidths={panelSize}>
+          <MarkdownPane
+            title="Markdown"
+            markdown={markdown}
+            setMarkdown={setMarkdown}
+          />
+          <PreviewPane title="Preview" markdown={markdown} />
+        </PanelGroup>
       </div>
     </div>
   );
 };
 
-const placeholder = `# Welcome To MarkEdit
+const placeholder = `# Markline ✨
 
-## A react-markdown powered markdown editor...
+A simple markdown editor.
+
+## Features
+- Live Markdown Preview 👁
+- Syntax Highlighting 🎨
+- Fully Resizable Panes 📏
+- Night Mode 🌙
+
+## Libraries Used
+- [react-markdown](https://github.com/remarkjs/react-markdown)
+- [react-ace](https://github.com/securingsincity/react-ace)
+- [react-panelgroup](https://github.com/DanFessler/react-panelgroup)
+- [use-dark-mode](https://github.com/donavon/use-dark-mode)
+
 ### And here's some other cool stuff:
 
 Heres some code, \`<div></div>\`, between 2 backticks.
