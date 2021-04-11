@@ -1,15 +1,12 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import Prism from "prismjs";
-import "./prism.css";
 
 const BlankCodeBlock = ({ value }) => {
   return <pre className="language-">{value || ""}</pre>;
 };
 
 const CodeBlock = ({ language, value }) => {
-  // 1. no language was typed
-  // or 2. language doesnt exist
   if (!language || !Prism.languages[language] || !value)
     return <BlankCodeBlock value={value} />;
 
@@ -26,7 +23,6 @@ const CodeBlock = ({ language, value }) => {
 const PreviewPane = ({ markdown }) => {
   return (
     <div className="preview-pane">
-      {/* <h1 className="pane-title">{title}</h1> */}
       <div className="markdown-body">
         <ReactMarkdown source={markdown} renderers={{ code: CodeBlock }} />
       </div>

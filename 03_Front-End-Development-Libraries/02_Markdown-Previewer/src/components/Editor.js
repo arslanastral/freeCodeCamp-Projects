@@ -15,7 +15,11 @@ const Editor = () => {
     <div className="editor-container">
       <Titlebar />
       <div className="panes-container">
-        <PanelGroup onUpdate={(w) => setPanelSize(w)} panelWidths={panelSize}>
+        <PanelGroup
+          // direction="column"
+          onUpdate={(w) => setPanelSize(w)}
+          panelWidths={panelSize}
+        >
           <MarkdownPane
             title="Markdown"
             markdown={markdown}
@@ -43,6 +47,7 @@ A simple markdown editor.
 - [react-ace](https://github.com/securingsincity/react-ace)
 - [react-panelgroup](https://github.com/DanFessler/react-panelgroup)
 - [use-dark-mode](https://github.com/donavon/use-dark-mode)
+- [prism.js](https://prismjs.com/)
 
 ### And here's some other cool stuff:
 
