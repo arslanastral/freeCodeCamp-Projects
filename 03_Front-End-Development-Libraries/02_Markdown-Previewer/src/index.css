@@ -52,6 +52,7 @@ html {
   height: 100%;
   width: 100%;
   min-height: 0;
+  background-color: #181a1b;
   /* border-bottom-left-radius: 12px; */
   /* flex-direction: column; */
 }
@@ -61,7 +62,7 @@ html {
   background-color: black;
   width: 100%;
   height: 100%;
-  scrollbar-color: rgb(31, 30, 30) black;
+  scrollbar-color: rgb(24, 23, 23) black;
   border-bottom-left-radius: 12px;
 }
 
@@ -69,7 +70,8 @@ html {
   width: 100%;
   height: 100%;
   overflow-y: scroll;
-  scrollbar-color: rgb(235, 233, 233) white;
+  /* scrollbar-color: rgb(235, 233, 233) white; */
+  scrollbar-color: rgb(41, 39, 39) #181a1b;
   background: white;
   border-bottom-right-radius: 12px;
 }
