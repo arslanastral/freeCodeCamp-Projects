@@ -48,6 +48,7 @@ A simple markdown editor.
 - [react-panelgroup](https://github.com/DanFessler/react-panelgroup)
 - [use-dark-mode](https://github.com/donavon/use-dark-mode)
 - [prism.js](https://prismjs.com/)
+- [github-markdown-css](https://github.com/sindresorhus/github-markdown-css)
 
 ### And here's some other cool stuff:
 
