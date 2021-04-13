@@ -5,18 +5,18 @@ import MarkdownPane from "./MarkdownPane";
 import PreviewPane from "./PreviewPane";
 
 const Editor = () => {
-  const [markdown, setMarkdown] = useState(placeholder);
+  const [markdown, setMarkdown] = useStickyState(placeholder);
   const [panelSize, setPanelSize] = useState([
-    { size: 600, minSize: 0, resize: "dynamic" },
-    { size: 500, minSize: 0, resize: "dynamic" },
+    { size: 50, minSize: 0, resize: "stretch" },
+    { size: 50, minSize: 0, resize: "stretch" },
   ]);
 
   return (
     <div className="editor-container">
       <Titlebar />
-      <div className="panes-container">
+      <div key={window.innerWidth} className="panes-container">
         <PanelGroup
-          // direction="column"
+          direction={window.innerWidth <= 800 ? "column" : "row"}
           onUpdate={(w) => setPanelSize(w)}
           panelWidths={panelSize}
         >
@@ -32,6 +32,17 @@ const Editor = () => {
   );
 };
 
+function useStickyState(defaultValue, key) {
+  const [value, setValue] = React.useState(() => {
+    const stickyValue = window.localStorage.getItem(key);
+    return stickyValue !== null ? JSON.parse(stickyValue) : defaultValue;
+  });
+  React.useEffect(() => {
+    window.localStorage.setItem(key, JSON.stringify(value));
+  }, [key, value]);
+  return [value, setValue];
+}
+
 const placeholder = `# Markline ✨
 
 A simple markdown editor.
@@ -39,7 +50,7 @@ A simple markdown editor.
 ## Features
 - Live Markdown Preview 👁
 - Syntax Highlighting 🎨
-- Fully Resizable Panes 📏
+- Resizable Panes 📏
 - Night Mode 🌙
 
 ## Libraries Used
