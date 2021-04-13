@@ -1,32 +1,36 @@
-import React, { useState } from "react";
+import React from "react";
 import Titlebar from "./Titlebar/Titlebar";
-import PanelGroup from "react-panelgroup";
+import "react-reflex/styles.css";
+import { ReflexContainer, ReflexSplitter, ReflexElement } from "react-reflex";
 import MarkdownPane from "./MarkdownPane";
 import PreviewPane from "./PreviewPane";
 
 const Editor = () => {
   const [markdown, setMarkdown] = useStickyState(placeholder);
-  const [panelSize, setPanelSize] = useState([
-    { size: 50, minSize: 0, resize: "stretch" },
-    { size: 50, minSize: 0, resize: "stretch" },
-  ]);
+
+  // useEffect(() => {
+  //   window.dispatchEvent(new Event("resize"));
+  // });
 
   return (
     <div className="editor-container">
       <Titlebar />
-      <div key={window.innerWidth} className="panes-container">
-        <PanelGroup
-          direction={window.innerWidth <= 800 ? "column" : "row"}
-          onUpdate={(w) => setPanelSize(w)}
-          panelWidths={panelSize}
-        >
-          <MarkdownPane
-            title="Markdown"
-            markdown={markdown}
-            setMarkdown={setMarkdown}
-          />
-          <PreviewPane title="Preview" markdown={markdown} />
-        </PanelGroup>
+      <div className="panes-container">
+        <ReflexContainer orientation={"vertical"}>
+          <ReflexElement propagateDimensions={true}>
+            <MarkdownPane
+              title="Markdown"
+              markdown={markdown}
+              setMarkdown={setMarkdown}
+            />
+          </ReflexElement>
+
+          <ReflexSplitter />
+
+          <ReflexElement>
+            <PreviewPane title="Preview" markdown={markdown} />
+          </ReflexElement>
+        </ReflexContainer>
       </div>
     </div>
   );

@@ -17,7 +17,7 @@ const MarkdownPane = ({ markdown, setMarkdown }) => {
         onChange={(e) => {
           setMarkdown(e);
         }}
-        fontSize={16}
+        fontSize={17}
         width="100%"
         height="100%"
         style={{ background: "black", fontFamily: "JetBrains Mono" }}
