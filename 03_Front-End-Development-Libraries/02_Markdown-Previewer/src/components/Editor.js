@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Titlebar from "./Titlebar/Titlebar";
 import "react-reflex/styles.css";
 import { ReflexContainer, ReflexSplitter, ReflexElement } from "react-reflex";
@@ -7,16 +7,15 @@ import PreviewPane from "./PreviewPane";
 
 const Editor = () => {
   const [markdown, setMarkdown] = useStickyState(placeholder);
-
-  // useEffect(() => {
-  //   window.dispatchEvent(new Event("resize"));
-  // });
+  const isSmallScreenSize = useMatchMedia(800);
 
   return (
     <div className="editor-container">
       <Titlebar />
       <div className="panes-container">
-        <ReflexContainer orientation={"vertical"}>
+        <ReflexContainer
+          orientation={isSmallScreenSize ? "horizontal" : "vertical"}
+        >
           <ReflexElement propagateDimensions={true}>
             <MarkdownPane
               title="Markdown"
@@ -25,7 +24,13 @@ const Editor = () => {
             />
           </ReflexElement>
 
-          <ReflexSplitter />
+          <ReflexSplitter
+            style={{
+              backgroundColor: "rgba(0, 0, 0, 0)",
+              borderRight: "1px solid rgba(0, 0, 0, 0)",
+              borderLeft: "1px solid rgba(0, 0, 0, 0)",
+            }}
+          />
 
           <ReflexElement>
             <PreviewPane title="Preview" markdown={markdown} />
@@ -46,6 +51,45 @@ function useStickyState(defaultValue, key) {
   }, [key, value]);
   return [value, setValue];
 }
+
+const useMatchMedia = (width = 600) => {
+  const [toggleChange, setToggleChange] = useState(false);
+  const matchMediaRef = useRef(null);
+
+  useEffect(() => {
+    // Anything bigger than width is orange... else blue
+    matchMediaRef.current = window.matchMedia(`(max-width: ${width}px)`);
+
+    // 1. Perform initial check
+    const initialMatch = matchMediaRef.current.matches;
+
+    if (initialMatch) {
+      setToggleChange(true);
+    } else {
+      setToggleChange(false);
+    }
+
+    // 3. Update state basked on change
+    const test = (event) => {
+      if (event.matches) {
+        setToggleChange(true);
+      } else {
+        setToggleChange(false);
+      }
+    };
+
+    // 2. Add listener
+    matchMediaRef.current.addListener(test);
+
+    // 5. Remove listener when component unmounts
+    return () => {
+      matchMediaRef.current.removeListener(test);
+    };
+  }, [width]);
+
+  // 4. Return whether change happened
+  return toggleChange;
+};
 
 const placeholder = `# Markline ✨
 

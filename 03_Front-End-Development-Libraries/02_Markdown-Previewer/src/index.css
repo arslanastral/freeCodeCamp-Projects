@@ -92,12 +92,22 @@ html {
 }
 /* Scrollbar */
 
+.reflex-splitter {
+  border-bottom: 1px solid rgba(0, 0, 0, 0) !important;
+  border-top: 1px solid rgba(0, 0, 0, 0) !important;
+}
+
 .light-mode {
   transition: background-color 0.3s ease;
 }
 
 .dark-mode {
   background-color: #181a1b;
+  color: rgb(255, 255, 255) !important;
+}
+
+body.dark-mode {
+  background-color: #062331;
   color: rgb(255, 255, 255) !important;
 }
 

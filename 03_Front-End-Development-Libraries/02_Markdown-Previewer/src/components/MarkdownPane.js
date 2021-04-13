@@ -13,7 +13,7 @@ const MarkdownPane = ({ markdown, setMarkdown }) => {
         placeholder=""
         mode="markdown"
         theme="twilight"
-        name="markdown-editor"
+        name="editor"
         onChange={(e) => {
           setMarkdown(e);
         }}
