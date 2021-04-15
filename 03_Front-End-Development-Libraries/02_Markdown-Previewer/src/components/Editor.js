@@ -105,7 +105,6 @@ A simple markdown editor.
 - [react-markdown](https://github.com/remarkjs/react-markdown)
 - [react-ace](https://github.com/securingsincity/react-ace)
 - [react-reflex](https://github.com/leefsmp/Re-Flex)
-- [use-dark-mode](https://github.com/donavon/use-dark-mode)
 - [prism.js](https://prismjs.com/)
 - [github-markdown-css](https://github.com/sindresorhus/github-markdown-css)
 
