@@ -147,3 +147,15 @@ html {
 }
 
 /* Buttons */
+
+@media all and (max-width: 500px) {
+  .card {
+    transform: scale(0.8);
+  }
+}
+
+@media all and (max-height: 420px) {
+  .card {
+    transform: scale(0.6);
+  }
+}
