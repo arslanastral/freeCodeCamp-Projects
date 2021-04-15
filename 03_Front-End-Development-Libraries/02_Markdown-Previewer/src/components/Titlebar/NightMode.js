@@ -1,11 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import Switch from "react-switch";
-import useDarkMode from "use-dark-mode";
 
 const NightMode = () => {
-  const darkMode = useDarkMode(false, {
-    element: document.getElementsByClassName("markdown-body")[0],
-  });
+  const [isNightMode, setNightMode] = useState(false);
+
+  const InitNightMode = () => {
+    if (isNightMode) {
+      document
+        .getElementsByClassName("markdown-body")[0]
+        .removeAttribute("id", "dark-mode");
+      document.body.removeAttribute("id", "dark-mode");
+      setNightMode(!isNightMode);
+    } else {
+      document
+        .getElementsByClassName("markdown-body")[0]
+        .setAttribute("id", "dark-mode");
+      document.body.setAttribute("id", "dark-mode");
+      setNightMode(!isNightMode);
+    }
+  };
 
   return (
     <div className="dark-mode-controls">
@@ -23,11 +36,11 @@ const NightMode = () => {
           />
         </svg>
       </span>
-      <div className="night-mode-toggle">
+      <div className="mode-toggle">
         <Switch
           onColor="#0000FF"
-          checked={darkMode.value}
-          onChange={darkMode.toggle}
+          checked={isNightMode}
+          onChange={InitNightMode}
           checkedIcon={false}
           uncheckedIcon={false}
         />

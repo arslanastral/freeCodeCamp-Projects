@@ -1,41 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
 
 const WindowControls = () => {
+  const [isFullScreenMode, setFullScreenMode] = useState(false);
+
+  const fullScreenMode = () => {
+    if (isFullScreenMode) {
+      document
+        .getElementsByClassName("editor-container")[0]
+        .removeAttribute("id", "fullscreen-mode");
+      document
+        .getElementsByClassName("titlebar-container")[0]
+        .removeAttribute("id", "remove-border-radius");
+      setFullScreenMode(!isFullScreenMode);
+    } else {
+      document
+        .getElementsByClassName("editor-container")[0]
+        .setAttribute("id", "fullscreen-mode");
+      document
+        .getElementsByClassName("titlebar-container")[0]
+        .setAttribute("id", "remove-border-radius");
+      setFullScreenMode(!isFullScreenMode);
+    }
+  };
+
   return (
-    <div className="window-controls">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="54"
-        height="14"
-        viewBox="0 0 54 14"
-      >
-        <g fill="none" fillRule="evenodd" transform="translate(1 1)">
-          <circle
-            cx="6"
-            cy="6"
-            r="6"
-            fill="#FF4742"
-            stroke="#E0443E"
-            strokeWidth=".5"
-          ></circle>
-          <circle
-            cx="26"
-            cy="6"
-            r="6"
-            fill="#FCD019"
-            stroke="#DEA123"
-            strokeWidth=".5"
-          ></circle>
-          <circle
-            cx="46"
-            cy="6"
-            r="6"
-            fill="#AD00EE"
-            stroke="#1AAB29"
-            strokeWidth=".5"
-          ></circle>
-        </g>
-      </svg>
+    <div>
+      <div className="window-controls">
+        <div className="btn btn1"></div>
+        <label htmlFor="screen-mode">
+          <div className="btn btn2">
+            <input
+              className="max-button"
+              type="checkbox"
+              name="screen-mode"
+              onChange={fullScreenMode}
+            />
+          </div>
+        </label>
+        <div className="btn btn3"></div>
+      </div>
+      {/* <div>
+        <Switch
+          onColor="#0000FF"
+          checked={isFullScreenMode}
+          onChange={fullScreenMode}
+          checkedIcon={false}
+          uncheckedIcon={false}
+        />
+      </div> */}
     </div>
   );
 };
