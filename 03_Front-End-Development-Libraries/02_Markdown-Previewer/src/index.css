@@ -63,7 +63,6 @@ html {
   overflow-y: scroll;
   scrollbar-color: rgb(41, 39, 39) #181a1b;
   background: white;
-  border-bottom-right-radius: 12px;
 }
 
 /* Ace Editor */
