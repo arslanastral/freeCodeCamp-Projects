@@ -20,7 +20,20 @@ const CodeBlock = ({ language, value }) => {
   );
 };
 
-const PreviewPane = ({ markdown }) => {
+const PreviewPane = ({ markdown, isNightMode }) => {
+  React.useEffect(() => {
+    wasNightMode();
+  });
+
+  const wasNightMode = () => {
+    if (isNightMode) {
+      document
+        .getElementsByClassName("markdown-body")[0]
+        .setAttribute("id", "dark-mode");
+      document.body.setAttribute("id", "dark-mode");
+    }
+  };
+
   return (
     <div className="preview-pane">
       <div className="markdown-body">

@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import useStickyState from "./useStickyState";
 import Titlebar from "./Titlebar/Titlebar";
 import "react-reflex/styles.css";
 import { ReflexContainer, ReflexSplitter, ReflexElement } from "react-reflex";
@@ -6,12 +7,13 @@ import MarkdownPane from "./MarkdownPane";
 import PreviewPane from "./PreviewPane";
 
 const Editor = () => {
-  const [markdown, setMarkdown] = useStickyState(placeholder);
+  const [markdown, setMarkdown] = useStickyState(placeholder, "placeholdermd");
+  const [isNightMode, setNightMode] = useStickyState(false, "isNightMode");
   const isSmallScreenSize = useMatchMedia(800);
 
   return (
     <div className="editor-container">
-      <Titlebar />
+      <Titlebar isNightMode={isNightMode} setNightMode={setNightMode} />
       <div className="panes-container">
         <ReflexContainer
           orientation={isSmallScreenSize ? "horizontal" : "vertical"}
@@ -33,24 +35,17 @@ const Editor = () => {
           />
 
           <ReflexElement>
-            <PreviewPane title="Preview" markdown={markdown} />
+            <PreviewPane
+              title="Preview"
+              markdown={markdown}
+              isNightMode={isNightMode}
+            />
           </ReflexElement>
         </ReflexContainer>
       </div>
     </div>
   );
 };
-
-function useStickyState(defaultValue, key) {
-  const [value, setValue] = React.useState(() => {
-    const stickyValue = window.localStorage.getItem(key);
-    return stickyValue !== null ? JSON.parse(stickyValue) : defaultValue;
-  });
-  React.useEffect(() => {
-    window.localStorage.setItem(key, JSON.stringify(value));
-  }, [key, value]);
-  return [value, setValue];
-}
 
 const useMatchMedia = (width = 600) => {
   const [toggleChange, setToggleChange] = useState(false);
@@ -93,13 +88,15 @@ const useMatchMedia = (width = 600) => {
 
 const placeholder = `# Markline ✨
 
-A simple markdown editor.
+A simple markdown editor. Built for freeCodeCamp Project.
 
 ## Features
 - Live Markdown Preview 👁
 - Syntax Highlighting 🎨
 - Resizable Panes 📏
 - Night Mode 🌙
+- Fullscreen Mode 💻
+- Saves Automatically 💾
 
 ## Libraries Used
 - [react-markdown](https://github.com/remarkjs/react-markdown)

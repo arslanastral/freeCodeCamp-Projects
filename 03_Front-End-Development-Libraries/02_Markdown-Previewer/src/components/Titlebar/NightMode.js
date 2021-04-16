@@ -1,9 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import Switch from "react-switch";
 
-const NightMode = () => {
-  const [isNightMode, setNightMode] = useState(false);
-
+const NightMode = ({ isNightMode, setNightMode }) => {
   const InitNightMode = () => {
     if (isNightMode) {
       document

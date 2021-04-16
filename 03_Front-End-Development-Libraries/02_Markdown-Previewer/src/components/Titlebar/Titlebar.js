@@ -2,11 +2,11 @@ import React from "react";
 import WindowControls from "./WindowControls";
 import NightMode from "./NightMode";
 
-const Titlebar = () => {
+const Titlebar = ({ isNightMode, setNightMode }) => {
   return (
     <div className="titlebar-container">
       <WindowControls />
-      <NightMode />
+      <NightMode isNightMode={isNightMode} setNightMode={setNightMode} />
     </div>
   );
 };

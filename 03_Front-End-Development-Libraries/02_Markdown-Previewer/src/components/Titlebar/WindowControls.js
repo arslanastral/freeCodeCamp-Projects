@@ -1,7 +1,26 @@
-import React, { useState } from "react";
+import React from "react";
+import useStickyState from "../useStickyState";
 
 const WindowControls = () => {
-  const [isFullScreenMode, setFullScreenMode] = useState(false);
+  const [isFullScreenMode, setFullScreenMode] = useStickyState(
+    false,
+    "isFullScreenMode"
+  );
+
+  React.useEffect(() => {
+    wasFullScreenMode();
+  });
+
+  const wasFullScreenMode = () => {
+    if (isFullScreenMode) {
+      document
+        .getElementsByClassName("editor-container")[0]
+        .setAttribute("id", "fullscreen-mode");
+      document
+        .getElementsByClassName("titlebar-container")[0]
+        .setAttribute("id", "remove-border-radius");
+    }
+  };
 
   const fullScreenMode = () => {
     if (isFullScreenMode) {
