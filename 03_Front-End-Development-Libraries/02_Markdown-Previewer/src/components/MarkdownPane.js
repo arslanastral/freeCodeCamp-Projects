@@ -23,7 +23,7 @@ const MarkdownPane = ({ markdown, setMarkdown }) => {
         style={{ background: "black", fontFamily: "JetBrains Mono" }}
         showPrintMargin={false}
         showGutter={true}
-        highlightActiveLine={true}
+        highlightActiveLine={false}
         value={markdown}
         setOptions={{
           showLineNumbers: true,

@@ -88,7 +88,9 @@ const useMatchMedia = (width = 600) => {
 
 const placeholder = `# Markline ✨
 
-A simple markdown editor. Built for freeCodeCamp Project.
+A simple markdown editor. Built for freeCodeCamp Project.  
+
+[Github Repo](https://github.com/arslanastral/freeCodeCamp-Projects)
 
 ## Features
 - Live Markdown Preview 👁
@@ -127,13 +129,6 @@ And feel free to go crazy ~~crossing stuff out~~.
 There's also [links](https://www.freecodecamp.com), and
 > Block Quotes!
 
-And if you want to get really crazy, even tables:
-
-Wild Header | Crazy Header | Another Header?
------------- | ------------- | -------------
-Your content can | be here, and it | can be here....
-And here. | Okay. | I think we get it.
-
 - And of course there are lists.
   - Some are bulleted.
      - With different indentation levels.
@@ -147,15 +142,6 @@ And here. | Okay. | I think we get it.
 ## Images
 
 ![Minion](https://octodex.github.com/images/minion.png)
-![Stormtroopocat](https://octodex.github.com/images/stormtroopocat.jpg "The Stormtroopocat")
-
-Like links, Images also have a footnote style syntax
-
-![Alt text][id]
-
-With a reference later in the document defining the URL location:
-
-[id]: https://octodex.github.com/images/dojocat.jpg  "The Dojocat"
 `;
 
 export default Editor;
