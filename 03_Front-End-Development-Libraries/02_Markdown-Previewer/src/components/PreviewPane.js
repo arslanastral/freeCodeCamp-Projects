@@ -30,6 +30,9 @@ const PreviewPane = ({ markdown, isNightMode }) => {
       document
         .getElementsByClassName("markdown-body")[0]
         .setAttribute("id", "dark-mode");
+      document
+        .getElementsByClassName("preview-pane")[0]
+        .setAttribute("id", "dark-mode");
       document.body.setAttribute("id", "dark-mode");
     }
   };

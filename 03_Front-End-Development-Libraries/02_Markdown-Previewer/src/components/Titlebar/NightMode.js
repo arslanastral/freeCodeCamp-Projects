@@ -7,11 +7,17 @@ const NightMode = ({ isNightMode, setNightMode }) => {
       document
         .getElementsByClassName("markdown-body")[0]
         .removeAttribute("id", "dark-mode");
+      document
+        .getElementsByClassName("preview-pane")[0]
+        .removeAttribute("id", "dark-mode");
       document.body.removeAttribute("id", "dark-mode");
       setNightMode(!isNightMode);
     } else {
       document
         .getElementsByClassName("markdown-body")[0]
+        .setAttribute("id", "dark-mode");
+      document
+        .getElementsByClassName("preview-pane")[0]
         .setAttribute("id", "dark-mode");
       document.body.setAttribute("id", "dark-mode");
       setNightMode(!isNightMode);
