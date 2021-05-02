@@ -8,7 +8,7 @@ const ControlBoardContainer = styled.div`
   display: grid;
   grid-template-areas: "screen knobs drums";
   background-color: #212021;
-  height: 50%;
+  height: 52%;
   border-radius: 19px 19px 0 0;
 `;
 

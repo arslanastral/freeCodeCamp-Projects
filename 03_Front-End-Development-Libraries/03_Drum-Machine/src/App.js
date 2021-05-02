@@ -2,7 +2,7 @@ import DrumMachine from "./components/DrumMachine";
 import styled from "styled-components";
 
 const AppContainer = styled.div`
-  background-color: black;
+  /* background-color: black; */
   display: flex;
   justify-content: center;
   align-items: center;

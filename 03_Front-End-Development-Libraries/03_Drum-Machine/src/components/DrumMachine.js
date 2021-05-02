@@ -4,8 +4,10 @@ import PianoBoard from "./PianoBoard";
 import styled from "styled-components";
 
 const DrumMachineContainer = styled.div`
+  background-color: #212021;
+  border-radius: 19px;
   width: 1011px;
-  height: 490px;
+  height: 510px;
 `;
 
 const DrumMachine = () => {
