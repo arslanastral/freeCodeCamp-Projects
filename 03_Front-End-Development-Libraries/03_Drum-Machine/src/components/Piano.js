@@ -1,5 +1,6 @@
 import React from "react";
 import PianoKey from "./PianoKey";
+import PianoFlatKey from "./PianoFlatKey";
 import styled from "styled-components";
 
 const PianoKeyContainer = styled.div`
@@ -13,25 +14,40 @@ const Piano = () => {
   return (
     <PianoKeyContainer>
       <PianoKey></PianoKey>
+      <PianoFlatKey />
+      <PianoKey></PianoKey>
+      <PianoFlatKey />
       <PianoKey></PianoKey>
       <PianoKey></PianoKey>
+      <PianoFlatKey />
+      <PianoKey></PianoKey>
+      <PianoFlatKey />
+      <PianoKey></PianoKey>
+      <PianoFlatKey />
       <PianoKey></PianoKey>
       <PianoKey></PianoKey>
+      <PianoFlatKey />
+      <PianoKey></PianoKey>
+      <PianoFlatKey />
       <PianoKey></PianoKey>
       <PianoKey></PianoKey>
+      <PianoFlatKey />
+      <PianoKey></PianoKey>
+      <PianoFlatKey />
+      <PianoKey></PianoKey>
+      <PianoFlatKey />
       <PianoKey></PianoKey>
       <PianoKey></PianoKey>
+      <PianoFlatKey />
+      <PianoKey></PianoKey>
+      <PianoFlatKey />
       <PianoKey></PianoKey>
       <PianoKey></PianoKey>
+      <PianoFlatKey />
       <PianoKey></PianoKey>
+      <PianoFlatKey />
       <PianoKey></PianoKey>
-      <PianoKey></PianoKey>
-      <PianoKey></PianoKey>
-      <PianoKey></PianoKey>
-      <PianoKey></PianoKey>
-      <PianoKey></PianoKey>
-      <PianoKey></PianoKey>
-      <PianoKey></PianoKey>
+      <PianoFlatKey />
       <PianoKey></PianoKey>
     </PianoKeyContainer>
   );
