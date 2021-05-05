@@ -12,10 +12,10 @@ const ControlBoardContainer = styled.div`
   border-radius: 19px 19px 0 0;
 `;
 
-const ControlBoard = () => {
+const ControlBoard = ({ currentNote }) => {
   return (
     <ControlBoardContainer>
-      <Screen />
+      <Screen currentNote={currentNote} />
       <Knobs />
       <DrumPads />
     </ControlBoardContainer>

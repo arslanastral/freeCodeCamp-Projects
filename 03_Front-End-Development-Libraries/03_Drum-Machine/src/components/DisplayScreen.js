@@ -24,12 +24,14 @@ const NoteStatus = styled.div`
   display: flex;
 `;
 
-const NoteName = styled.p`
+const NoteName = styled.span`
+  font-family: sans-serif;
+  font-size: 0.9rem;
   margin: 3px 0 0 6px;
   color: white;
 `;
 
-const DisplayScreen = () => {
+const DisplayScreen = ({ currentNote }) => {
   return (
     <Display>
       <WaveForm />
@@ -41,13 +43,13 @@ const DisplayScreen = () => {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <circle cx="11.5" cy="11.5" r="11.5" fill="#B31326" />
+          <circle cx="11.5" cy="11.5" r="11.5" fill="yellow" />
           <path
             d="M11 4V12.7917C10.5083 12.5083 9.94167 12.3333 9.33333 12.3333C7.49167 12.3333 6 13.825 6 15.6667C6 17.5083 7.49167 19 9.33333 19C11.175 19 12.6667 17.5083 12.6667 15.6667V7.33333H16V4H11Z"
-            fill="white"
+            fill="black"
           />
         </svg>
-        <NoteName>C#</NoteName>
+        <NoteName>{currentNote}</NoteName>
       </NoteStatus>
     </Display>
   );

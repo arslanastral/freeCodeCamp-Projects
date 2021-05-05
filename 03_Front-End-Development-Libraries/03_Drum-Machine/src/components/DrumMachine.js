@@ -4,17 +4,18 @@ import PianoBoard from "./PianoBoard";
 import styled from "styled-components";
 
 const DrumMachineContainer = styled.div`
-  background-color: #212021;
   border-radius: 19px;
   width: 1011px;
   height: 510px;
 `;
 
 const DrumMachine = () => {
+  const [currentNote, setcurrentNote] = React.useState("...");
+
   return (
     <DrumMachineContainer>
-      <ControlBoard />
-      <PianoBoard />
+      <ControlBoard currentNote={currentNote} />
+      <PianoBoard setcurrentNote={setcurrentNote} />
     </DrumMachineContainer>
   );
 };
