@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const PianoBlackKey = styled.div`
+const PianoBlackKey = styled.button`
   width: 28px;
   height: 150px;
   margin-left: -14px;
@@ -14,20 +14,20 @@ const PianoBlackKey = styled.div`
   filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.25));
   cursor: pointer;
   z-index: 2;
-
-  &:active {
-    box-shadow: 0px 3px rgba(0, 0, 0, 1);
-    filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0));
-  }
 `;
 
-const PianoFlatKey = ({ onMouseEnter, onMouseOut }) => {
+const PianoFlatKey = ({ onMouseEnter, onMouseLeave, noteName }) => {
   return (
     <PianoBlackKey
-      onMouseEnter={onMouseEnter}
-      onMouseDown={onMouseEnter}
-      onMouseUp={onMouseOut}
-      onMouseLeave={onMouseOut}
+      className={noteName.replace("#", "sharp")}
+      onMouseEnter={(e) => {
+        onMouseEnter(e, noteName);
+      }}
+      onMouseDown={(e) => {
+        onMouseEnter(e, noteName);
+      }}
+      onMouseUp={() => onMouseLeave(noteName)}
+      onMouseLeave={() => onMouseLeave(noteName)}
     ></PianoBlackKey>
   );
 };

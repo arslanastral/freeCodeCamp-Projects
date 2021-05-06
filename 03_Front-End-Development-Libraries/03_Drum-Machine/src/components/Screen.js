@@ -7,10 +7,10 @@ const ScreenContainer = styled.div`
   /* background-color: yellow; */
 `;
 
-const Screen = ({ currentNote }) => {
+const Screen = () => {
   return (
     <ScreenContainer>
-      <DisplayScreen currentNote={currentNote} />
+      <DisplayScreen />
     </ScreenContainer>
   );
 };

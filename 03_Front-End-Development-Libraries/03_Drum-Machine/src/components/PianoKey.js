@@ -17,14 +17,6 @@ const WhitePianoKey = styled.button`
   display: flex;
   justify-content: center;
   align-items: flex-end;
-
-  &:active {
-    box-shadow: 0px 3px rgba(0, 0, 0, 0.35);
-    border: 1px solid rgba(0, 0, 0, 0.25);
-    border-top: none;
-    transform: translateY(2px);
-    transition: 0.1s;
-  }
 `;
 
 const NoteName = styled.span`
@@ -40,13 +32,24 @@ const NoteName = styled.span`
   user-select: none;
 `;
 
-const PianoKey = ({ onMouseEnter, onMouseOut, noteName }) => {
+const PianoKey = ({
+  playKeyboardNote,
+  onMouseEnter,
+  onMouseLeave,
+  noteName,
+}) => {
   return (
     <WhitePianoKey
-      onMouseEnter={onMouseEnter}
-      onMouseDown={onMouseEnter}
-      onMouseUp={onMouseOut}
-      onMouseLeave={onMouseOut}
+      className={noteName}
+      onKeyDown={(e) => playKeyboardNote(e)}
+      onMouseEnter={(e) => {
+        onMouseEnter(e, noteName);
+      }}
+      onMouseDown={(e) => {
+        onMouseEnter(e, noteName);
+      }}
+      onMouseUp={() => onMouseLeave(noteName)}
+      onMouseLeave={() => onMouseLeave(noteName)}
     >
       <NoteName>{noteName}</NoteName>
     </WhitePianoKey>

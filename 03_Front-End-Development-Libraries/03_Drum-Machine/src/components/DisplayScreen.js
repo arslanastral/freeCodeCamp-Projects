@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { DrumMachineContext } from "./DrumMachine";
 
 const Display = styled.div`
   background-color: black;
@@ -31,7 +32,8 @@ const NoteName = styled.span`
   color: white;
 `;
 
-const DisplayScreen = ({ currentNote }) => {
+const DisplayScreen = () => {
+  const { currentNote } = React.useContext(DrumMachineContext);
   return (
     <Display>
       <WaveForm />
@@ -49,7 +51,7 @@ const DisplayScreen = ({ currentNote }) => {
             fill="black"
           />
         </svg>
-        <NoteName>{currentNote}</NoteName>
+        <NoteName id="current-note">{currentNote}</NoteName>
       </NoteStatus>
     </Display>
   );

@@ -16,10 +16,10 @@ const PianoBoardContainer = styled.div`
   display: flex;
 `;
 
-const PianoBoard = ({ setcurrentNote }) => {
+const PianoBoard = () => {
   return (
     <PianoBoardContainer>
-      <Piano setcurrentNote={setcurrentNote} />
+      <Piano />
     </PianoBoardContainer>
   );
 };
