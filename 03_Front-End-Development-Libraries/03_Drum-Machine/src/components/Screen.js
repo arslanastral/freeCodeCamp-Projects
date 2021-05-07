@@ -31,7 +31,12 @@ const Screen = () => {
   //   { value: "vanilla", label: "Vanilla" },
   // ];
 
-  const options = Object.keys(instrument).map((e) => ({ value: e, label: e }));
+  const options = Object.keys(instrument).map((e) => ({
+    value: e,
+    label: e.replace(/-/g, " ").replace(/^./, function (x) {
+      return x.toUpperCase();
+    }),
+  }));
 
   const handleInstrumentChange = (v) => {
     setcurrentInstrument(v.value);

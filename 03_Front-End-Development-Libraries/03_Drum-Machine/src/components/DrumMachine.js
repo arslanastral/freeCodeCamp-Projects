@@ -80,6 +80,7 @@ var instrument = SampleLibrary.load({
     "violin",
     "xylophone",
   ],
+  minify: true,
 });
 
 // const filter = new Tone.AutoFilter(0).start();
