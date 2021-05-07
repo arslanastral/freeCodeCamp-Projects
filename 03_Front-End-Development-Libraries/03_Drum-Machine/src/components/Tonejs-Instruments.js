@@ -9,14 +9,18 @@ import * as Tone from "tone";
 const SampleLibrary = {
   minify: false,
   ext: ".[mp3|ogg]", // use setExt to change the extensions on all files // do not change this variable //
-  baseUrl: "https://nbrosowsky.github.io/tonejs-instruments/samples/",
+  baseUrl:
+    "https://arslanastral.github.io/freeCodeCamp-Projects/03_Front-End-Development-Libraries/03_Drum-Machine/audio-samples/",
   list: [
     "bass-electric",
     "bassoon",
     "cello",
     "clarinet",
     "contrabass",
+    "casio",
     "flute",
+    "female-voice-aa",
+    "female-voice-oo",
     "french-horn",
     "guitar-acoustic",
     "guitar-electric",
@@ -231,6 +235,21 @@ const SampleLibrary = {
     "A#0": "As0.[mp3|ogg]",
     B2: "B2.[mp3|ogg]",
   },
+  casio: {
+    A1: "A1.[mp3|ogg]",
+    A2: "A2.[mp3|ogg]",
+    "A#1": "As1.[mp3|ogg]",
+    B1: "B1.[mp3|ogg]",
+    C2: "C2.[mp3|ogg]",
+    "C#2": "Cs2.[mp3|ogg]",
+    D2: "D2.[mp3|ogg]",
+    "D#2": "Ds2.[mp3|ogg]",
+    E2: "E2.[mp3|ogg]",
+    F2: "F2.[mp3|ogg]",
+    "F#2": "Fs2.[mp3|ogg]",
+    G2: "G2.[mp3|ogg]",
+    "G#1": "Gs1.[mp3|ogg]",
+  },
 
   flute: {
     A5: "A5.[mp3|ogg]",
@@ -243,6 +262,41 @@ const SampleLibrary = {
     E5: "E5.[mp3|ogg]",
     A3: "A3.[mp3|ogg]",
     A4: "A4.[mp3|ogg]",
+  },
+  "female-voice-aa": {
+    A5: "aa_A5.[mp3|ogg]",
+    "D#4": "aa_Db4.[mp3|ogg]",
+    "D#5": "aa_Db5.[mp3|ogg]",
+    "E#4": "aa_Eb4.[mp3|ogg]",
+    F5: "aa_F5.[mp3|ogg]",
+    C6: "aa_C6.[mp3|ogg]",
+    A3: "aa_A3.[mp3|ogg]",
+    A4: "aa_A4.[mp3|ogg]",
+  },
+  "female-voice-oo": {
+    A5: "oo_A5.[mp3|ogg]",
+    "D#4": "oo_Db4.[mp3|ogg]",
+    "D#5": "oo_Db5.[mp3|ogg]",
+    C6: "oo_C6.[mp3|ogg]",
+    A3: "oo_A3.[mp3|ogg]",
+    A4: "oo_A4.[mp3|ogg]",
+  },
+  "females-voice-aa": {
+    A5: "A5.[mp3|ogg]",
+    C5: "C5.[mp3|ogg]",
+    "F#5": "F#5.[mp3|ogg]",
+    "C#4": "C#4.[mp3|ogg]",
+    C6: "C6.[mp3|ogg]",
+    A3: "A3.[mp3|ogg]",
+    A4: "A4.[mp3|ogg]",
+  },
+  "females-voice-oo": {
+    A5: "oo2_A5.[mp3|ogg]",
+    "C#5": "oo2_C#5.[mp3|ogg]",
+    "C#4": "oo2_C#4.[mp3|ogg]",
+    C6: "oo2_C6.[mp3|ogg]",
+    A3: "oo2_A3.[mp3|ogg]",
+    A4: "oo2_A4.[mp3|ogg]",
   },
 
   "french-horn": {
