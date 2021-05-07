@@ -69,8 +69,6 @@ var instrument = SampleLibrary.load({
     "flute",
     "female-voice-aa",
     "female-voice-oo",
-    "females-voice-aa",
-    "females-voice-oo",
     "french-horn",
     "guitar-acoustic",
     "guitar-electric",

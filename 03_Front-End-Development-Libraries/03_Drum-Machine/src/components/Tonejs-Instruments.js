@@ -21,8 +21,6 @@ const SampleLibrary = {
     "flute",
     "female-voice-aa",
     "female-voice-oo",
-    "females-voice-aa",
-    "females-voice-oo",
     "french-horn",
     "guitar-acoustic",
     "guitar-electric",
@@ -283,24 +281,6 @@ const SampleLibrary = {
     A3: "oo_A3.[mp3|ogg]",
     A4: "oo_A4.[mp3|ogg]",
   },
-  "females-voice-aa": {
-    A5: "A5.[mp3|ogg]",
-    C5: "C5.[mp3|ogg]",
-    "F#5": "Fs5.[mp3|ogg]",
-    "C#4": "Cs4.[mp3|ogg]",
-    C6: "C6.[mp3|ogg]",
-    A3: "A3.[mp3|ogg]",
-    A4: "A4.[mp3|ogg]",
-  },
-  "females-voice-oo": {
-    A5: "oo2_A5.[mp3|ogg]",
-    "C#5": "oo2_Cs5.[mp3|ogg]",
-    "C#4": "oo2_Cs4.[mp3|ogg]",
-    C6: "oo2_C6.[mp3|ogg]",
-    A3: "oo2_A3.[mp3|ogg]",
-    A4: "oo2_A4.[mp3|ogg]",
-  },
-
   "french-horn": {
     D2: "D2.[mp3|ogg]",
     D4: "D4.[mp3|ogg]",
