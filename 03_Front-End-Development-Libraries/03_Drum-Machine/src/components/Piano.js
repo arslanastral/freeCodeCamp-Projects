@@ -1,9 +1,8 @@
-import React from "react";
-import * as Tone from "tone";
+/* eslint-disable */
+import React, { useRef, useEffect } from "react";
 import { DrumMachineContext } from "./DrumMachine";
-
+import * as Tone from "tone";
 import PianoKey from "./PianoKey";
-import SampleLibrary from "./Tonejs-Instruments";
 import PianoFlatKey from "./PianoFlatKey";
 import styled from "styled-components";
 
@@ -15,14 +14,6 @@ const PianoKeyContainer = styled.div`
   height: 100%;
 `;
 
-var piano = SampleLibrary.load({
-  instruments: "piano",
-});
-
-// const filter = new Tone.AutoFilter(0).start();
-// const distortion = new Tone.Distortion(3);
-// const reverb = new Tone.Reverb(20);
-let volume = new Tone.Volume();
 // const tremolo = new Tone.Tremolo(5, 0.55).start();
 // const phaser = new Tone.Phaser({
 //   frequency: 15,
@@ -55,19 +46,25 @@ let volume = new Tone.Volume();
 // });
 
 const Piano = () => {
-  const { setCurrentNote, soundRelease, masterVolume } = React.useContext(
-    DrumMachineContext
-  );
+  const {
+    setCurrentNote,
+    soundRelease,
+    masterVolume,
+    instrument,
+    volume,
+    currentInstrument,
+  } = React.useContext(DrumMachineContext);
+
+  let piano = instrument[currentInstrument];
 
   React.useEffect(() => {
     piano.release = soundRelease;
     piano.volume.value = masterVolume;
     piano.chain(volume, Tone.Destination);
-  }, [soundRelease, masterVolume]);
+  }, [soundRelease, masterVolume, currentInstrument]);
 
   const playNote = (e, note) => {
     if (e.buttons == 1 || e.buttons == 3) {
-      // document.querySelector("#current-note").innerHTML = note;
       setCurrentNote(note);
       let keyClass = note.includes("#")
         ? "black-keys_active"
@@ -81,9 +78,21 @@ const Piano = () => {
     }
   };
 
-  const playKeyboardNote = (e) => {
-    if (e.keys == "Enter") {
-      console.log("Enter is pressed");
+  const playKeyboardNote = (e, note, key) => {
+    if (e.repeat) {
+      return;
+    }
+    if (e.key === key) {
+      setCurrentNote(note);
+      let keyClass = note.includes("#")
+        ? "black-keys_active"
+        : "white-keys_active";
+      document
+        .querySelector(`.${note.replace("#", "sharp")}`)
+        .classList.add(keyClass);
+      Tone.loaded().then(() => {
+        piano.triggerAttack(note);
+      });
     }
   };
 
@@ -100,7 +109,7 @@ const Piano = () => {
   return (
     <PianoKeyContainer>
       <PianoKey
-        playKeyboardNote={playKeyboardNote}
+        playKeyboardNote={(e) => playKeyboardNote(e, "C3", "q")}
         noteName="C3"
         onMouseEnter={playNote}
         onMouseLeave={release}
@@ -110,7 +119,12 @@ const Piano = () => {
         onMouseEnter={playNote}
         onMouseLeave={release}
       />
-      <PianoKey noteName="D3" onMouseEnter={playNote} onMouseLeave={release} />
+      <PianoKey
+        playKeyboardNote={(e) => playKeyboardNote(e, "C3", "w")}
+        noteName="D3"
+        onMouseEnter={playNote}
+        onMouseLeave={release}
+      />
       <PianoFlatKey
         noteName="D#3"
         onMouseEnter={playNote}

@@ -40,8 +40,9 @@ const PianoKey = ({
 }) => {
   return (
     <WhitePianoKey
+      onKeyDown={playKeyboardNote}
+      onKeyUp={() => onMouseLeave(noteName)}
       className={noteName}
-      onKeyDown={(e) => playKeyboardNote(e)}
       onMouseEnter={(e) => {
         onMouseEnter(e, noteName);
       }}
