@@ -73,7 +73,7 @@ const Piano = () => {
         .querySelector(`.${note.replace("#", "sharp")}`)
         .classList.add(keyClass);
       Tone.loaded().then(() => {
-        piano.triggerAttack(note);
+        piano.triggerAttack(note, "+0.05");
       });
     }
   };
@@ -97,13 +97,13 @@ const Piano = () => {
   };
 
   const release = (note) => {
-    piano.triggerRelease(note);
     let keyClass = note.includes("#")
       ? "black-keys_active"
       : "white-keys_active";
     document
       .querySelector(`.${note.replace("#", "sharp")}`)
       .classList.remove(keyClass);
+    piano.triggerRelease(note, "+0.05");
   };
 
   return (
