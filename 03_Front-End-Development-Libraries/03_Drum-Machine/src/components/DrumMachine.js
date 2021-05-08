@@ -44,12 +44,13 @@ function DrumMachineProvider({ children }) {
         setCurrentNote,
         soundRelease,
         setrelease,
-        volume,
+        // volume,
         masterVolume,
         setmasterVolume,
         currentInstrument,
         setcurrentInstrument,
         instrument,
+        distortion,
       }}
     >
       {children}
@@ -87,8 +88,7 @@ var instrument = SampleLibrary.load({
 });
 
 // const filter = new Tone.AutoFilter(0).start();
-// const distortion = new Tone.Distortion(3);
+const distortion = new Tone.Distortion(3).toDestination();
 // const reverb = new Tone.Reverb(20);
-let volume = new Tone.Volume();
 
 export default DrumMachine;

@@ -43,15 +43,19 @@ const Screen = () => {
     console.log(currentInstrument);
   };
 
+  const customStyles = {
+    option: (provided) => ({
+      ...provided,
+    }),
+    menu: (provided) => ({ ...provided, zIndex: 9999 }),
+  };
+
   return (
     <ScreenContainer>
       <DisplayScreen />
       <SelecterContainer>
         <Select
-          styles={{
-            // Fixes the overlapping problem of the component
-            menu: (provided) => ({ ...provided, zIndex: 9999 }),
-          }}
+          styles={customStyles}
           options={options}
           onChange={handleInstrumentChange}
           placeholder={"Select Instrument"}

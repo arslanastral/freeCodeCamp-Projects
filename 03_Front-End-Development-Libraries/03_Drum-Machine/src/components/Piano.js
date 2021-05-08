@@ -3,13 +3,11 @@ import React, { useRef, useEffect } from "react";
 import { DrumMachineContext } from "./DrumMachine";
 import * as Tone from "tone";
 import PianoKey from "./PianoKey";
-import PianoFlatKey from "./PianoFlatKey";
 import styled from "styled-components";
 
 const PianoKeyContainer = styled.div`
   background: #ffffff;
   display: flex;
-  /* gap: 2px; */
   width: 966px;
   height: 100%;
 `;
@@ -53,6 +51,7 @@ const Piano = () => {
     instrument,
     volume,
     currentInstrument,
+    distortion,
   } = React.useContext(DrumMachineContext);
 
   let piano = instrument[currentInstrument];
@@ -60,36 +59,13 @@ const Piano = () => {
   React.useEffect(() => {
     piano.release = soundRelease;
     piano.volume.value = masterVolume;
-    piano.chain(volume, Tone.Destination);
+    piano.toDestination();
+    Tone.Destination.mute = false;
   }, [soundRelease, masterVolume, currentInstrument]);
 
   const playNote = (e, note) => {
     if (e.buttons == 1 || e.buttons == 3) {
       setCurrentNote(note);
-      let keyClass = note.includes("#")
-        ? "black-keys_active"
-        : "white-keys_active";
-      document
-        .querySelector(`.${note.replace("#", "sharp")}`)
-        .classList.add(keyClass);
-      Tone.loaded().then(() => {
-        piano.triggerAttack(note, "+0.05");
-      });
-    }
-  };
-
-  const playKeyboardNote = (e, note, key) => {
-    if (e.repeat) {
-      return;
-    }
-    if (e.key === key) {
-      setCurrentNote(note);
-      let keyClass = note.includes("#")
-        ? "black-keys_active"
-        : "white-keys_active";
-      document
-        .querySelector(`.${note.replace("#", "sharp")}`)
-        .classList.add(keyClass);
       Tone.loaded().then(() => {
         piano.triggerAttack(note);
       });
@@ -97,127 +73,66 @@ const Piano = () => {
   };
 
   const release = (note) => {
-    let keyClass = note.includes("#")
-      ? "black-keys_active"
-      : "white-keys_active";
-    document
-      .querySelector(`.${note.replace("#", "sharp")}`)
-      .classList.remove(keyClass);
-    piano.triggerRelease(note, "+0.05");
+    piano.triggerRelease(note);
   };
+
+  let NOTES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
 
   return (
     <PianoKeyContainer>
-      <PianoKey
-        playKeyboardNote={(e) => playKeyboardNote(e, "C3", "q")}
-        noteName="C3"
-        onMouseEnter={playNote}
-        onMouseLeave={release}
-      />
-      <PianoFlatKey
-        noteName="C#3"
-        onMouseEnter={playNote}
-        onMouseLeave={release}
-      />
-      <PianoKey
-        playKeyboardNote={(e) => playKeyboardNote(e, "C3", "w")}
-        noteName="D3"
-        onMouseEnter={playNote}
-        onMouseLeave={release}
-      />
-      <PianoFlatKey
-        noteName="D#3"
-        onMouseEnter={playNote}
-        onMouseLeave={release}
-      />
-      <PianoKey noteName="E3" onMouseEnter={playNote} onMouseLeave={release} />
-      <PianoKey noteName="F3" onMouseEnter={playNote} onMouseLeave={release} />
-      <PianoFlatKey
-        noteName="F#3"
-        onMouseEnter={playNote}
-        onMouseLeave={release}
-      />
-      <PianoKey noteName="G3" onMouseEnter={playNote} onMouseLeave={release} />
-      <PianoFlatKey
-        noteName="G#3"
-        onMouseEnter={playNote}
-        onMouseLeave={release}
-      />
-      <PianoKey noteName="A3" onMouseEnter={playNote} onMouseLeave={release} />
-      <PianoFlatKey
-        noteName="A#3"
-        onMouseEnter={playNote}
-        onMouseLeave={release}
-      />
-      <PianoKey noteName="B3" onMouseEnter={playNote} onMouseLeave={release} />
+      {NOTES.map((note) =>
+        note.includes("#") ? (
+          <PianoKey
+            noteName={`${note}3`}
+            onMouseEnter={playNote}
+            onMouseLeave={release}
+            isFlatKey={true}
+          />
+        ) : (
+          <PianoKey
+            noteName={`${note}3`}
+            onMouseEnter={playNote}
+            onMouseLeave={release}
+            isFlatKey={false}
+          />
+        )
+      )}
 
-      {/* Ocatve 4 */}
-      <PianoKey noteName="C4" onMouseEnter={playNote} onMouseLeave={release} />
-      <PianoFlatKey
-        noteName="C#4"
-        onMouseEnter={playNote}
-        onMouseLeave={release}
-      />
-      <PianoKey noteName="D4" onMouseEnter={playNote} onMouseLeave={release} />
-      <PianoFlatKey
-        noteName="D#4"
-        onMouseEnter={playNote}
-        onMouseLeave={release}
-      />
-      <PianoKey noteName="E4" onMouseEnter={playNote} onMouseLeave={release} />
-      <PianoKey noteName="F4" onMouseEnter={playNote} onMouseLeave={release} />
-      <PianoFlatKey
-        noteName="F#4"
-        onMouseEnter={playNote}
-        onMouseLeave={release}
-      />
-      <PianoKey noteName="G4" onMouseEnter={playNote} onMouseLeave={release} />
-      <PianoFlatKey
-        noteName="G#4"
-        onMouseEnter={playNote}
-        onMouseLeave={release}
-      />
-      <PianoKey noteName="A4" onMouseEnter={playNote} onMouseLeave={release} />
-      <PianoFlatKey
-        noteName="A#4"
-        onMouseEnter={playNote}
-        onMouseLeave={release}
-      />
-      <PianoKey noteName="B4" onMouseEnter={playNote} onMouseLeave={release} />
+      {NOTES.map((note) =>
+        note.includes("#") ? (
+          <PianoKey
+            noteName={`${note}4`}
+            onMouseEnter={playNote}
+            onMouseLeave={release}
+            isFlatKey={true}
+          />
+        ) : (
+          <PianoKey
+            noteName={`${note}4`}
+            onMouseEnter={playNote}
+            onMouseLeave={release}
+            isFlatKey={false}
+          />
+        )
+      )}
 
-      {/* ocatve 5 */}
-      <PianoKey noteName="C5" onMouseEnter={playNote} onMouseLeave={release} />
-      <PianoFlatKey
-        noteName="C#5"
-        onMouseEnter={playNote}
-        onMouseLeave={release}
-      />
-      <PianoKey noteName="D5" onMouseEnter={playNote} onMouseLeave={release} />
-      <PianoFlatKey
-        noteName="D#5"
-        onMouseEnter={playNote}
-        onMouseLeave={release}
-      />
-      <PianoKey noteName="E5" onMouseEnter={playNote} onMouseLeave={release} />
-      <PianoKey noteName="F5" onMouseEnter={playNote} onMouseLeave={release} />
-      <PianoFlatKey
-        noteName="F#5"
-        onMouseEnter={playNote}
-        onMouseLeave={release}
-      />
-      <PianoKey noteName="G5" onMouseEnter={playNote} onMouseLeave={release} />
-      <PianoFlatKey
-        noteName="G#5"
-        onMouseEnter={playNote}
-        onMouseLeave={release}
-      />
-      <PianoKey noteName="A5" onMouseEnter={playNote} onMouseLeave={release} />
-      <PianoFlatKey
-        noteName="A#5"
-        onMouseEnter={playNote}
-        onMouseLeave={release}
-      />
-      <PianoKey noteName="B5" onMouseEnter={playNote} onMouseLeave={release} />
+      {NOTES.map((note) =>
+        note.includes("#") ? (
+          <PianoKey
+            noteName={`${note}5`}
+            onMouseEnter={playNote}
+            onMouseLeave={release}
+            isFlatKey={true}
+          />
+        ) : (
+          <PianoKey
+            noteName={`${note}5`}
+            onMouseEnter={playNote}
+            onMouseLeave={release}
+            isFlatKey={false}
+          />
+        )
+      )}
     </PianoKeyContainer>
   );
 };
