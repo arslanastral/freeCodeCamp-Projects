@@ -77,41 +77,26 @@ const NoteName = styled.span`
   user-select: none;
 `;
 
-let KEYMAP = {
-  C: "q",
-  "C#": "2",
-  D: "w",
-  "D#": "3",
-  E: "e",
-  F: "r",
-  "F#": "5",
-  G: "t",
-  "G#": "6",
-  A: "y",
-  "A#": "7",
-  B: "u",
-};
-
 const PianoKey = ({
   noteName,
   onMouseEnter,
   onMouseLeave,
   isFlatKey,
-  onKeyDown,
-  onKeyUp,
+  // onKeyDown,
+  // onKeyUp,
 }) => {
   const [isPressed, setisPressed] = React.useState(false);
   return (
     <PianoKeys
       isFlatKey={isFlatKey}
-      onKeyDown={(e) => {
-        onKeyDown(e, noteName, KEYMAP[noteName.replace(/[0-9]/g, "")]);
-        setisPressed(true);
-      }}
-      onKeyUp={() => {
-        onKeyUp(noteName);
-        setisPressed(false);
-      }}
+      // onKeyDown={(e) => {
+      //   onKeyDown(e, noteName, KEYMAP[noteName.replace(/[0-9]/g, "")]);
+      //   setisPressed(true);
+      // }}
+      // onKeyUp={() => {
+      //   onKeyUp(noteName);
+      //   setisPressed(false);
+      // }}
       isPressed={isPressed}
       onMouseEnter={(e) => {
         onMouseEnter(e, noteName);
