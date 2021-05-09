@@ -34,9 +34,10 @@ const NoteName = styled.span`
 
 const DisplayScreen = () => {
   const { currentNote } = React.useContext(DrumMachineContext);
+
   return (
     <Display>
-      <WaveForm />
+      <WaveForm id="waveform-target" />
       <NoteStatus>
         <svg
           width="23"

@@ -11,7 +11,7 @@ const ScreenContainer = styled.div`
 
 const SelecterContainer = styled.div`
   font-family: sans-serif;
-  margin: 23px;
+  margin-left: 25px;
   width: 249px;
   height: 50px;
 `;
@@ -44,10 +44,23 @@ const Screen = () => {
   };
 
   const customStyles = {
-    option: (provided) => ({
+    control: (provided) => ({
       ...provided,
+      background: "#131516",
     }),
-    menu: (provided) => ({ ...provided, zIndex: 9999 }),
+    singleValue: (provided) => ({
+      ...provided,
+      color: "#fff",
+    }),
+    option: (provided, state) => ({
+      ...provided,
+      background: state.isSelected ? "blue" : "#131516",
+      color: "#fff",
+      "&:hover": {
+        background: state.isSelected ? "blue" : "#212425",
+      },
+    }),
+    menu: (provided) => ({ ...provided, zIndex: 9999, background: "#131516" }),
   };
 
   return (
@@ -58,8 +71,7 @@ const Screen = () => {
           styles={customStyles}
           options={options}
           onChange={handleInstrumentChange}
-          placeholder={"Select Instrument"}
-          defaultValue={{ value: "piano", label: "Piano" }}
+          defaultValue={{ value: "piano", label: "🎹 Piano" }}
         />
       </SelecterContainer>
     </ScreenContainer>

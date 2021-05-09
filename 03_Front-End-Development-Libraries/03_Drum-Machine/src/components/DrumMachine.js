@@ -36,6 +36,7 @@ function DrumMachineProvider({ children }) {
   const [soundRelease, setrelease] = useState(20);
   const [masterVolume, setmasterVolume] = useState(0);
   const [currentInstrument, setcurrentInstrument] = useState("piano");
+  // const [octave, setoctave] = useState([123, 345, 567]);
 
   return (
     <DrumMachineContext.Provider
@@ -44,13 +45,12 @@ function DrumMachineProvider({ children }) {
         setCurrentNote,
         soundRelease,
         setrelease,
-        // volume,
         masterVolume,
         setmasterVolume,
         currentInstrument,
         setcurrentInstrument,
         instrument,
-        distortion,
+        audioEffects,
       }}
     >
       {children}
@@ -58,7 +58,7 @@ function DrumMachineProvider({ children }) {
   );
 }
 
-var instrument = SampleLibrary.load({
+var allInstrument = SampleLibrary.load({
   instruments: [
     "piano",
     "bass-electric",
@@ -84,11 +84,17 @@ var instrument = SampleLibrary.load({
     "violin",
     "xylophone",
   ],
-  minify: true,
 });
 
+const polysynth = new Tone.PolySynth();
+polysynth.set({ detune: -1200 });
+
 // const filter = new Tone.AutoFilter(0).start();
-const distortion = new Tone.Distortion(3).toDestination();
-// const reverb = new Tone.Reverb(20);
+// const distortion = new Tone.Distortion(3).toDestination();
+const reverb = new Tone.Reverb(20);
+
+let audioEffects = [reverb];
+let Allsynths = { polysynth };
+let instrument = { ...allInstrument, ...Allsynths };
 
 export default DrumMachine;
