@@ -86,6 +86,9 @@ var allInstrument = SampleLibrary.load({
   ],
 });
 
+const synth = new Tone.Synth();
+synth.set({ detune: -1200 });
+const fmSynth = new Tone.FMSynth();
 const polysynth = new Tone.PolySynth();
 polysynth.set({ detune: -1200 });
 
@@ -94,7 +97,7 @@ polysynth.set({ detune: -1200 });
 const reverb = new Tone.Reverb(20);
 
 let audioEffects = [reverb];
-let Allsynths = { polysynth };
+let Allsynths = { fmSynth, synth, polysynth };
 let instrument = { ...allInstrument, ...Allsynths };
 
 export default DrumMachine;

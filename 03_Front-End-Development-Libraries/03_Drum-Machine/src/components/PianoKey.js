@@ -1,4 +1,5 @@
 import React from "react";
+
 import styled, { css } from "styled-components";
 
 let FlatKeyStyles = `
@@ -77,47 +78,94 @@ const NoteName = styled.span`
   user-select: none;
 `;
 
-const PianoKey = ({
-  noteName,
-  onMouseEnter,
-  onMouseLeave,
-  isFlatKey,
-  // onKeyDown,
-  // onKeyUp,
-}) => {
+let KEYMAP = {
+  C: "q",
+  "C#": "2",
+  D: "w",
+  "D#": "3",
+  E: "e",
+  F: "r",
+  "F#": "5",
+  G: "t",
+  "G#": "6",
+  A: "y",
+  "A#": "7",
+  B: "u",
+};
+
+const PianoKey = ({ noteName, onMouseEnter, onMouseLeave, isFlatKey }) => {
   const [isPressed, setisPressed] = React.useState(false);
+
+  const click = (e) => {
+    if (e.buttons == 1 || e.buttons == 3) {
+      onMouseEnter(noteName);
+      setisPressed(true);
+    }
+  };
+
+  const releaseEvent = () => {
+    onMouseLeave(noteName);
+    setisPressed(false);
+  };
+
+  const pressKey = (e) => {
+    if (e.repeat) {
+      return;
+    }
+    if (e.key === KEYMAP[noteName.replace(/[0-9]/g, "")]) {
+      onMouseEnter(noteName);
+      setisPressed(true);
+    }
+  };
+
   return (
     <PianoKeys
       isFlatKey={isFlatKey}
-      // onKeyDown={(e) => {
-      //   onKeyDown(e, noteName, KEYMAP[noteName.replace(/[0-9]/g, "")]);
-      //   setisPressed(true);
-      // }}
-      // onKeyUp={() => {
-      //   onKeyUp(noteName);
-      //   setisPressed(false);
-      // }}
+      onKeyDown={pressKey}
+      onKeyUp={releaseEvent}
       isPressed={isPressed}
-      onMouseEnter={(e) => {
-        onMouseEnter(e, noteName);
-        if (e.buttons == 1 || e.buttons == 3) setisPressed(true);
-      }}
-      onMouseDown={(e) => {
-        onMouseEnter(e, noteName);
-        if (e.buttons == 1 || e.buttons == 3) setisPressed(true);
-      }}
-      onMouseUp={() => {
-        onMouseLeave(noteName);
-        setisPressed(false);
-      }}
-      onMouseLeave={() => {
-        onMouseLeave(noteName);
-        setisPressed(false);
-      }}
+      onMouseEnter={click}
+      onMouseDown={click}
+      onMouseUp={releaseEvent}
+      onMouseLeave={releaseEvent}
     >
       <NoteName>{noteName}</NoteName>
     </PianoKeys>
   );
 };
+
+// const useKey = (key, up, down) => {
+//   const upcallbackRef = React.useRef(up);
+//   const downcallbackRef = React.useRef(down);
+
+//   useEffect(() => {
+//     upcallbackRef.current = up;
+//     downcallbackRef.current = down;
+//   });
+
+//   useEffect(() => {
+//     const handleKeyDown = (event) => {
+//       if (event.repeat) {
+//         return;
+//       }
+//       if (event.key === key) {
+//         downcallbackRef.current(event);
+//       }
+//     };
+
+//     const handleKeyUp = (event) => {
+//       if (event.key === key) {
+//         upcallbackRef.current(event);
+//       }
+//     };
+
+//     document.addEventListener("keydown", handleKeyDown);
+//     document.addEventListener("keyup", handleKeyUp);
+//     return () => {
+//       document.removeEventListener("keydown", handleKeyDown);
+//       document.removeEventListener("keyup", handleKeyUp);
+//     };
+//   }, [key]);
+// };
 
 export default PianoKey;

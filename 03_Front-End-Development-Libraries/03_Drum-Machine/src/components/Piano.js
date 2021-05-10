@@ -1,5 +1,4 @@
-/* eslint-disable */
-import React, { useEffect } from "react";
+import React from "react";
 import { DrumMachineContext } from "./DrumMachine";
 import * as Tone from "tone";
 import PianoKey from "./PianoKey";
@@ -22,8 +21,6 @@ const Piano = () => {
     audioEffects,
   } = React.useContext(DrumMachineContext);
 
-  let NOTES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
-
   let piano = instrument[currentInstrument];
 
   React.useEffect(() => {
@@ -31,49 +28,20 @@ const Piano = () => {
     piano.volume.value = masterVolume;
     piano.chain(...audioEffects, Tone.Destination);
     Tone.Destination.mute = false;
-  }, [soundRelease, masterVolume, currentInstrument]);
+  }, [soundRelease, masterVolume, currentInstrument, audioEffects, piano]);
 
-  const playNote = (e, note) => {
-    if (e.buttons == 1 || e.buttons == 3) {
-      setCurrentNote(note);
-      Tone.loaded().then(() => {
-        piano.triggerAttack(note);
-      });
-    }
-  };
-
-  // const playKeyboardNote = (note, key) => {
-  //   if (e.repeat) {
-  //     return;
-  //   }
-  //   if (e.key === key) {
-  //     setCurrentNote(note);
-  //     Tone.loaded().then(() => {
-  //       piano.triggerAttack(note);
-  //     });
-  //   }
-  // };
-
-  const playKeyboardNote = () => {
-    // if (e.key === key) {
-    setCurrentNote("C3");
+  const playNote = (note) => {
+    setCurrentNote(note);
     Tone.loaded().then(() => {
-      piano.triggerAttackRelease("C3");
+      piano.triggerAttack(Tone.Frequency(note), "+0.05");
     });
-    // }
   };
 
   const release = (note) => {
-    piano.triggerRelease(note);
+    piano.triggerRelease(Tone.Frequency(note), "+0.05");
   };
 
-  const releaseKey = () => {
-    piano.triggerRelease("C3");
-  };
-
-  // useKeyPressEvent("q", playKeyboardNote("C3"), playKeyboardNote("C3"));
-
-  useKey("q", releaseKey, playKeyboardNote);
+  let NOTES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
 
   return (
     <PianoKeyContainer>
@@ -138,40 +106,6 @@ const Piano = () => {
       )}
     </PianoKeyContainer>
   );
-};
-
-const useKey = (key, up, down) => {
-  const upcallbackRef = React.useRef(up);
-  const downcallbackRef = React.useRef(down);
-
-  useEffect(() => {
-    upcallbackRef.current = up;
-    downcallbackRef.current = down;
-  });
-
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.repeat) {
-        return;
-      }
-      if (event.key === key) {
-        downcallbackRef.current(event);
-      }
-    };
-
-    const handleKeyUp = (event) => {
-      if (event.key === key) {
-        upcallbackRef.current(event);
-      }
-    };
-
-    document.addEventListener("keydown", handleKeyDown);
-    document.addEventListener("keyup", handleKeyUp);
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-      document.removeEventListener("keyup", handleKeyUp);
-    };
-  }, [key]);
 };
 
 export default Piano;
