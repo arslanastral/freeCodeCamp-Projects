@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { css } from "styled-components";
+import { DrumMachineContext } from "./DrumMachine";
 
 let FlatKeyStyles = `
 width: 28px;
@@ -14,6 +15,9 @@ box-shadow: 0px 4px rgba(0, 0, 0, 0.8);
 filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.25));
 cursor: pointer;
 z-index: 2;
+display: flex;
+justify-content: center;
+align-items: flex-end;
 `;
 
 let WhiteKeyStyles = `
@@ -77,23 +81,9 @@ const NoteName = styled.span`
   user-select: none;
 `;
 
-let KEYMAP = {
-  C: "q",
-  "C#": "2",
-  D: "w",
-  "D#": "3",
-  E: "e",
-  F: "r",
-  "F#": "5",
-  G: "t",
-  "G#": "6",
-  A: "y",
-  "A#": "7",
-  B: "u",
-};
-
 const PianoKey = ({ noteName, onMouseEnter, onMouseLeave, isFlatKey }) => {
   const [isPressed, setisPressed] = React.useState(false);
+  const { octave } = React.useContext(DrumMachineContext);
 
   const pressKey = (noteName) => {
     setisPressed(true);
@@ -105,12 +95,46 @@ const PianoKey = ({ noteName, onMouseEnter, onMouseLeave, isFlatKey }) => {
     onMouseLeave(noteName);
   };
 
-  useKey(
-    KEYMAP[noteName.replace(/[0-9]/g, "")],
-    noteName,
-    releaseEvent,
-    pressKey
-  );
+  let KEYMAP = {
+    [`C${octave[0]}`]: "q",
+    [`C#${octave[0]}`]: "2",
+    [`D${octave[0]}`]: "w",
+    [`D#${octave[0]}`]: "3",
+    [`E${octave[0]}`]: "e",
+    [`F${octave[0]}`]: "r",
+    [`F#${octave[0]}`]: "5",
+    [`G${octave[0]}`]: "t",
+    [`G#${octave[0]}`]: "6",
+    [`A${octave[0]}`]: "y",
+    [`A#${octave[0]}`]: "7",
+    [`B${octave[0]}`]: "u",
+    [`C${octave[1]}`]: "i",
+    [`C#${octave[1]}`]: "9",
+    [`D${octave[1]}`]: "o",
+    [`D#${octave[1]}`]: "0",
+    [`E${octave[1]}`]: "p",
+    [`F${octave[1]}`]: "z",
+    [`F#${octave[1]}`]: "s",
+    [`G${octave[1]}`]: "x",
+    [`G#${octave[1]}`]: "d",
+    [`A${octave[1]}`]: "c",
+    [`A#${octave[1]}`]: "f",
+    [`B${octave[1]}`]: "v",
+    [`C${octave[2]}`]: "b",
+    [`C#${octave[2]}`]: "h",
+    [`D${octave[2]}`]: "n",
+    [`D#${octave[2]}`]: "j",
+    [`E${octave[2]}`]: "m",
+    [`F${octave[2]}`]: ",",
+    [`F#${octave[2]}`]: "l",
+    [`G${octave[2]}`]: ".",
+    [`G#${octave[2]}`]: ";",
+    [`A${octave[2]}`]: "a",
+    [`A#${octave[2]}`]: "4",
+    [`B${octave[2]}`]: "k",
+  };
+
+  useKey(KEYMAP[noteName], noteName, releaseEvent, pressKey);
 
   return (
     <PianoKeys

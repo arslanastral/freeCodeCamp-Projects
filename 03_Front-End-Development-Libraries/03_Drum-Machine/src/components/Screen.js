@@ -48,6 +48,7 @@ const OctaveButton = styled.button`
   margin-left: 8px;
   border: 0;
   padding: 0;
+  cursor: pointer;
 `;
 
 const Screen = () => {
@@ -57,12 +58,6 @@ const Screen = () => {
     octave,
     instrument,
   } = React.useContext(DrumMachineContext);
-
-  // const options = [
-  //   { value: "chocolate", label: "Chocolate" },
-  //   { value: "strawberry", label: "Strawberry" },
-  //   { value: "vanilla", label: "Vanilla" },
-  // ];
 
   const options = Object.keys(instrument).map((e) => ({
     value: e,
@@ -99,7 +94,6 @@ const Screen = () => {
     if (octave.toString() === [1, 2, 3].toString()) {
       return;
     }
-    // const octaveMin = (octave) => Math.min(...octave);
     let newOctave = octave.map((oct) => {
       if (oct) {
         return --oct;
@@ -107,7 +101,6 @@ const Screen = () => {
     });
 
     setOctave(newOctave);
-    console.log(octave);
   };
 
   const updatePositiveOctaveHandler = (octave, setOctave) => {
