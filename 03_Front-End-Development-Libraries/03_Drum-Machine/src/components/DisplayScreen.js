@@ -6,7 +6,7 @@ const Display = styled.div`
   background-color: black;
   width: 249px;
   height: 120px;
-  margin: 23px;
+  margin: 23px 23px 12px 23px;
   border-radius: 10px;
   display: flex;
   flex-direction: column;

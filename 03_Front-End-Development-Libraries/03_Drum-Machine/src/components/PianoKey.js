@@ -1,5 +1,4 @@
 import React from "react";
-
 import styled, { css } from "styled-components";
 
 let FlatKeyStyles = `
@@ -96,76 +95,83 @@ let KEYMAP = {
 const PianoKey = ({ noteName, onMouseEnter, onMouseLeave, isFlatKey }) => {
   const [isPressed, setisPressed] = React.useState(false);
 
-  const click = (e) => {
-    if (e.buttons == 1 || e.buttons == 3) {
-      onMouseEnter(noteName);
-      setisPressed(true);
-    }
+  const pressKey = (noteName) => {
+    setisPressed(true);
+    onMouseEnter(noteName);
   };
 
-  const releaseEvent = () => {
-    onMouseLeave(noteName);
+  const releaseEvent = (noteName) => {
     setisPressed(false);
+    onMouseLeave(noteName);
   };
 
-  const pressKey = (e) => {
-    if (e.repeat) {
-      return;
-    }
-    if (e.key === KEYMAP[noteName.replace(/[0-9]/g, "")]) {
-      onMouseEnter(noteName);
-      setisPressed(true);
-    }
-  };
+  useKey(
+    KEYMAP[noteName.replace(/[0-9]/g, "")],
+    noteName,
+    releaseEvent,
+    pressKey
+  );
 
   return (
     <PianoKeys
       isFlatKey={isFlatKey}
-      onKeyDown={pressKey}
-      onKeyUp={releaseEvent}
       isPressed={isPressed}
-      onMouseEnter={click}
-      onMouseDown={click}
-      onMouseUp={releaseEvent}
-      onMouseLeave={releaseEvent}
+      onMouseEnter={(e) => {
+        if (e.buttons == 1 || e.buttons == 3) onMouseEnter(noteName);
+        if (e.buttons == 1 || e.buttons == 3) setisPressed(true);
+      }}
+      onMouseDown={(e) => {
+        if (e.buttons == 1 || e.buttons == 3) onMouseEnter(noteName);
+        if (e.buttons == 1 || e.buttons == 3) setisPressed(true);
+      }}
+      onMouseUp={() => {
+        onMouseLeave(noteName);
+        setisPressed(false);
+      }}
+      onMouseLeave={() => {
+        onMouseLeave(noteName);
+        setisPressed(false);
+      }}
     >
       <NoteName>{noteName}</NoteName>
     </PianoKeys>
   );
 };
 
-// const useKey = (key, up, down) => {
-//   const upcallbackRef = React.useRef(up);
-//   const downcallbackRef = React.useRef(down);
+const useKey = (key, noteName, up, down) => {
+  const upcallbackRef = React.useRef(up);
+  const downcallbackRef = React.useRef(down);
+  const noteRef = React.useRef(noteName);
 
-//   useEffect(() => {
-//     upcallbackRef.current = up;
-//     downcallbackRef.current = down;
-//   });
+  React.useEffect(() => {
+    upcallbackRef.current = up;
+    downcallbackRef.current = down;
+    noteRef.current = noteName;
+  });
 
-//   useEffect(() => {
-//     const handleKeyDown = (event) => {
-//       if (event.repeat) {
-//         return;
-//       }
-//       if (event.key === key) {
-//         downcallbackRef.current(event);
-//       }
-//     };
+  React.useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.repeat) {
+        return;
+      }
+      if (event.key === key) {
+        downcallbackRef.current(noteRef.current);
+      }
+    };
 
-//     const handleKeyUp = (event) => {
-//       if (event.key === key) {
-//         upcallbackRef.current(event);
-//       }
-//     };
+    const handleKeyUp = (event) => {
+      if (event.key === key) {
+        upcallbackRef.current(noteRef.current);
+      }
+    };
 
-//     document.addEventListener("keydown", handleKeyDown);
-//     document.addEventListener("keyup", handleKeyUp);
-//     return () => {
-//       document.removeEventListener("keydown", handleKeyDown);
-//       document.removeEventListener("keyup", handleKeyUp);
-//     };
-//   }, [key]);
-// };
+    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("keyup", handleKeyUp);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("keyup", handleKeyUp);
+    };
+  }, [key, noteName]);
+};
 
 export default PianoKey;

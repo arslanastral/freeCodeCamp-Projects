@@ -16,13 +16,46 @@ const SelecterContainer = styled.div`
   height: 50px;
 `;
 
+const OctavesContainer = styled.div`
+  font-family: sans-serif;
+  margin-left: 25px;
+  width: 237px;
+  height: 26px;
+  color: white;
+  background-color: #131516;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  border: 1px solid hsl(0, 0%, 80%);
+  padding: 5px;
+  justify-content: space-between;
+`;
+
+const ButtonContainer = styled.div`
+  margin-right: 5px;
+`;
+
+const OctaveTitle = styled.span`
+  margin-left: 5px;
+`;
+
+const OctaveButton = styled.button`
+  width: 20px;
+  height: 20px;
+  color: black;
+  background-color: white;
+  border-radius: 50px;
+  margin-left: 8px;
+  border: 0;
+  padding: 0;
+`;
+
 const Screen = () => {
   const {
     setcurrentInstrument,
-    currentInstrument,
+    setOctave,
+    octave,
     instrument,
-    // setpiano,
-    // piano,
   } = React.useContext(DrumMachineContext);
 
   // const options = [
@@ -40,7 +73,6 @@ const Screen = () => {
 
   const handleInstrumentChange = (v) => {
     setcurrentInstrument(v.value);
-    console.log(currentInstrument);
   };
 
   const customStyles = {
@@ -63,6 +95,35 @@ const Screen = () => {
     menu: (provided) => ({ ...provided, zIndex: 9999, background: "#131516" }),
   };
 
+  const updateNegativeOctaveHandler = (octave, setOctave) => {
+    if (octave.toString() === [1, 2, 3].toString()) {
+      return;
+    }
+    // const octaveMin = (octave) => Math.min(...octave);
+    let newOctave = octave.map((oct) => {
+      if (oct) {
+        return --oct;
+      }
+    });
+
+    setOctave(newOctave);
+    console.log(octave);
+  };
+
+  const updatePositiveOctaveHandler = (octave, setOctave) => {
+    if (octave.toString() === [7, 8, 9].toString()) {
+      return;
+    }
+    let newOctave = octave.map((oct) => {
+      if (oct) {
+        return ++oct;
+      }
+    });
+
+    setOctave(newOctave);
+    console.log(octave);
+  };
+
   return (
     <ScreenContainer>
       <DisplayScreen />
@@ -72,8 +133,24 @@ const Screen = () => {
           options={options}
           onChange={handleInstrumentChange}
           defaultValue={{ value: "piano", label: "🎹 Piano" }}
+          isSearchable={false}
         />
       </SelecterContainer>
+      <OctavesContainer>
+        <OctaveTitle>Octave</OctaveTitle>
+        <ButtonContainer>
+          <OctaveButton
+            onClick={() => updateNegativeOctaveHandler(octave, setOctave)}
+          >
+            -
+          </OctaveButton>
+          <OctaveButton
+            onClick={() => updatePositiveOctaveHandler(octave, setOctave)}
+          >
+            +
+          </OctaveButton>
+        </ButtonContainer>
+      </OctavesContainer>
     </ScreenContainer>
   );
 };

@@ -1,5 +1,7 @@
+// /* eslint-disable */
 import React from "react";
 import { DrumMachineContext } from "./DrumMachine";
+
 import * as Tone from "tone";
 import PianoKey from "./PianoKey";
 import styled from "styled-components";
@@ -19,6 +21,7 @@ const Piano = () => {
     instrument,
     currentInstrument,
     audioEffects,
+    octave,
   } = React.useContext(DrumMachineContext);
 
   let piano = instrument[currentInstrument];
@@ -28,7 +31,14 @@ const Piano = () => {
     piano.volume.value = masterVolume;
     piano.chain(...audioEffects, Tone.Destination);
     Tone.Destination.mute = false;
-  }, [soundRelease, masterVolume, currentInstrument, audioEffects, piano]);
+  }, [
+    soundRelease,
+    masterVolume,
+    currentInstrument,
+    audioEffects,
+    piano,
+    octave,
+  ]);
 
   const playNote = (note) => {
     setCurrentNote(note);
@@ -48,7 +58,7 @@ const Piano = () => {
       {NOTES.map((note, index) =>
         note.includes("#") ? (
           <PianoKey
-            noteName={`${note}3`}
+            noteName={`${note}${octave[0]}`}
             onMouseEnter={playNote}
             onMouseLeave={release}
             isFlatKey={true}
@@ -56,7 +66,7 @@ const Piano = () => {
           />
         ) : (
           <PianoKey
-            noteName={`${note}3`}
+            noteName={`${note}${octave[0]}`}
             onMouseEnter={playNote}
             onMouseLeave={release}
             isFlatKey={false}
@@ -68,7 +78,7 @@ const Piano = () => {
       {NOTES.map((note, index) =>
         note.includes("#") ? (
           <PianoKey
-            noteName={`${note}4`}
+            noteName={`${note}${octave[1]}`}
             onMouseEnter={playNote}
             onMouseLeave={release}
             isFlatKey={true}
@@ -76,7 +86,7 @@ const Piano = () => {
           />
         ) : (
           <PianoKey
-            noteName={`${note}4`}
+            noteName={`${note}${octave[1]}`}
             onMouseEnter={playNote}
             onMouseLeave={release}
             isFlatKey={false}
@@ -88,7 +98,7 @@ const Piano = () => {
       {NOTES.map((note, index) =>
         note.includes("#") ? (
           <PianoKey
-            noteName={`${note}5`}
+            noteName={`${note}${octave[2]}`}
             onMouseEnter={playNote}
             onMouseLeave={release}
             isFlatKey={true}
@@ -96,7 +106,7 @@ const Piano = () => {
           />
         ) : (
           <PianoKey
-            noteName={`${note}5`}
+            noteName={`${note}${octave[2]}`}
             onMouseEnter={playNote}
             onMouseLeave={release}
             isFlatKey={false}

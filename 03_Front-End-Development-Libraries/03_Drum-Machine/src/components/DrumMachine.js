@@ -36,7 +36,7 @@ function DrumMachineProvider({ children }) {
   const [soundRelease, setrelease] = useState(20);
   const [masterVolume, setmasterVolume] = useState(0);
   const [currentInstrument, setcurrentInstrument] = useState("piano");
-  // const [octave, setoctave] = useState([123, 345, 567]);
+  const [octave, setOctave] = useState([3, 4, 5]);
 
   return (
     <DrumMachineContext.Provider
@@ -51,6 +51,8 @@ function DrumMachineProvider({ children }) {
         setcurrentInstrument,
         instrument,
         audioEffects,
+        octave,
+        setOctave,
       }}
     >
       {children}
@@ -96,7 +98,7 @@ polysynth.set({ detune: -1200 });
 // const distortion = new Tone.Distortion(3).toDestination();
 const reverb = new Tone.Reverb(20);
 
-let audioEffects = [reverb];
+let audioEffects = [];
 let Allsynths = { fmSynth, synth, polysynth };
 let instrument = { ...allInstrument, ...Allsynths };
 

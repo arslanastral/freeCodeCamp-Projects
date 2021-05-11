@@ -9,7 +9,8 @@
     "react-scripts": "4.0.3",
     "react-select": "^4.3.0",
     "styled-components": "^5.2.3",
-    "tone": "^14.7.77"
+    "tone": "^14.7.77",
+    "whenipress": "^1.8.0"
   },
   "scripts": {
     "start": "react-scripts start",
