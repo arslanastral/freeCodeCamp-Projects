@@ -6,8 +6,7 @@ import Knobs from "./Knobs";
 import DrumPads from "./DrumPads";
 
 const ControlBoardContainer = styled.div`
-  display: grid;
-  grid-template-areas: "screen knobs drums";
+  display: flex;
   background-color: #212021;
   height: 52%;
   border-radius: 19px 19px 0 0;

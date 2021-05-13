@@ -3,12 +3,12 @@ import Pad from "./Pad";
 import styled from "styled-components";
 
 const DrumPadsContainer = styled.div`
-  grid-area: drums;
   display: grid;
+  width: 230px;
   grid-gap: 11px;
   grid-template-columns: repeat(3, 0fr);
   justify-content: right;
-  margin-right: 22px;
+  margin: 0 22px 0 22px;
   align-content: center;
 `;
 

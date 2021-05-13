@@ -33,7 +33,7 @@ export const DrumMachineContext = React.createContext();
 
 function DrumMachineProvider({ children }) {
   const [currentNote, setCurrentNote] = useState("...");
-  const [soundRelease, setrelease] = useState(20);
+  const [soundRelease, setrelease] = useState(50);
   const [masterVolume, setmasterVolume] = useState(0);
   const [currentInstrument, setcurrentInstrument] = useState("piano");
   const [octave, setOctave] = useState([3, 4, 5]);
@@ -53,6 +53,7 @@ function DrumMachineProvider({ children }) {
         audioEffects,
         octave,
         setOctave,
+        reverbValue,
       }}
     >
       {children}
@@ -88,18 +89,16 @@ var allInstrument = SampleLibrary.load({
   ],
 });
 
-const synth = new Tone.Synth();
-synth.set({ detune: -1200 });
-const fmSynth = new Tone.FMSynth();
 const polysynth = new Tone.PolySynth();
 polysynth.set({ detune: -1200 });
 
-// const filter = new Tone.AutoFilter(0).start();
-// const distortion = new Tone.Distortion(3).toDestination();
-const reverb = new Tone.Reverb(20);
-
-let audioEffects = [];
-let Allsynths = { fmSynth, synth, polysynth };
+let reverbValue = 3;
+// const filter = new Tone.AutoFilter(1).start();
+// const distortion = new Tone.Distortion(1);
+const reverb = new Tone.Reverb(reverbValue);
+// const autoPanner = new Tone.AutoPanner("4n");
+let audioEffects = [reverb];
+let Allsynths = { polysynth };
 let instrument = { ...allInstrument, ...Allsynths };
 
 export default DrumMachine;

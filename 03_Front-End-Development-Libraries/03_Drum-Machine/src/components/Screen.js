@@ -5,8 +5,7 @@ import styled from "styled-components";
 import Select from "react-select";
 
 const ScreenContainer = styled.div`
-  grid-area: screen;
-  /* background-color: yellow; */
+  width: 295px;
 `;
 
 const SelecterContainer = styled.div`
@@ -114,7 +113,6 @@ const Screen = () => {
     });
 
     setOctave(newOctave);
-    console.log(octave);
   };
 
   return (
