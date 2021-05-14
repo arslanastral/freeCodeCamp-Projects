@@ -8,7 +8,7 @@ import styled from "styled-components";
 const PianoKeyContainer = styled.div`
   background: #ffffff;
   display: flex;
-  width: 966px;
+  width: 95.5%;
   height: 100%;
 `;
 
@@ -24,6 +24,7 @@ const Piano = () => {
   } = React.useContext(DrumMachineContext);
 
   let piano = instrument[currentInstrument];
+  // console.log(piano);
 
   React.useEffect(() => {
     piano.release = soundRelease;

@@ -2,7 +2,6 @@ import React from "react";
 import DisplayScreen from "./DisplayScreen";
 import { DrumMachineContext } from "./DrumMachine";
 import styled from "styled-components";
-import Select from "react-select";
 
 const ScreenContainer = styled.div`
   width: 295px;
@@ -14,6 +13,8 @@ const SelecterContainer = styled.div`
   width: 249px;
   height: 50px;
 `;
+
+const Selecter = styled.select``;
 
 const OctavesContainer = styled.div`
   font-family: sans-serif;
@@ -53,41 +54,37 @@ const OctaveButton = styled.button`
 const Screen = () => {
   const {
     setcurrentInstrument,
+    // currentInstrument,
     setOctave,
     octave,
     instrument,
   } = React.useContext(DrumMachineContext);
 
-  const options = Object.keys(instrument).map((e) => ({
-    value: e,
-    label: e.replace(/-/g, " ").replace(/^./, function (x) {
-      return x.toUpperCase();
-    }),
-  }));
+  const options = Object.keys(instrument);
 
   const handleInstrumentChange = (v) => {
-    setcurrentInstrument(v.value);
+    setcurrentInstrument(v.target.value);
   };
 
-  const customStyles = {
-    control: (provided) => ({
-      ...provided,
-      background: "#131516",
-    }),
-    singleValue: (provided) => ({
-      ...provided,
-      color: "#fff",
-    }),
-    option: (provided, state) => ({
-      ...provided,
-      background: state.isSelected ? "blue" : "#131516",
-      color: "#fff",
-      "&:hover": {
-        background: state.isSelected ? "blue" : "#212425",
-      },
-    }),
-    menu: (provided) => ({ ...provided, zIndex: 9999, background: "#131516" }),
-  };
+  // const customStyles = {
+  //   control: (provided) => ({
+  //     ...provided,
+  //     background: "#131516",
+  //   }),
+  //   singleValue: (provided) => ({
+  //     ...provided,
+  //     color: "#fff",
+  //   }),
+  //   option: (provided, state) => ({
+  //     ...provided,
+  //     background: state.isSelected ? "blue" : "#131516",
+  //     color: "#fff",
+  //     "&:hover": {
+  //       background: state.isSelected ? "blue" : "#212425",
+  //     },
+  //   }),
+  //   menu: (provided) => ({ ...provided, zIndex: 9999, background: "#131516" }),
+  // };
 
   const updateNegativeOctaveHandler = (octave, setOctave) => {
     if (octave.toString() === [1, 2, 3].toString()) {
@@ -119,13 +116,26 @@ const Screen = () => {
     <ScreenContainer>
       <DisplayScreen />
       <SelecterContainer>
-        <Select
+        <Selecter
+          defaultValue={{ value: "piano", label: "🎹 Piano" }}
+          onChange={handleInstrumentChange}
+        >
+          {options.map((e, i) => (
+            <option key={i} value={e}>
+              {e.replace(/-/g, " ").replace(/^./, function (x) {
+                return x.toUpperCase();
+              })}
+            </option>
+          ))}
+        </Selecter>
+
+        {/* <Select
           styles={customStyles}
           options={options}
           onChange={handleInstrumentChange}
           defaultValue={{ value: "piano", label: "🎹 Piano" }}
           isSearchable={false}
-        />
+        /> */}
       </SelecterContainer>
       <OctavesContainer>
         <OctaveTitle>Octave</OctaveTitle>

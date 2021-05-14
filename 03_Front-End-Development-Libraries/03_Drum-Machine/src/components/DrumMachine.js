@@ -10,6 +10,21 @@ const DrumMachineContainer = styled.div`
   border-radius: 19px;
   width: 1011px;
   height: 510px;
+  @media (max-width: 830px) {
+    transform: scale(0.8);
+  }
+
+  @media (max-width: 750px) {
+    transform: scale(0.7);
+  }
+
+  @media (max-width: 650px) {
+    transform: scale(0.65);
+  }
+
+  @media (max-width: 580px) {
+    transform: scale(0.58);
+  }
 `;
 
 const DrumMachine = () => {

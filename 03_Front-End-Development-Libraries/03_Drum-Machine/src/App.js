@@ -7,6 +7,7 @@ const AppContainer = styled.div`
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  min-width: 100vw;
 `;
 
 function App() {
