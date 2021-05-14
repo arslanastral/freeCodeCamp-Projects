@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React from "react";
 import styled from "styled-components";
 import Screen from "./Screen";
@@ -12,7 +11,7 @@ const ControlBoardContainer = styled.div`
   border-radius: 19px 19px 0 0;
 `;
 
-const ControlBoard = React.memo(() => {
+const ControlBoard = () => {
   return (
     <ControlBoardContainer>
       <Screen />
@@ -20,6 +19,6 @@ const ControlBoard = React.memo(() => {
       <DrumPads />
     </ControlBoardContainer>
   );
-});
+};
 
 export default ControlBoard;

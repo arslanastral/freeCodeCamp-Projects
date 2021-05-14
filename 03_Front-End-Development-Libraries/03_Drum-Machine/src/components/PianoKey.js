@@ -156,6 +156,14 @@ const PianoKey = ({ noteName, onMouseEnter, onMouseLeave, isFlatKey }) => {
         onMouseLeave(noteName);
         setisPressed(false);
       }}
+      onTouchStart={() => {
+        onMouseEnter(noteName);
+        setisPressed(true);
+      }}
+      onTouchEnd={() => {
+        onMouseLeave(noteName);
+        setisPressed(false);
+      }}
     >
       <NoteName>{noteName}</NoteName>
     </PianoKeys>

@@ -53,7 +53,6 @@ function DrumMachineProvider({ children }) {
         audioEffects,
         octave,
         setOctave,
-        reverbValue,
       }}
     >
       {children}
@@ -87,17 +86,16 @@ var allInstrument = SampleLibrary.load({
     "violin",
     "xylophone",
   ],
+  onload: () => console.log("Its loaded!"),
 });
 
 const polysynth = new Tone.PolySynth();
 polysynth.set({ detune: -1200 });
-
-let reverbValue = 3;
-// const filter = new Tone.AutoFilter(1).start();
+// const filter = new Tone.AutoFilter(8).start();
 // const distortion = new Tone.Distortion(1);
-const reverb = new Tone.Reverb(reverbValue);
+// const reverb = new Tone.Reverb(3);
 // const autoPanner = new Tone.AutoPanner("4n");
-let audioEffects = [reverb];
+let audioEffects = [];
 let Allsynths = { polysynth };
 let instrument = { ...allInstrument, ...Allsynths };
 

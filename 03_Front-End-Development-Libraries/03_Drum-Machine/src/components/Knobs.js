@@ -38,8 +38,8 @@ const Knobs = () => {
     masterVolume,
     soundRelease,
     setrelease,
-    reverbValue,
-    setreverbValue,
+    // reverbValue,
+    // setreverbValue,
   } = React.useContext(DrumMachineContext);
 
   return (
@@ -102,8 +102,8 @@ const Knobs = () => {
             min={1}
             max={100}
             className="styledKnob"
-            value={reverbValue}
-            onChange={(value) => setreverbValue(value)}
+            // value={reverbValue}
+            // onChange={(value) => setreverbValue(value)}
           >
             <Arc arcWidth={1.5} color="white" />
             <circle r="40" cx="50" cy="50" fill="#333" />
