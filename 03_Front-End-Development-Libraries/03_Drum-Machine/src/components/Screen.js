@@ -54,7 +54,7 @@ const OctaveButton = styled.button`
 const Screen = () => {
   const {
     setcurrentInstrument,
-    // currentInstrument,
+    currentInstrument,
     setOctave,
     octave,
     instrument,
@@ -65,26 +65,6 @@ const Screen = () => {
   const handleInstrumentChange = (v) => {
     setcurrentInstrument(v.target.value);
   };
-
-  // const customStyles = {
-  //   control: (provided) => ({
-  //     ...provided,
-  //     background: "#131516",
-  //   }),
-  //   singleValue: (provided) => ({
-  //     ...provided,
-  //     color: "#fff",
-  //   }),
-  //   option: (provided, state) => ({
-  //     ...provided,
-  //     background: state.isSelected ? "blue" : "#131516",
-  //     color: "#fff",
-  //     "&:hover": {
-  //       background: state.isSelected ? "blue" : "#212425",
-  //     },
-  //   }),
-  //   menu: (provided) => ({ ...provided, zIndex: 9999, background: "#131516" }),
-  // };
 
   const updateNegativeOctaveHandler = (octave, setOctave) => {
     if (octave.toString() === [1, 2, 3].toString()) {
@@ -117,25 +97,17 @@ const Screen = () => {
       <DisplayScreen />
       <SelecterContainer>
         <Selecter
-          defaultValue={{ value: "piano", label: "🎹 Piano" }}
+          defaultValue={currentInstrument}
           onChange={handleInstrumentChange}
         >
           {options.map((e, i) => (
             <option key={i} value={e}>
-              {e.replace(/-/g, " ").replace(/^./, function (x) {
+              {`🎹 ${e.replace(/-/g, " ").replace(/^./, function (x) {
                 return x.toUpperCase();
-              })}
+              })}`}
             </option>
           ))}
         </Selecter>
-
-        {/* <Select
-          styles={customStyles}
-          options={options}
-          onChange={handleInstrumentChange}
-          defaultValue={{ value: "piano", label: "🎹 Piano" }}
-          isSearchable={false}
-        /> */}
       </SelecterContainer>
       <OctavesContainer>
         <OctaveTitle>Octave</OctaveTitle>
