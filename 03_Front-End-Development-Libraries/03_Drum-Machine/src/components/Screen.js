@@ -1,20 +1,12 @@
 import React from "react";
 import DisplayScreen from "./DisplayScreen";
+import Selector from "./Selector";
 import { DrumMachineContext } from "./DrumMachine";
 import styled from "styled-components";
 
 const ScreenContainer = styled.div`
   width: 295px;
 `;
-
-const SelecterContainer = styled.div`
-  font-family: sans-serif;
-  margin-left: 25px;
-  width: 249px;
-  height: 50px;
-`;
-
-const Selecter = styled.select``;
 
 const OctavesContainer = styled.div`
   font-family: sans-serif;
@@ -52,19 +44,7 @@ const OctaveButton = styled.button`
 `;
 
 const Screen = () => {
-  const {
-    setcurrentInstrument,
-    currentInstrument,
-    setOctave,
-    octave,
-    instrument,
-  } = React.useContext(DrumMachineContext);
-
-  const options = Object.keys(instrument);
-
-  const handleInstrumentChange = (v) => {
-    setcurrentInstrument(v.target.value);
-  };
+  const { setOctave, octave } = React.useContext(DrumMachineContext);
 
   const updateNegativeOctaveHandler = (octave, setOctave) => {
     if (octave.toString() === [1, 2, 3].toString()) {
@@ -95,20 +75,7 @@ const Screen = () => {
   return (
     <ScreenContainer>
       <DisplayScreen />
-      <SelecterContainer>
-        <Selecter
-          defaultValue={currentInstrument}
-          onChange={handleInstrumentChange}
-        >
-          {options.map((e, i) => (
-            <option key={i} value={e}>
-              {`🎹 ${e.replace(/-/g, " ").replace(/^./, function (x) {
-                return x.toUpperCase();
-              })}`}
-            </option>
-          ))}
-        </Selecter>
-      </SelecterContainer>
+      <Selector />
       <OctavesContainer>
         <OctaveTitle>Octave</OctaveTitle>
         <ButtonContainer>
