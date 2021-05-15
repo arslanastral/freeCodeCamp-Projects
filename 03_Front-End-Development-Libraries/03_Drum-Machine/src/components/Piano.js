@@ -24,7 +24,7 @@ const Piano = () => {
   } = React.useContext(DrumMachineContext);
 
   let piano = instrument[currentInstrument];
-  // console.log(piano);
+  console.log(piano);
 
   React.useEffect(() => {
     piano.release = soundRelease;

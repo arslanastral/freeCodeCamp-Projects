@@ -1,15 +1,39 @@
-/* eslint-disable */
+// /* eslint-disable */
 import React, { useState } from "react";
 import ControlBoard from "./ControlBoard";
 import PianoBoard from "./PianoBoard";
+import NProgress from "nprogress";
+import "nprogress/nprogress.css";
 import SampleLibrary from "./Tonejs-Instruments";
 import * as Tone from "tone";
-import styled from "styled-components";
+import styled, { css, keyframes } from "styled-components";
+
+const fadein = keyframes`
+ from { opacity: 0.4; }
+    to   { opacity: 1; }
+`;
+
+const prefadein = keyframes`
+ from { opacity: 0; }
+    to   { opacity: 0.4; }
+`;
 
 const DrumMachineContainer = styled.div`
   border-radius: 19px;
   width: 1011px;
   height: 510px;
+
+  ${(props) =>
+    !props.isloaded
+      ? css`
+          opacity: 0.4;
+          animation: ${prefadein} 1s;
+          pointer-events: none;
+        `
+      : css`
+          animation: ${fadein} 1s;
+        `}
+
   @media (max-width: 830px) {
     transform: scale(0.8);
   }
@@ -28,6 +52,10 @@ const DrumMachineContainer = styled.div`
 `;
 
 const DrumMachine = () => {
+  React.useEffect(() => {
+    NProgress.start();
+    NProgress.set(0.8);
+  });
   return (
     <DrumMachineProvider>
       <DrumMachineBox />
@@ -35,9 +63,11 @@ const DrumMachine = () => {
   );
 };
 
+// eslint-disable-next-line react/display-name
 const DrumMachineBox = React.memo(() => {
+  const { machineLoaded } = React.useContext(DrumMachineContext);
   return (
-    <DrumMachineContainer>
+    <DrumMachineContainer isloaded={machineLoaded}>
       <ControlBoard />
       <PianoBoard />
     </DrumMachineContainer>
@@ -52,12 +82,20 @@ function DrumMachineProvider({ children }) {
   const [masterVolume, setmasterVolume] = useState(0);
   const [currentInstrument, setcurrentInstrument] = useState("piano");
   const [octave, setOctave] = useState([3, 4, 5]);
+  const [machineLoaded, setmachineLoaded] = useState(false);
+
+  Tone.loaded().then(() => {
+    NProgress.done();
+    setmachineLoaded(true);
+  });
 
   return (
     <DrumMachineContext.Provider
       value={{
         currentNote,
         setCurrentNote,
+        machineLoaded,
+        setmachineLoaded,
         soundRelease,
         setrelease,
         masterVolume,
@@ -101,7 +139,6 @@ var allInstrument = SampleLibrary.load({
     "violin",
     "xylophone",
   ],
-  onload: () => console.log("Its loaded!"),
 });
 
 const polysynth = new Tone.PolySynth();
