@@ -17,18 +17,17 @@ const Piano = () => {
     setCurrentNote,
     soundRelease,
     masterVolume,
-    instrument,
+    piano,
     currentInstrument,
     audioEffects,
     octave,
   } = React.useContext(DrumMachineContext);
 
-  let piano = instrument[currentInstrument];
-  console.log(piano);
+  // console.log(piano);
 
   React.useEffect(() => {
-    piano.release = soundRelease;
-    piano.volume.value = masterVolume;
+    // piano.release = soundRelease;
+    // piano.volume.value = masterVolume;
     piano.chain(...audioEffects, Tone.Destination);
     Tone.Destination.mute = false;
   }, [
@@ -45,6 +44,80 @@ const Piano = () => {
     Tone.loaded().then(() => {
       piano.triggerAttack(Tone.Frequency(note), "+0.05");
     });
+  };
+
+  const CHORD_MAP = {
+    [`C${octave[0]}`]: [
+      Tone.Frequency(`C${octave[0]}`),
+      Tone.Frequency(`E${octave[0]}`),
+      Tone.Frequency(`G${octave[0]}`),
+    ],
+    [`C#${octave[0]}`]: [
+      Tone.Frequency(`C#${octave[0]}`),
+      Tone.Frequency(`F${octave[0]}`),
+      Tone.Frequency(`G#${octave[0]}`),
+    ],
+    [`D${octave[0]}`]: [
+      Tone.Frequency(`D${octave[0]}`),
+      Tone.Frequency(`F#${octave[0]}`),
+      Tone.Frequency(`A${octave[0]}`),
+    ],
+    [`D#${octave[0]}`]: [
+      Tone.Frequency(`D#${octave[0]}`),
+      Tone.Frequency(`G${octave[0]}`),
+      Tone.Frequency(`A#${octave[0]}`),
+    ],
+    [`E${octave[0]}`]: [
+      Tone.Frequency(`E${octave[0]}`),
+      Tone.Frequency(`G#${octave[0]}`),
+      Tone.Frequency(`B${octave[0]}`),
+    ],
+    [`F${octave[0]}`]: [
+      Tone.Frequency(`F${octave[0]}`),
+      Tone.Frequency(`A${octave[0]}`),
+      Tone.Frequency(`C${octave[1]}`),
+    ],
+    [`F#${octave[0]}`]: [
+      Tone.Frequency(`F#${octave[0]}`),
+      Tone.Frequency(`A#${octave[0]}`),
+      Tone.Frequency(`C#${octave[1]}`),
+    ],
+    [`G${octave[0]}`]: [
+      Tone.Frequency(`G${octave[0]}`),
+      Tone.Frequency(`B${octave[0]}`),
+      Tone.Frequency(`D${octave[1]}`),
+    ],
+    [`G#${octave[0]}`]: [
+      Tone.Frequency(`G#${octave[0]}`),
+      Tone.Frequency(`C${octave[1]}`),
+      Tone.Frequency(`D#${octave[1]}`),
+    ],
+    [`A${octave[0]}`]: [
+      Tone.Frequency(`A${octave[0]}`),
+      Tone.Frequency(`C#${octave[1]}`),
+      Tone.Frequency(`E${octave[1]}`),
+    ],
+    [`A#${octave[0]}`]: [
+      Tone.Frequency(`A#${octave[0]}`),
+      Tone.Frequency(`D${octave[1]}`),
+      Tone.Frequency(`F${octave[1]}`),
+    ],
+    [`B${octave[0]}`]: [
+      Tone.Frequency(`B${octave[0]}`),
+      Tone.Frequency(`D#${octave[1]}`),
+      Tone.Frequency(`F#${octave[1]}`),
+    ],
+  };
+
+  const playMajorChord = (note) => {
+    setCurrentNote(`${note} Major Chord`);
+    Tone.loaded().then(() => {
+      piano.triggerAttack(CHORD_MAP[note], "+0.05");
+    });
+  };
+
+  const releaseChord = (note) => {
+    piano.triggerRelease(CHORD_MAP[note], "+0.05");
   };
 
   const release = (note) => {
@@ -100,6 +173,8 @@ const Piano = () => {
             onMouseLeave={release}
             isFlatKey={true}
             key={index}
+            chordHandler={playMajorChord}
+            chordReleaseHandler={releaseChord}
           />
         ) : (
           <PianoKey
@@ -108,6 +183,8 @@ const Piano = () => {
             onMouseLeave={release}
             isFlatKey={false}
             key={index}
+            chordHandler={playMajorChord}
+            chordReleaseHandler={releaseChord}
           />
         )
       )}

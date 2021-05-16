@@ -33,14 +33,7 @@ const KnobTitle = styled.span`
 `;
 
 const Knobs = () => {
-  const {
-    setmasterVolume,
-    masterVolume,
-    soundRelease,
-    setrelease,
-    // reverbValue,
-    // setreverbValue,
-  } = React.useContext(DrumMachineContext);
+  const { audioEffects, piano } = React.useContext(DrumMachineContext);
 
   return (
     <DawContainer>
@@ -54,8 +47,8 @@ const Knobs = () => {
             min={-80}
             max={20}
             className="styledKnob"
-            value={masterVolume}
-            onChange={(value) => setmasterVolume(value)}
+            value={piano.volume.value}
+            onChange={(value) => (piano.volume.value = value)}
           >
             <Arc arcWidth={1.5} color="white" />
             <circle r="40" cx="50" cy="50" fill="#333" />
@@ -78,8 +71,8 @@ const Knobs = () => {
             min={1}
             max={100}
             className="styledKnob"
-            value={soundRelease}
-            onChange={(value) => setrelease(value)}
+            value={piano.release}
+            onChange={(value) => (piano.release = value)}
           >
             <Arc arcWidth={1.5} color="white" />
             <circle r="40" cx="50" cy="50" fill="#333" />
@@ -99,11 +92,11 @@ const Knobs = () => {
             size={100}
             angleOffset={220}
             angleRange={280}
-            min={1}
-            max={100}
+            min={0.0}
+            max={1}
+            value={audioEffects[1].wet.value}
             className="styledKnob"
-            // value={reverbValue}
-            // onChange={(value) => setreverbValue(value)}
+            onChange={(value) => (audioEffects[1].wet.value = value)}
           >
             <Arc arcWidth={1.5} color="white" />
             <circle r="40" cx="50" cy="50" fill="#333" />
@@ -116,17 +109,18 @@ const Knobs = () => {
               color="#fff"
             />
           </Knob>
-          <KnobTitle>Reverb</KnobTitle>
+          <KnobTitle>AutoWah</KnobTitle>
         </KnobWrapper>
         <KnobWrapper>
           <Knob
             size={100}
             angleOffset={220}
             angleRange={280}
-            min={0}
-            max={100}
+            min={0.0}
+            max={1}
+            value={audioEffects[0].wet.value}
             className="styledKnob"
-            onChange={(value) => console.log(value)}
+            onChange={(value) => (audioEffects[0].wet.value = value)}
           >
             <Arc arcWidth={1.5} color="white" />
             <circle r="40" cx="50" cy="50" fill="#333" />

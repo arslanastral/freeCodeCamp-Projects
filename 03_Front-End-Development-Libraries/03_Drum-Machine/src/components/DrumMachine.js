@@ -89,6 +89,7 @@ function DrumMachineProvider({ children }) {
     setmachineLoaded(true);
   });
 
+  let piano = instrument[currentInstrument];
   return (
     <DrumMachineContext.Provider
       value={{
@@ -106,6 +107,7 @@ function DrumMachineProvider({ children }) {
         audioEffects,
         octave,
         setOctave,
+        piano,
       }}
     >
       {children}
@@ -142,12 +144,43 @@ var allInstrument = SampleLibrary.load({
 });
 
 const polysynth = new Tone.PolySynth();
-polysynth.set({ detune: -1200 });
-// const filter = new Tone.AutoFilter(8).start();
+polysynth.set({ detune: -800 });
+polysynth.set({
+  envelope: {
+    attack: 0.05,
+    decay: 0.2,
+    sustain: 0.5,
+    release: 1,
+  },
+});
+
+// const duoSynth = new Tone.DuoSynth();
+// duoSynth.set({ detune: -1200 });
+
+const filter = new Tone.AutoFilter(4).start();
 // const distortion = new Tone.Distortion(1);
-// const reverb = new Tone.Reverb(3);
+// const chorus = new Tone.Chorus();
+// const feedbackDelay = new Tone.FeedbackDelay("8n", 0.5);
+// const shift = new Tone.FrequencyShifter(42);
+// const crusher = new Tone.BitCrusher(5);
+// const cheby = new Tone.Chebyshev(20);
+// const pitchShift = new Tone.PitchShift();
+const reverb = new Tone.Reverb();
+// const tremolo = new Tone.Tremolo(9, 0.75);
 // const autoPanner = new Tone.AutoPanner("4n");
-let audioEffects = [];
+// const autoWah = new Tone.AutoWah(50);
+// var pingPong = new Tone.PingPongDelay("4n", 0.2);
+// var phaser = new Tone.Phaser({
+//   frequency: 15,
+//   octaves: 5,
+//   baseFrequency: 1000,
+// });
+// const reverb = new Tone.JCReverb(1);
+let audioEffects = [filter, reverb];
+
+// console.log(audioEffects[1]);
+// console.log(audioEffects[0].frequency.value);
+// console.log(audioEffects[filter].frequency.value);
 let Allsynths = { polysynth };
 let instrument = { ...allInstrument, ...Allsynths };
 

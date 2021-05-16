@@ -32,13 +32,16 @@ cursor: pointer;
 display: flex;
 justify-content: center;
 align-items: flex-end;
+transition: transform 0.1s ease-in-out,background 0.1s ease-in-out,box-shadow 0.1s ease-in-out;
 `;
 
-let WhiteKeyActiveStyle = `box-shadow: 0px 3px rgba(0, 0, 0, 0.35);
+let WhiteKeyActiveStyle = `
+// box-shadow: 0px 3px rgba(0, 0, 0, 0.35);
+box-shadow: 0 0 50px blue;
 border: 1px solid rgba(0, 0, 0, 0.25);
+background:blue;
 border-top: none;
-transform: translateY(2px);
-transition: 0.1s;`;
+transform: translateY(2px);`;
 
 let BlackKeyActiveStyle = `box-shadow: 0px 3px rgba(0, 0, 0, 0.8) !important;
 filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0)) !important;`;
@@ -72,16 +75,17 @@ const NoteName = styled.span`
   margin-bottom: 5px;
   font-size: 0.8rem;
   font-family: sans-serif;
-
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Old versions of Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none;
 `;
 
-const PianoKey = ({ noteName, onMouseEnter, onMouseLeave, isFlatKey }) => {
+const PianoKey = ({
+  noteName,
+  onMouseEnter,
+  onMouseLeave,
+  isFlatKey,
+  chordHandler,
+  chordReleaseHandler,
+}) => {
   const [isPressed, setisPressed] = React.useState(false);
   const { octave } = React.useContext(DrumMachineContext);
 
@@ -93,6 +97,31 @@ const PianoKey = ({ noteName, onMouseEnter, onMouseLeave, isFlatKey }) => {
   const releaseEvent = (noteName) => {
     setisPressed(false);
     onMouseLeave(noteName);
+  };
+
+  const handleChords = (noteName) => {
+    setisPressed(true);
+    chordHandler(noteName);
+  };
+
+  const handleChordRelease = (noteName) => {
+    setisPressed(false);
+    chordReleaseHandler(noteName);
+  };
+
+  let CHORD_KEYMAP = {
+    [`C${octave[0]}`]: "Q",
+    [`C#${octave[0]}`]: "@",
+    [`D${octave[0]}`]: "W",
+    [`D#${octave[0]}`]: "#",
+    [`E${octave[0]}`]: "E",
+    [`F${octave[0]}`]: "R",
+    [`F#${octave[0]}`]: "%",
+    [`G${octave[0]}`]: "T",
+    [`G#${octave[0]}`]: "^",
+    [`A${octave[0]}`]: "Y",
+    [`A#${octave[0]}`]: "&",
+    [`B${octave[0]}`]: "U",
   };
 
   let KEYMAP = {
@@ -135,6 +164,7 @@ const PianoKey = ({ noteName, onMouseEnter, onMouseLeave, isFlatKey }) => {
   };
 
   useKey(KEYMAP[noteName], noteName, releaseEvent, pressKey);
+  useKey(CHORD_KEYMAP[noteName], noteName, handleChordRelease, handleChords);
 
   return (
     <PianoKeys
