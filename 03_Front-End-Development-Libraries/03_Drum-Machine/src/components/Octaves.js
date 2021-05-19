@@ -66,6 +66,9 @@ const Octaves = () => {
     setOctave(newOctave);
   };
 
+  useKey("-", updateNegativeOctaveHandler, octave, setOctave);
+  useKey("=", updatePositiveOctaveHandler, octave, setOctave);
+
   return (
     <OctavesContainer>
       <OctaveTitle>Octave</OctaveTitle>
@@ -83,6 +86,34 @@ const Octaves = () => {
       </ButtonContainer>
     </OctavesContainer>
   );
+};
+
+const useKey = (key, down, octaveArr, setOctavefunc) => {
+  const downcallbackRef = React.useRef(down);
+  const octaveRef = React.useRef(octaveArr);
+  const setOctaveRef = React.useRef(setOctavefunc);
+
+  React.useEffect(() => {
+    downcallbackRef.current = down;
+    octaveRef.current = octaveArr;
+  });
+
+  React.useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.repeat) {
+        return;
+      }
+      if (event.key === key) {
+        downcallbackRef.current(octaveRef.current, setOctaveRef.current);
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [key, octaveArr]);
 };
 
 export default Octaves;

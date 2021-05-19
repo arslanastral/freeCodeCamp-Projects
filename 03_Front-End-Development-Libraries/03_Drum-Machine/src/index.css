@@ -1,11 +1,5 @@
-.styledKnob {
-  transform: scale(0.6);
-  margin-top: -20px;
-}
-
-.knobValue {
-  font-family: sans-serif;
-  /* color: white !important; */
+.volumeKnob {
+  background: white;
 }
 
 ::-webkit-scrollbar {

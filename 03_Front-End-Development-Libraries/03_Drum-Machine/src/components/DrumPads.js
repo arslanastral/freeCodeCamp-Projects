@@ -1,6 +1,7 @@
 import React from "react";
 import Pad from "./Pad";
 import styled from "styled-components";
+import { DrumMachineContext } from "./DrumMachine";
 
 const DrumPadsContainer = styled.div`
   display: grid;
@@ -13,17 +14,25 @@ const DrumPadsContainer = styled.div`
 `;
 
 const DrumPads = () => {
+  const { drumpadsounds } = React.useContext(DrumMachineContext);
+
+  const padColors = [
+    "red",
+    "yellow",
+    "blue",
+    "red",
+    "yellow",
+    "blue",
+    "red",
+    "yellow",
+    "blue",
+  ];
+
   return (
     <DrumPadsContainer>
-      <Pad />
-      <Pad />
-      <Pad />
-      <Pad />
-      <Pad />
-      <Pad />
-      <Pad />
-      <Pad />
-      <Pad />
+      {drumpadsounds.map((sound, i) => (
+        <Pad key={i} color={padColors[i]} onMouseDown={() => sound.start()} />
+      ))}
     </DrumPadsContainer>
   );
 };

@@ -90,6 +90,7 @@ function DrumMachineProvider({ children }) {
   });
 
   let piano = instrument[currentInstrument];
+
   return (
     <DrumMachineContext.Provider
       value={{
@@ -108,6 +109,7 @@ function DrumMachineProvider({ children }) {
         octave,
         setOctave,
         piano,
+        drumpadsounds,
       }}
     >
       {children}
@@ -143,14 +145,52 @@ var allInstrument = SampleLibrary.load({
   ],
 });
 
+const boom = new Tone.Player(
+  "https://arslanastral.github.io/freeCodeCamp-Projects/03_Front-End-Development-Libraries/03_Drum-Machine/audio-samples/drum-samples/drumkit/boom.wav"
+).toDestination();
+
+const openhat = new Tone.Player(
+  "https://arslanastral.github.io/freeCodeCamp-Projects/03_Front-End-Development-Libraries/03_Drum-Machine/audio-samples/drum-samples/drumkit/openhat.wav"
+).toDestination();
+
+const snare = new Tone.Player(
+  "https://arslanastral.github.io/freeCodeCamp-Projects/03_Front-End-Development-Libraries/03_Drum-Machine/audio-samples/drum-samples/drumkit/snare.wav"
+).toDestination();
+
+const kick = new Tone.Player(
+  "https://arslanastral.github.io/freeCodeCamp-Projects/03_Front-End-Development-Libraries/03_Drum-Machine/audio-samples/drum-samples/drumkit/kick.wav"
+).toDestination();
+
+const hihat = new Tone.Player(
+  "https://arslanastral.github.io/freeCodeCamp-Projects/03_Front-End-Development-Libraries/03_Drum-Machine/audio-samples/drum-samples/drumkit/hihat.wav"
+).toDestination();
+
+const clap = new Tone.Player(
+  "https://arslanastral.github.io/freeCodeCamp-Projects/03_Front-End-Development-Libraries/03_Drum-Machine/audio-samples/drum-samples/drumkit/clap.wav"
+).toDestination();
+
+const ride = new Tone.Player(
+  "https://arslanastral.github.io/freeCodeCamp-Projects/03_Front-End-Development-Libraries/03_Drum-Machine/audio-samples/drum-samples/drumkit/ride.wav"
+).toDestination();
+
+const tom = new Tone.Player(
+  "https://arslanastral.github.io/freeCodeCamp-Projects/03_Front-End-Development-Libraries/03_Drum-Machine/audio-samples/drum-samples/drumkit/tom.wav"
+).toDestination();
+
+const tink = new Tone.Player(
+  "https://arslanastral.github.io/freeCodeCamp-Projects/03_Front-End-Development-Libraries/03_Drum-Machine/audio-samples/drum-samples/drumkit/tink.wav"
+).toDestination();
+
+let drumpadsounds = [boom, openhat, snare, kick, hihat, clap, ride, tom, tink];
+
 const polysynth = new Tone.PolySynth();
-polysynth.set({ detune: -800 });
+polysynth.set({ polyphony: 128 });
 polysynth.set({
   envelope: {
     attack: 0.05,
     decay: 0.2,
-    sustain: 0.5,
-    release: 1,
+    sustain: 0.8,
+    release: 5,
   },
 });
 
@@ -158,6 +198,8 @@ polysynth.set({
 // duoSynth.set({ detune: -1200 });
 
 const filter = new Tone.AutoFilter(4).start();
+const comp = new Tone.Compressor(-30, 3);
+
 // const distortion = new Tone.Distortion(1);
 // const chorus = new Tone.Chorus();
 // const feedbackDelay = new Tone.FeedbackDelay("8n", 0.5);
@@ -165,8 +207,9 @@ const filter = new Tone.AutoFilter(4).start();
 // const crusher = new Tone.BitCrusher(5);
 // const cheby = new Tone.Chebyshev(20);
 // const pitchShift = new Tone.PitchShift();
-const reverb = new Tone.Reverb();
-// const tremolo = new Tone.Tremolo(9, 0.75);
+// const reverb = new Tone.Reverb(0.8);
+const tremolo = new Tone.Tremolo(10, 0.85).start();
+// const vibrato = new Tone.Vibrato(10, 0.75);
 // const autoPanner = new Tone.AutoPanner("4n");
 // const autoWah = new Tone.AutoWah(50);
 // var pingPong = new Tone.PingPongDelay("4n", 0.2);
@@ -175,13 +218,12 @@ const reverb = new Tone.Reverb();
 //   octaves: 5,
 //   baseFrequency: 1000,
 // });
-// const reverb = new Tone.JCReverb(1);
-let audioEffects = [filter, reverb];
+// const reverb = new Tone.JCReverb(0.8);
+let audioEffects = [filter, tremolo, comp];
 
 // console.log(audioEffects[1]);
 // console.log(audioEffects[0].frequency.value);
 // console.log(audioEffects[filter].frequency.value);
 let Allsynths = { polysynth };
 let instrument = { ...allInstrument, ...Allsynths };
-
 export default DrumMachine;

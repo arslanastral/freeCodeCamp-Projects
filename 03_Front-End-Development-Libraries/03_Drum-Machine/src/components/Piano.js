@@ -15,10 +15,10 @@ const PianoKeyContainer = styled.div`
 const Piano = () => {
   const {
     setCurrentNote,
-    soundRelease,
-    masterVolume,
+    // soundRelease,
+    // masterVolume,
     piano,
-    currentInstrument,
+    // currentInstrument,
     audioEffects,
     octave,
   } = React.useContext(DrumMachineContext);
@@ -30,14 +30,7 @@ const Piano = () => {
     // piano.volume.value = masterVolume;
     piano.chain(...audioEffects, Tone.Destination);
     Tone.Destination.mute = false;
-  }, [
-    soundRelease,
-    masterVolume,
-    currentInstrument,
-    audioEffects,
-    piano,
-    octave,
-  ]);
+  }, [audioEffects, piano]);
 
   const playNote = (note) => {
     setCurrentNote(note);

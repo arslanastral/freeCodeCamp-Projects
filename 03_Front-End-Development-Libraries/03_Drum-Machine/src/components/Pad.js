@@ -2,8 +2,6 @@ import React from "react";
 
 import styled from "styled-components";
 
-// let padColors = [];
-
 const DrumPad = styled.button`
   background: #101010;
   width: 65px;
@@ -14,13 +12,13 @@ const DrumPad = styled.button`
 
   &:active {
     transform: scale(0.98);
-    background: red;
-    box-shadow: 0 0 50px red;
+    background: ${(props) => props.color};
+    box-shadow: 0 0 50px ${(props) => props.color};
   }
 `;
 
-const Pad = () => {
-  return <DrumPad />;
+const Pad = ({ color, onMouseDown }) => {
+  return <DrumPad color={color} onMouseDown={onMouseDown} />;
 };
 
 export default Pad;

@@ -76,6 +76,13 @@ const NoteName = styled.span`
   font-size: 0.8rem;
   font-family: sans-serif;
   user-select: none;
+
+  ${(props) =>
+    props.isPressed
+      ? css`
+          color: white;
+        `
+      : ""}
 `;
 
 const PianoKey = ({

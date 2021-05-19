@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { DrumMachineContext } from "./DrumMachine";
-import { Knob, Pointer, Arc, Value } from "rc-knob";
+import { Dial } from "react-nexusui";
 
 const DawContainer = styled.div`
   display: flex;
@@ -25,7 +25,7 @@ const KnobWrapper = styled.div`
 `;
 
 const KnobTitle = styled.span`
-  margin-top: -20px;
+  margin-top: 10px;
   font-family: sans-serif;
   align-self: center;
   color: white;
@@ -33,107 +33,92 @@ const KnobTitle = styled.span`
 `;
 
 const Knobs = () => {
-  const { audioEffects, piano } = React.useContext(DrumMachineContext);
+  const { audioEffects, piano, instrument } = React.useContext(
+    DrumMachineContext
+  );
+
+  const [masterVolume, setmasterVolume] = useState(0);
+  const [release, setrelease] = useState(40);
+  const [detuneVal, setdetuneVal] = useState(-1200);
+  const [filter0, setfilter0] = useState(0);
+  const [filter1, setfilter1] = useState(0);
+
+  useEffect(() => {
+    piano.volume.value = masterVolume;
+    piano.release = release;
+    audioEffects[0].wet.value = filter0 / 100;
+    audioEffects[1].wet.value = filter1 / 100;
+    instrument.polysynth.set({ detune: detuneVal });
+  });
 
   return (
     <DawContainer>
       <SequencerContainer></SequencerContainer>
       <KnobsContainer>
         <KnobWrapper>
-          <Knob
-            size={100}
-            angleOffset={220}
-            angleRange={280}
+          <Dial
+            size={[50, 50]}
             min={-80}
             max={20}
-            className="styledKnob"
-            value={piano.volume.value}
-            onChange={(value) => (piano.volume.value = value)}
-          >
-            <Arc arcWidth={1.5} color="white" />
-            <circle r="40" cx="50" cy="50" fill="#333" />
-            <Value marginBottom={45} className="knobValue" />
-            <Pointer
-              width={2}
-              height={35}
-              radius={10}
-              type="rect"
-              color="#fff"
-            />
-          </Knob>
+            step={1}
+            interaction="radial"
+            value={masterVolume}
+            onChange={setmasterVolume}
+          ></Dial>
+
           <KnobTitle>Volume</KnobTitle>
         </KnobWrapper>
         <KnobWrapper>
-          <Knob
-            size={100}
-            angleOffset={220}
-            angleRange={280}
-            min={1}
+          <Dial
+            size={[50, 50]}
+            min={0}
             max={100}
-            className="styledKnob"
-            value={piano.release}
-            onChange={(value) => (piano.release = value)}
-          >
-            <Arc arcWidth={1.5} color="white" />
-            <circle r="40" cx="50" cy="50" fill="#333" />
-            <Value marginBottom={45} className="knobValue" />
-            <Pointer
-              width={2}
-              height={35}
-              radius={10}
-              type="rect"
-              color="#fff"
-            />
-          </Knob>
+            step={1}
+            interaction="radial"
+            value={release}
+            onChange={setrelease}
+          ></Dial>
           <KnobTitle>Release</KnobTitle>
         </KnobWrapper>
         <KnobWrapper>
-          <Knob
-            size={100}
-            angleOffset={220}
-            angleRange={280}
-            min={0.0}
-            max={1}
-            value={audioEffects[1].wet.value}
-            className="styledKnob"
-            onChange={(value) => (audioEffects[1].wet.value = value)}
-          >
-            <Arc arcWidth={1.5} color="white" />
-            <circle r="40" cx="50" cy="50" fill="#333" />
-            <Value marginBottom={45} className="knobValue" />
-            <Pointer
-              width={2}
-              height={35}
-              radius={10}
-              type="rect"
-              color="#fff"
-            />
-          </Knob>
-          <KnobTitle>AutoWah</KnobTitle>
+          <Dial
+            size={[50, 50]}
+            min={0}
+            max={100}
+            step={1}
+            interaction="radial"
+            value={filter0}
+            onChange={setfilter0}
+          ></Dial>
+
+          <KnobTitle>{audioEffects[0].name}</KnobTitle>
         </KnobWrapper>
         <KnobWrapper>
-          <Knob
-            size={100}
-            angleOffset={220}
-            angleRange={280}
-            min={0.0}
-            max={1}
-            value={audioEffects[0].wet.value}
-            className="styledKnob"
-            onChange={(value) => (audioEffects[0].wet.value = value)}
-          >
-            <Arc arcWidth={1.5} color="white" />
-            <circle r="40" cx="50" cy="50" fill="#333" />
-            <Value marginBottom={45} className="knobValue" />
-            <Pointer
-              width={2}
-              height={35}
-              radius={10}
-              type="rect"
-              color="#fff"
-            />
-          </Knob>
-          <KnobTitle>Filter</KnobTitle>
+          <Dial
+            size={[50, 50]}
+            min={0}
+            max={100}
+            step={1}
+            interaction="radial"
+            value={filter1}
+            onChange={setfilter1}
+          ></Dial>
+
+          <KnobTitle>{audioEffects[1].name}</KnobTitle>
+        </KnobWrapper>
+
+        <KnobWrapper>
+          <Dial
+            size={[50, 50]}
+            min={-2000}
+            max={1000}
+            step={10}
+            interaction="radial"
+            value={detuneVal}
+            onChange={setdetuneVal}
+          ></Dial>
+
+          <KnobTitle>{"Detune"}</KnobTitle>
         </KnobWrapper>
       </KnobsContainer>
     </DawContainer>
