@@ -41,7 +41,7 @@ const Octaves = () => {
   const { setOctave, octave } = React.useContext(DrumMachineContext);
 
   const updateNegativeOctaveHandler = (octave, setOctave) => {
-    if (octave.toString() === [1, 2, 3].toString()) {
+    if (octave.toString() === [0, 1, 2].toString()) {
       return;
     }
     let newOctave = octave.map((oct) => {
@@ -58,7 +58,7 @@ const Octaves = () => {
       return;
     }
     let newOctave = octave.map((oct) => {
-      if (oct) {
+      if (oct >= 0) {
         return ++oct;
       }
     });
