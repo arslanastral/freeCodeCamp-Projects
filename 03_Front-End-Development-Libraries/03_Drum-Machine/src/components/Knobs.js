@@ -39,15 +39,18 @@ const Knobs = () => {
 
   const [masterVolume, setmasterVolume] = useState(0);
   const [release, setrelease] = useState(40);
+  // eslint-disable-next-line no-unused-vars
   const [detuneVal, setdetuneVal] = useState(-1200);
   const [filter0, setfilter0] = useState(0);
   const [filter1, setfilter1] = useState(0);
+  const [filter2, setfilter2] = useState(0);
 
   useEffect(() => {
     piano.volume.value = masterVolume;
     piano.release = release;
     audioEffects[0].wet.value = filter0 / 100;
     audioEffects[1].wet.value = filter1 / 100;
+    audioEffects[2].wet.value = filter2 / 100;
     instrument.polysynth.set({ detune: detuneVal });
   });
 
@@ -110,15 +113,15 @@ const Knobs = () => {
         <KnobWrapper>
           <Dial
             size={[50, 50]}
-            min={-2000}
-            max={1000}
+            min={0}
+            max={100}
             step={10}
             interaction="radial"
-            value={detuneVal}
-            onChange={setdetuneVal}
+            value={filter2}
+            onChange={setfilter2}
           ></Dial>
 
-          <KnobTitle>{"Detune"}</KnobTitle>
+          <KnobTitle>{audioEffects[2].name}</KnobTitle>
         </KnobWrapper>
       </KnobsContainer>
     </DawContainer>

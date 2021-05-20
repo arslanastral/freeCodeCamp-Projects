@@ -39,7 +39,7 @@ const Piano = () => {
     });
   };
 
-  const CHORD_MAP = {
+  const MAJOR_CHORD_MAP = {
     [`C${octave[0]}`]: [
       Tone.Frequency(`C${octave[0]}`),
       Tone.Frequency(`E${octave[0]}`),
@@ -102,16 +102,93 @@ const Piano = () => {
     ],
   };
 
+
+  const MINOR_CHORD_MAP = {
+    [`C${octave[1]}`]: [
+      Tone.Frequency(`C${octave[1]}`),
+      Tone.Frequency(`D#${octave[1]}`),
+      Tone.Frequency(`G${octave[1]}`),
+    ],
+    [`C#${octave[1]}`]: [
+      Tone.Frequency(`C#${octave[1]}`),
+      Tone.Frequency(`E${octave[1]}`),
+      Tone.Frequency(`G#${octave[1]}`),
+    ],
+    [`D${octave[1]}`]: [
+      Tone.Frequency(`D${octave[1]}`),
+      Tone.Frequency(`F${octave[1]}`),
+      Tone.Frequency(`A${octave[1]}`),
+    ],
+    [`D#${octave[1]}`]: [
+      Tone.Frequency(`D#${octave[1]}`),
+      Tone.Frequency(`F#${octave[1]}`),
+      Tone.Frequency(`A#${octave[1]}`),
+    ],
+    [`E${octave[1]}`]: [
+      Tone.Frequency(`E${octave[1]}`),
+      Tone.Frequency(`G${octave[1]}`),
+      Tone.Frequency(`B${octave[1]}`),
+    ],
+    [`F${octave[1]}`]: [
+      Tone.Frequency(`F${octave[1]}`),
+      Tone.Frequency(`G#${octave[1]}`),
+      Tone.Frequency(`C${octave[2]}`),
+    ],
+    [`F#${octave[1]}`]: [
+      Tone.Frequency(`F#${octave[1]}`),
+      Tone.Frequency(`A${octave[1]}`),
+      Tone.Frequency(`C#${octave[2]}`),
+    ],
+    [`G${octave[1]}`]: [
+      Tone.Frequency(`G${octave[1]}`),
+      Tone.Frequency(`A#${octave[1]}`),
+      Tone.Frequency(`D${octave[2]}`),
+    ],
+    [`G#${octave[1]}`]: [
+      Tone.Frequency(`G#${octave[1]}`),
+      Tone.Frequency(`B${octave[1]}`),
+      Tone.Frequency(`D#${octave[2]}`),
+    ],
+    [`A${octave[1]}`]: [
+      Tone.Frequency(`A${octave[1]}`),
+      Tone.Frequency(`C${octave[2]}`),
+      Tone.Frequency(`E${octave[2]}`),
+    ],
+    [`A#${octave[1]}`]: [
+      Tone.Frequency(`A#${octave[1]}`),
+      Tone.Frequency(`C#${octave[2]}`),
+      Tone.Frequency(`F${octave[2]}`),
+    ],
+    [`B${octave[1]}`]: [
+      Tone.Frequency(`B${octave[1]}`),
+      Tone.Frequency(`D${octave[2]}`),
+      Tone.Frequency(`F#${octave[2]}`),
+    ],
+  };
+
   const playMajorChord = (note) => {
     setCurrentNote(`${note} Major Chord`);
     Tone.loaded().then(() => {
-      piano.triggerAttack(CHORD_MAP[note], "+0.05");
+      piano.triggerAttack(MAJOR_CHORD_MAP[note], "+0.05");
     });
   };
 
-  const releaseChord = (note) => {
-    piano.triggerRelease(CHORD_MAP[note], "+0.05");
+  
+  const playMinorChord = (note) => {
+    setCurrentNote(`${note} Minor Chord`);
+    Tone.loaded().then(() => {
+      piano.triggerAttack(MINOR_CHORD_MAP[note], "+0.05");
+    });
   };
+
+  const releaseMajorChord = (note) => {
+    piano.triggerRelease(MAJOR_CHORD_MAP[note], "+0.05");
+  };
+
+  const releaseMinorChord = (note) => {
+    piano.triggerRelease(MINOR_CHORD_MAP[note], "+0.05");
+  };
+
 
   const release = (note) => {
     piano.triggerRelease(Tone.Frequency(note), "+0.05");
@@ -166,8 +243,10 @@ const Piano = () => {
             onMouseLeave={release}
             isFlatKey={true}
             key={index}
-            chordHandler={playMajorChord}
-            chordReleaseHandler={releaseChord}
+            majorChordHandler={playMajorChord}
+            majorChordRelease={releaseMajorChord}
+            minorChordHandler={playMinorChord}
+            minorChordRelease={releaseMinorChord}
           />
         ) : (
           <PianoKey
@@ -176,8 +255,10 @@ const Piano = () => {
             onMouseLeave={release}
             isFlatKey={false}
             key={index}
-            chordHandler={playMajorChord}
-            chordReleaseHandler={releaseChord}
+            majorChordHandler={playMajorChord}
+            majorChordRelease={releaseMajorChord}
+            minorChordHandler={playMinorChord}
+            minorChordRelease={releaseMinorChord}
           />
         )
       )}

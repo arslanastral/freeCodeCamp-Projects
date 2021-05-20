@@ -18,6 +18,7 @@ z-index: 2;
 display: flex;
 justify-content: center;
 align-items: flex-end;
+transition: transform 0.1s ease-in-out,background 0.1s ease-in-out,box-shadow 0.1s ease-in-out;
 `;
 
 let WhiteKeyStyles = `
@@ -32,7 +33,7 @@ cursor: pointer;
 display: flex;
 justify-content: center;
 align-items: flex-end;
-transition: transform 0.1s ease-in-out,background 0.1s ease-in-out,box-shadow 0.1s ease-in-out;
+transition: background 0.1s ease-in-out,box-shadow 0.1s ease-in-out;
 `;
 
 let WhiteKeyActiveStyle = `
@@ -43,8 +44,11 @@ background:blue;
 border-top: none;
 transform: translateY(2px);`;
 
-let BlackKeyActiveStyle = `box-shadow: 0px 3px rgba(0, 0, 0, 0.8) !important;
-filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0)) !important;`;
+let BlackKeyActiveStyle = `
+// box-shadow: 0px 3px rgba(0, 0, 0, 0.8) !important;
+box-shadow: 0 0 50px blue;
+filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0)) !important;
+`;
 
 const PianoKeys = styled.button`
   ${(props) =>
@@ -76,13 +80,7 @@ const NoteName = styled.span`
   font-size: 0.8rem;
   font-family: sans-serif;
   user-select: none;
-
-  ${(props) =>
-    props.isPressed
-      ? css`
-          color: white;
-        `
-      : ""}
+  color: ${(props) => (props.isPressed ? "white" : "")};
 `;
 
 const PianoKey = ({
@@ -90,8 +88,10 @@ const PianoKey = ({
   onMouseEnter,
   onMouseLeave,
   isFlatKey,
-  chordHandler,
-  chordReleaseHandler,
+  majorChordHandler,
+  majorChordRelease,
+  minorChordHandler,
+  minorChordRelease,
 }) => {
   const [isPressed, setisPressed] = React.useState(false);
   const { octave } = React.useContext(DrumMachineContext);
@@ -106,17 +106,27 @@ const PianoKey = ({
     onMouseLeave(noteName);
   };
 
-  const handleChords = (noteName) => {
+  const majorChord = (noteName) => {
     setisPressed(true);
-    chordHandler(noteName);
+    majorChordHandler(noteName);
   };
 
-  const handleChordRelease = (noteName) => {
+  const majorRelease = (noteName) => {
     setisPressed(false);
-    chordReleaseHandler(noteName);
+    majorChordRelease(noteName);
   };
 
-  let CHORD_KEYMAP = {
+  const minorChord = (noteName) => {
+    setisPressed(true);
+    minorChordHandler(noteName);
+  };
+
+  const minorRelease = (noteName) => {
+    setisPressed(false);
+    minorChordRelease(noteName);
+  };
+
+  let MAJOR_CHORD_KEYMAP = {
     [`C${octave[0]}`]: "Q",
     [`C#${octave[0]}`]: "@",
     [`D${octave[0]}`]: "W",
@@ -129,6 +139,21 @@ const PianoKey = ({
     [`A${octave[0]}`]: "Y",
     [`A#${octave[0]}`]: "&",
     [`B${octave[0]}`]: "U",
+  };
+
+  let MINOR_CHORD_KEYMAP = {
+    [`C${octave[1]}`]: "I",
+    [`C#${octave[1]}`]: "(",
+    [`D${octave[1]}`]: "O",
+    [`D#${octave[1]}`]: ")",
+    [`E${octave[1]}`]: "P",
+    [`F${octave[1]}`]: "Z",
+    [`F#${octave[1]}`]: "S",
+    [`G${octave[1]}`]: "X",
+    [`G#${octave[1]}`]: "D",
+    [`A${octave[1]}`]: "C",
+    [`A#${octave[1]}`]: "F",
+    [`B${octave[1]}`]: "V",
   };
 
   let KEYMAP = {
@@ -171,7 +196,8 @@ const PianoKey = ({
   };
 
   useKey(KEYMAP[noteName], noteName, releaseEvent, pressKey);
-  useKey(CHORD_KEYMAP[noteName], noteName, handleChordRelease, handleChords);
+  useKey(MAJOR_CHORD_KEYMAP[noteName], noteName, majorRelease, majorChord);
+  useKey(MINOR_CHORD_KEYMAP[noteName], noteName, minorRelease, minorChord);
 
   return (
     <PianoKeys
@@ -202,7 +228,7 @@ const PianoKey = ({
         setisPressed(false);
       }}
     >
-      <NoteName>{noteName}</NoteName>
+      <NoteName isPressed={isPressed}>{noteName}</NoteName>
     </PianoKeys>
   );
 };

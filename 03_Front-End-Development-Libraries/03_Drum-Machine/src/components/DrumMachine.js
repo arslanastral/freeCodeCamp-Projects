@@ -199,7 +199,8 @@ polysynth.set({
 
 const filter = new Tone.AutoFilter(4).start();
 const comp = new Tone.Compressor(-30, 3);
-
+// console.log(Tone.Midi("A#4").toMidi());
+// console.log(Tone.Midi("Bb4").toMidi());
 // const distortion = new Tone.Distortion(1);
 // const chorus = new Tone.Chorus();
 // const feedbackDelay = new Tone.FeedbackDelay("8n", 0.5);
@@ -207,7 +208,7 @@ const comp = new Tone.Compressor(-30, 3);
 // const crusher = new Tone.BitCrusher(5);
 // const cheby = new Tone.Chebyshev(20);
 // const pitchShift = new Tone.PitchShift();
-// const reverb = new Tone.Reverb(0.8);
+const reverb = new Tone.Reverb(30);
 const tremolo = new Tone.Tremolo(10, 0.85).start();
 // const vibrato = new Tone.Vibrato(10, 0.75);
 // const autoPanner = new Tone.AutoPanner("4n");
@@ -219,7 +220,7 @@ const tremolo = new Tone.Tremolo(10, 0.85).start();
 //   baseFrequency: 1000,
 // });
 // const reverb = new Tone.JCReverb(0.8);
-let audioEffects = [filter, tremolo, comp];
+let audioEffects = [filter, tremolo, reverb, comp];
 
 // console.log(audioEffects[1]);
 // console.log(audioEffects[0].frequency.value);
