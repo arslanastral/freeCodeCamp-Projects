@@ -199,8 +199,109 @@ polysynth.set({
 
 const filter = new Tone.AutoFilter(4).start();
 const comp = new Tone.Compressor(-30, 3);
-// console.log(Tone.Midi("A#4").toMidi());
-// console.log(Tone.Midi("Bb4").toMidi());
+// console.log(Tone.Midi("A1").toMidi());
+// console.log(Tone.Midi("A2").toMidi());
+
+// let notess = [
+//   "A0.mp3",
+//   "A1.mp3",
+//   "A2.mp3",
+//   "A3.mp3",
+//   "A4.mp3",
+//   "A5.mp3",
+//   "A6.mp3",
+//   "A7.mp3",
+//   "Ab1.mp3",
+//   "Ab2.mp3",
+//   "Ab3.mp3",
+//   "Ab4.mp3",
+//   "Ab5.mp3",
+//   "Ab6.mp3",
+//   "Ab7.mp3",
+//   "B0.mp3",
+//   "B1.mp3",
+//   "B2.mp3",
+//   "B3.mp3",
+//   "B4.mp3",
+//   "B5.mp3",
+//   "B6.mp3",
+//   "B7.mp3",
+//   "Bb0.mp3",
+//   "Bb1.mp3",
+//   "Bb2.mp3",
+//   "Bb3.mp3",
+//   "Bb4.mp3",
+//   "Bb5.mp3",
+//   "Bb6.mp3",
+//   "Bb7.mp3",
+//   "C1.mp3",
+//   "C2.mp3",
+//   "C3.mp3",
+//   "C4.mp3",
+//   "C5.mp3",
+//   "C6.mp3",
+//   "C7.mp3",
+//   "C8.mp3",
+//   "D1.mp3",
+//   "D2.mp3",
+//   "D3.mp3",
+//   "D4.mp3",
+//   "D5.mp3",
+//   "D6.mp3",
+//   "D7.mp3",
+//   "Db1.mp3",
+//   "Db2.mp3",
+//   "Db3.mp3",
+//   "Db4.mp3",
+//   "Db5.mp3",
+//   "Db6.mp3",
+//   "Db7.mp3",
+//   "E1.mp3",
+//   "E2.mp3",
+//   "E3.mp3",
+//   "E4.mp3",
+//   "E5.mp3",
+//   "E6.mp3",
+//   "E7.mp3",
+//   "Eb1.mp3",
+//   "Eb2.mp3",
+//   "Eb3.mp3",
+//   "Eb4.mp3",
+//   "Eb5.mp3",
+//   "Eb6.mp3",
+//   "Eb7.mp3",
+//   "F1.mp3",
+//   "F2.mp3",
+//   "F3.mp3",
+//   "F4.mp3",
+//   "F5.mp3",
+//   "F6.mp3",
+//   "F7.mp3",
+//   "G1.mp3",
+//   "G2.mp3",
+//   "G3.mp3",
+//   "G4.mp3",
+//   "G5.mp3",
+//   "G6.mp3",
+//   "G7.mp3",
+//   "Gb1.mp3",
+//   "Gb2.mp3",
+//   "Gb3.mp3",
+//   "Gb4.mp3",
+//   "Gb5.mp3",
+//   "Gb6.mp3",
+//   "Gb7.mp3",
+// ];
+
+// // let midinotes = notess.map((ele) => Tone.Midi(ele).toMidi());
+
+// let objj = notess.reduce((obj, ele) => {
+//   obj[Tone.Midi(ele).toMidi()] = ele;
+//   return obj;
+// }, {});
+
+// console.log(objj);
+
 const distortion = new Tone.Distortion(1);
 // const chorus = new Tone.Chorus();
 // const feedbackDelay = new Tone.FeedbackDelay("8n", 0.5);
@@ -211,7 +312,8 @@ const pitchShift = new Tone.PitchShift();
 const reverb = new Tone.Reverb(30);
 const tremolo = new Tone.Tremolo(10, 0.85).start();
 const vibrato = new Tone.Vibrato(10, 0.85);
-const autoPanner = new Tone.AutoPanner("4n");
+const chorus = new Tone.Chorus(4, 2.5, 0.5).start();
+// const autoPanner = new Tone.AutoPanner("4n");
 // const autoWah = new Tone.AutoWah(50);
 // var pingPong = new Tone.PingPongDelay("4n", 0.2);
 // var phaser = new Tone.Phaser({
@@ -228,7 +330,7 @@ let audioEffects = [
   crusher,
   pitchShift,
   vibrato,
-  autoPanner,
+  chorus,
   comp,
 ];
 
