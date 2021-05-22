@@ -142,6 +142,7 @@ var allInstrument = SampleLibrary.load({
     "violin",
     "xylophone",
   ],
+  minify: true,
 });
 
 const boom = new Tone.Player(
