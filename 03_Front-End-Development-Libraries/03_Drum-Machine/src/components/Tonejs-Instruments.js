@@ -16,8 +16,6 @@ const SampleLibrary = {
     "contrabass",
     "casio",
     "flute",
-    "female-voice-aa",
-    "female-voice-oo",
     "french-horn",
     "guitar-acoustic",
     "guitar-electric",
@@ -30,6 +28,7 @@ const SampleLibrary = {
     "trombone",
     "trumpet",
     "tuba",
+    "tubular-bells",
     "violin",
     "xylophone",
   ],
@@ -237,24 +236,6 @@ const SampleLibrary = {
     E5: "E5.mp3",
     A3: "A3.mp3",
     A4: "A4.mp3",
-  },
-  "female-voice-aa": {
-    A5: "aa_A5.mp3",
-    "D#4": "aa_Db4.mp3",
-    "D#5": "aa_Db5.mp3",
-    "E#4": "aa_Eb4.mp3",
-    F5: "aa_F5.mp3",
-    C6: "aa_C6.mp3",
-    A3: "aa_A3.mp3",
-    A4: "aa_A4.mp3",
-  },
-  "female-voice-oo": {
-    A5: "oo_A5.mp3",
-    "D#4": "oo_Db4.mp3",
-    "D#5": "oo_Db5.mp3",
-    C6: "oo_C6.mp3",
-    A3: "oo_A3.mp3",
-    A4: "oo_A4.mp3",
   },
   "french-horn": {
     D2: "D2.mp3",
@@ -646,7 +627,7 @@ const SampleLibrary = {
     C6: "C6.mp3",
   },
 
-  tubular_bells: {
+  "tubular-bells": {
     21: "A0.mp3",
     22: "Bb0.mp3",
     23: "B0.mp3",
