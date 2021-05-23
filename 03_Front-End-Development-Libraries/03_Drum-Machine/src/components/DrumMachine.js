@@ -296,58 +296,12 @@ const comp = new Tone.Compressor(-30, 3);
 
 // let midinotes = notess.map((ele) => Tone.Midi(ele).toMidi());
 
-let notess = [
-  "B2.mp3",
-  "B0.mp3",
-  "A1.mp3",
-  "G4.mp3",
-  "G5.mp3",
-  "G6.mp3",
-  "A6.mp3",
-  "Eb2.mp3",
-  "F6.mp3",
-  "B6.mp3",
-  "B3.mp3",
-  "A4.mp3",
-  "Db1.mp3",
-  "A3.mp3",
-  "F3.mp3",
-  "B5.mp3",
-  "B1.mp3",
-  "F1.mp3",
-  "G0.mp3",
-  "A0.mp3",
-  "Db4.mp3",
-  "Db3.mp3",
-  "Eb6.mp3",
-  "F4.mp3",
-  "F2.mp3",
-  "C7.mp3",
-  "Db5.mp3",
-  "Eb3.mp3",
-  "A2.mp3",
-  "Db2.mp3",
-  "Db6.mp3",
-  "F5.mp3",
-  "Eb1.mp3",
-  "G2.mp3",
-  "Eb5.mp3",
-  "Db0.mp3",
-  "B4.mp3",
-  "G1.mp3",
-  "Eb0.mp3",
-  "A5.mp3",
-  "Eb4.mp3",
-  "F0.mp3",
-  "G3.mp3",
-];
+// let objj = notess.reduce((obj, ele) => {
+//   obj[Tone.Midi(ele).toMidi()] = ele;
+//   return obj;
+// }, {});
 
-let objj = notess.reduce((obj, ele) => {
-  obj[Tone.Midi(ele).toMidi()] = ele;
-  return obj;
-}, {});
-
-console.log(objj);
+// console.log(objj);
 
 const distortion = new Tone.Distortion(1);
 // const chorus = new Tone.Chorus();
