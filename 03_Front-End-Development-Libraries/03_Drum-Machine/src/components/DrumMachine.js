@@ -137,6 +137,7 @@ var allInstrument = SampleLibrary.load({
     "harmonium",
     "harmonica",
     "harp",
+    "harpsichord",
     "organ",
     "renaissance-organ",
     "ocarina",
