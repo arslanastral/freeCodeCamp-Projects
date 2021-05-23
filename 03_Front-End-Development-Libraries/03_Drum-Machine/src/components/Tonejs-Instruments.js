@@ -23,6 +23,7 @@ const SampleLibrary = {
     "harmonium",
     "harp",
     "organ",
+    "ocarina-typical",
     "piano",
     "upright-piano-knight",
     "saxophone",
@@ -686,6 +687,18 @@ const SampleLibrary = {
     74: "D5.mp3",
     76: "E5.mp3",
     77: "F5.mp3",
+  },
+  "ocarina-typical": {
+    57: "A3.mp3",
+    60: "C4.mp3",
+    61: "Db4.mp3",
+    63: "Eb4.mp3",
+    64: "E4.mp3",
+    66: "Gb4.mp3",
+    68: "Ab4.mp3",
+    69: "A4.mp3",
+    70: "Bb4.mp3",
+    72: "C5.mp3",
   },
 };
 
