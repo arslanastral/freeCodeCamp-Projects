@@ -120,6 +120,7 @@ function DrumMachineProvider({ children }) {
 var allInstrument = SampleLibrary.load({
   instruments: [
     "piano",
+    "upright-piano-knight",
     "bass-electric",
     "bassoon",
     "cello",
