@@ -133,9 +133,11 @@ var allInstrument = SampleLibrary.load({
     "guitar-electric",
     "guitar-nylon",
     "harmonium",
+    "harmonica",
     "harp",
     "organ",
-    "ocarina-typical",
+    "renaissance-organ",
+    "ocarina",
     "saxophone",
     "trombone",
     "trumpet",
@@ -296,25 +298,13 @@ const comp = new Tone.Compressor(-30, 3);
 // ];
 
 // let midinotes = notess.map((ele) => Tone.Midi(ele).toMidi());
-let notess = [
-  "E4.mp3",
-  "A4.mp3",
-  "Ab4.mp3",
-  "A3.mp3",
-  "Bb4.mp3",
-  "Db4.mp3",
-  "C5.mp3",
-  "C4.mp3",
-  "Gb4.mp3",
-  "Eb4.mp3",
-];
 
-let objj = notess.reduce((obj, ele) => {
-  obj[Tone.Midi(ele).toMidi()] = ele;
-  return obj;
-}, {});
+// let objj = notess.reduce((obj, ele) => {
+//   obj[Tone.Midi(ele).toMidi()] = ele;
+//   return obj;
+// }, {});
 
-console.log(objj);
+// console.log(objj);
 
 const distortion = new Tone.Distortion(1);
 // const chorus = new Tone.Chorus();
