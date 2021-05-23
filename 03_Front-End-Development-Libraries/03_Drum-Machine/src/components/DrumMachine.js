@@ -293,7 +293,7 @@ const comp = new Tone.Compressor(-30, 3);
 //   "Gb7.mp3",
 // ];
 
-// // let midinotes = notess.map((ele) => Tone.Midi(ele).toMidi());
+// let midinotes = notess.map((ele) => Tone.Midi(ele).toMidi());
 
 // let objj = notess.reduce((obj, ele) => {
 //   obj[Tone.Midi(ele).toMidi()] = ele;
