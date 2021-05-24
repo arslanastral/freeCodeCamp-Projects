@@ -122,7 +122,6 @@ var allInstrument = SampleLibrary.load({
     "piano",
     "upright-piano",
     "grand-piano",
-    "upright-piano-knight",
     "bass-electric",
     "bassoon",
     "cello",
@@ -209,12 +208,14 @@ const comp = new Tone.Compressor(-30, 3);
 // console.log(Tone.Midi("D#4").toMidi());
 // console.log(Tone.Midi("Eb4").toMidi());
 
-// let objj = notess.reduce((obj, ele) => {
-//   obj[Tone.Midi(ele).toMidi()] = ele;
-//   return obj;
-// }, {});
+let notess = ["G4.mp3", "G5.mp3", "G6.mp3", "C6.mp3", "C5.mp3", "C7.mp3"];
 
-// console.log(objj);
+let objj = notess.reduce((obj, ele) => {
+  obj[Tone.Midi(ele).toMidi()] = ele;
+  return obj;
+}, {});
+
+console.log(objj);
 
 const distortion = new Tone.Distortion(1);
 // const chorus = new Tone.Chorus();
