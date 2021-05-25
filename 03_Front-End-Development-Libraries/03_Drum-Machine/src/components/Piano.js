@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import { DrumMachineContext } from "./DrumMachine";
 
@@ -21,6 +22,9 @@ const Piano = () => {
     // currentInstrument,
     audioEffects,
     octave,
+    isRecording,
+    recordedNote,
+    setrecordedNote,
   } = React.useContext(DrumMachineContext);
 
   // console.log(piano);
@@ -33,9 +37,14 @@ const Piano = () => {
   }, [audioEffects, piano]);
 
   const playNote = (note) => {
-    setCurrentNote(note);
+    // setCurrentNote(note);
     Tone.loaded().then(() => {
-      piano.triggerAttack(Tone.Frequency(note), "+0.05");
+      if (isRecording) {
+        // setrecordedNote([...recordedNote, [Tone.now().toFixed(3), note]]);
+        setrecordedNote([...recordedNote, note]);
+      }
+
+      piano.triggerAttack(Tone.Frequency(note));
     });
   };
 
@@ -101,7 +110,6 @@ const Piano = () => {
       Tone.Frequency(`F#${octave[1]}`),
     ],
   };
-
 
   const MINOR_CHORD_MAP = {
     [`C${octave[1]}`]: [
@@ -169,29 +177,27 @@ const Piano = () => {
   const playMajorChord = (note) => {
     setCurrentNote(`${note} Major Chord`);
     Tone.loaded().then(() => {
-      piano.triggerAttack(MAJOR_CHORD_MAP[note], "+0.05");
+      piano.triggerAttack(MAJOR_CHORD_MAP[note]);
     });
   };
 
-  
   const playMinorChord = (note) => {
     setCurrentNote(`${note} Minor Chord`);
     Tone.loaded().then(() => {
-      piano.triggerAttack(MINOR_CHORD_MAP[note], "+0.05");
+      piano.triggerAttack(MINOR_CHORD_MAP[note]);
     });
   };
 
   const releaseMajorChord = (note) => {
-    piano.triggerRelease(MAJOR_CHORD_MAP[note], "+0.05");
+    piano.triggerRelease(MAJOR_CHORD_MAP[note]);
   };
 
   const releaseMinorChord = (note) => {
-    piano.triggerRelease(MINOR_CHORD_MAP[note], "+0.05");
+    piano.triggerRelease(MINOR_CHORD_MAP[note]);
   };
 
-
   const release = (note) => {
-    piano.triggerRelease(Tone.Frequency(note), "+0.05");
+    piano.triggerRelease(Tone.Frequency(note));
   };
 
   let NOTES = [

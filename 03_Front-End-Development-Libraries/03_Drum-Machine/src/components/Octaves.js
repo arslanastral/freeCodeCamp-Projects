@@ -1,5 +1,7 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import { DrumMachineContext } from "./DrumMachine";
+import * as Tone from "tone";
 import styled from "styled-components";
 
 const OctavesContainer = styled.div`
@@ -38,7 +40,14 @@ const OctaveButton = styled.button`
 `;
 
 const Octaves = () => {
-  const { setOctave, octave } = React.useContext(DrumMachineContext);
+  const {
+    setOctave,
+    octave,
+    isRecording,
+    setisRecording,
+    recordedNote,
+    piano,
+  } = React.useContext(DrumMachineContext);
 
   const updateNegativeOctaveHandler = (octave, setOctave) => {
     if (octave.toString() === [0, 1, 2].toString()) {
@@ -66,6 +75,45 @@ const Octaves = () => {
     setOctave(newOctave);
   };
 
+  const recordNote = () => {
+    if (isRecording) {
+      return;
+    }
+
+    setisRecording(true);
+  };
+
+  const stopNoteRecord = () => {
+    setisRecording(false);
+  };
+
+  const stopTransport = () => {
+    Tone.Transport.stop();
+  };
+
+  const playRecNotes = () => {
+    console.log(recordedNote);
+
+    if (!recordedNote.length) {
+      console.log("Nothing to play!");
+      return;
+    }
+
+    const part = new Tone.Sequence((time, note) => {
+      piano.triggerAttackRelease(note, "1m", time);
+    }, recordedNote).start(0);
+
+    // var seq = new Tone.Part(
+    //   function (time, note) {
+    //     piano.triggerAttackRelease(note, "1m", time);
+    //   },
+    //   recordedNote,
+    //   "4n"
+    // ).start(0);
+
+    Tone.Transport.start();
+  };
+
   useKey("-", updateNegativeOctaveHandler, octave, setOctave);
   useKey("=", updatePositiveOctaveHandler, octave, setOctave);
 
@@ -83,6 +131,10 @@ const Octaves = () => {
         >
           +
         </OctaveButton>
+        <OctaveButton onClick={recordNote}>⏺</OctaveButton>
+        <OctaveButton onClick={stopNoteRecord}>⏹</OctaveButton>
+        <OctaveButton onClick={playRecNotes}>▶</OctaveButton>
+        <OctaveButton onClick={stopTransport}>⏯</OctaveButton>
       </ButtonContainer>
     </OctavesContainer>
   );

@@ -78,6 +78,8 @@ export const DrumMachineContext = React.createContext();
 
 function DrumMachineProvider({ children }) {
   const [currentNote, setCurrentNote] = useState("...");
+  const [recordedNote, setrecordedNote] = useState([]);
+  const [isRecording, setisRecording] = useState(false);
   const [soundRelease, setrelease] = useState(50);
   const [masterVolume, setmasterVolume] = useState(0);
   const [currentInstrument, setcurrentInstrument] = useState("piano");
@@ -95,6 +97,10 @@ function DrumMachineProvider({ children }) {
     <DrumMachineContext.Provider
       value={{
         currentNote,
+        recordedNote,
+        setrecordedNote,
+        isRecording,
+        setisRecording,
         setCurrentNote,
         machineLoaded,
         setmachineLoaded,
@@ -147,6 +153,11 @@ var allInstrument = SampleLibrary.load({
     "tubular-bells",
     "violin",
     "xylophone",
+    "glockenspiel",
+    "vibraphone",
+    "marimba",
+    "kalimba",
+    "celesta",
   ],
   minify: true,
 });
@@ -205,18 +216,6 @@ polysynth.set({
 
 const filter = new Tone.AutoFilter(4).start();
 const comp = new Tone.Compressor(-30, 3);
-// console.log(Tone.Midi("D#4").toMidi());
-// console.log(Tone.Midi("Eb4").toMidi());
-
-let notess = ["G4.mp3", "G5.mp3", "G6.mp3", "C6.mp3", "C5.mp3", "C7.mp3"];
-
-let objj = notess.reduce((obj, ele) => {
-  obj[Tone.Midi(ele).toMidi()] = ele;
-  return obj;
-}, {});
-
-console.log(objj);
-
 const distortion = new Tone.Distortion(1);
 // const chorus = new Tone.Chorus();
 // const feedbackDelay = new Tone.FeedbackDelay("8n", 0.5);

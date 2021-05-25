@@ -14,12 +14,8 @@ const SequencerContainer = styled.div`
 `;
 
 const KnobsContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 25px;
-  justify-content: space-evenly;
-  align-items: center;
-  align-content: center;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
   height: 90%;
 `;
 const KnobWrapper = styled.div`
