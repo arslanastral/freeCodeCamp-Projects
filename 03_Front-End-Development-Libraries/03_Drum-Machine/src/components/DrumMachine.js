@@ -226,7 +226,7 @@ const pitchShift = new Tone.PitchShift();
 const reverb = new Tone.Reverb(30);
 const tremolo = new Tone.Tremolo(10, 0.85).start();
 const vibrato = new Tone.Vibrato(10, 0.85);
-const chorus = new Tone.Chorus(4, 2.5, 0.5).start();
+// const chorus = new Tone.Chorus(4, 2.5, 0.5).start();
 // const autoPanner = new Tone.AutoPanner("4n");
 // const autoWah = new Tone.AutoWah(50);
 // var pingPong = new Tone.PingPongDelay("4n", 0.2);
@@ -244,7 +244,7 @@ let audioEffects = [
   crusher,
   pitchShift,
   vibrato,
-  chorus,
+  // chorus,
   comp,
 ];
 

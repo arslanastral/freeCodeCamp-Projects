@@ -37,13 +37,17 @@ const Piano = () => {
   }, [audioEffects, piano]);
 
   const playNote = (note) => {
-    // setCurrentNote(note);
+    console.log(Tone.Transport.seconds);
+    setCurrentNote(note);
     Tone.loaded().then(() => {
       if (isRecording) {
-        // setrecordedNote([...recordedNote, [Tone.now().toFixed(3), note]]);
+        // setrecordedNote([
+        //   ...recordedNote,
+        //   [parseFloat(Tone.now().toFixed(3)), note],
+        // ]);
         setrecordedNote([...recordedNote, note]);
       }
-
+      // Tone.Transport.seconds.toFixed(3)
       piano.triggerAttack(Tone.Frequency(note));
     });
   };

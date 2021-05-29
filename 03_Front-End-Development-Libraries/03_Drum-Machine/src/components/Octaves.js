@@ -1,8 +1,10 @@
+/* eslint-disable jsx-a11y/accessible-emoji */
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { DrumMachineContext } from "./DrumMachine";
 import * as Tone from "tone";
 import styled from "styled-components";
+import { Slider } from "react-nexusui";
 
 const OctavesContainer = styled.div`
   font-family: sans-serif;
@@ -45,9 +47,16 @@ const Octaves = () => {
     octave,
     isRecording,
     setisRecording,
+    setrecordedNote,
     recordedNote,
     piano,
   } = React.useContext(DrumMachineContext);
+
+  const [transportBPM, settransportBPM] = useState(Tone.Transport.bpm.value);
+
+  useEffect(() => {
+    Tone.Transport.bpm.value = transportBPM;
+  });
 
   const updateNegativeOctaveHandler = (octave, setOctave) => {
     if (octave.toString() === [0, 1, 2].toString()) {
@@ -87,29 +96,44 @@ const Octaves = () => {
     setisRecording(false);
   };
 
-  const stopTransport = () => {
-    Tone.Transport.stop();
+  const pausePlayTransport = () => {
+    if (Tone.Transport.state === "started") {
+      console.log("Stopping Playback...");
+      Tone.Transport.stop();
+    } else {
+      console.log("Starting Playback...");
+      Tone.Transport.start();
+    }
+  };
+
+  const resetRecordedNotes = () => {
+    setrecordedNote([]);
   };
 
   const playRecNotes = () => {
     console.log(recordedNote);
-
     if (!recordedNote.length) {
       console.log("Nothing to play!");
       return;
     }
 
-    const part = new Tone.Sequence((time, note) => {
-      piano.triggerAttackRelease(note, "1m", time);
+    const seq = new Tone.Sequence((time, note) => {
+      piano.triggerAttackRelease(Tone.Frequency(note), 0.1, time);
+      // subdivisions are given as subarrays
     }, recordedNote).start(0);
 
-    // var seq = new Tone.Part(
-    //   function (time, note) {
-    //     piano.triggerAttackRelease(note, "1m", time);
-    //   },
-    //   recordedNote,
-    //   "4n"
-    // ).start(0);
+    // let diff = recordedNote.map((ele, i, arr) => {
+    //   return i === 0
+    //     ? [0, ele[1]]
+    //     : [(ele[0] - arr[i - 1][0]).toFixed(3), ele[1]];
+    // });
+
+    // console.log(diff);
+
+    // const part = new Tone.Part((time, note) => {
+    //   piano.triggerAttackRelease(note, "@1m", time);
+    // }, diff).start(0);
+    // part.loop = true;
 
     Tone.Transport.start();
   };
@@ -134,8 +158,18 @@ const Octaves = () => {
         <OctaveButton onClick={recordNote}>⏺</OctaveButton>
         <OctaveButton onClick={stopNoteRecord}>⏹</OctaveButton>
         <OctaveButton onClick={playRecNotes}>▶</OctaveButton>
-        <OctaveButton onClick={stopTransport}>⏯</OctaveButton>
+        <OctaveButton onClick={pausePlayTransport}>⏯</OctaveButton>
+        <OctaveButton onClick={resetRecordedNotes}>🗑️</OctaveButton>
       </ButtonContainer>
+      <Slider
+        size={[70, 30]}
+        mode="relative"
+        min={0}
+        max={200}
+        step={10}
+        value={transportBPM}
+        onChange={settransportBPM}
+      />
     </OctavesContainer>
   );
 };
