@@ -5,12 +5,10 @@ import Button from "./Button";
 const NumpadContainer = styled.div`
   display: grid;
   margin-top: 20px;
-  /* align-content: center; */
   justify-content: center;
   grid-column-gap: 18px;
   grid-row-gap: 20px;
   grid-template-columns: repeat(4, minmax(0, 63px));
-  /* grid-template-rows: repeat(5, minmax(0, 1fr)); */
   grid-template-areas:
     "leftparan rightparan divide multiply"
     "one two three plus"

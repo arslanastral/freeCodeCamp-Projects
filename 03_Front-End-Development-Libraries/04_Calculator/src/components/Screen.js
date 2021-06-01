@@ -1,5 +1,9 @@
 import styled from "styled-components";
 import React from "react";
+import HistoryButton from "./HistoryButton";
+import RecentCalculations from "./RecentCalculations";
+import Expression from "./Expression";
+import Answer from "./Answer";
 
 const ScreenContainer = styled.div`
   background-color: white;
@@ -11,7 +15,14 @@ const ScreenContainer = styled.div`
 `;
 
 const Screen = () => {
-  return <ScreenContainer></ScreenContainer>;
+  return (
+    <ScreenContainer>
+      <HistoryButton />
+      <RecentCalculations />
+      <Expression />
+      <Answer />
+    </ScreenContainer>
+  );
 };
 
 export default Screen;

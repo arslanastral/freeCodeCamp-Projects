@@ -4,7 +4,7 @@ import Screen from "./Screen";
 import NumberPad from "./NumberPad";
 
 const CalculatorContainer = styled.div`
-  background-color: blue;
+  background: blue;
   border-radius: 18px;
   height: 682px;
   width: 365px;
