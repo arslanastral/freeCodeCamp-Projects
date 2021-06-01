@@ -2,7 +2,8 @@ import styled from "styled-components";
 import React from "react";
 
 const RecentCalculationsContainer = styled.div`
-  background-color: pink;
+  width: 90%;
+  height: 100%;
 `;
 
 const RecentCalculations = () => {

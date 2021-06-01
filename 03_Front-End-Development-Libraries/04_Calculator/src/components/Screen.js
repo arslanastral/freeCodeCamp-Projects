@@ -14,13 +14,34 @@ const ScreenContainer = styled.div`
   box-shadow: inset 2px 2px 8px 4px rgba(0, 0, 0, 0.25);
 `;
 
+const HistoryWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 40%;
+`;
+
+const CalculationsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 100%;
+  height: 60%;
+`;
+
 const Screen = () => {
+  // const [expression, setexpression] = useState("");
+
   return (
     <ScreenContainer>
-      <HistoryButton />
-      <RecentCalculations />
-      <Expression />
-      <Answer />
+      <HistoryWrapper>
+        <HistoryButton />
+        <RecentCalculations />
+      </HistoryWrapper>
+      <CalculationsWrapper>
+        <Expression />
+        <Answer />
+      </CalculationsWrapper>
     </ScreenContainer>
   );
 };
