@@ -10,27 +10,27 @@ const NumpadContainer = styled.div`
   grid-row-gap: 20px;
   grid-template-columns: repeat(4, minmax(0, 63px));
   grid-template-areas:
-    "leftparan rightparan divide multiply"
-    "one two three plus"
-    "four five six minus"
-    "seven eight nine equal"
-    "dot zero clearentry equal";
+    "allclear leftparan rightparan divide multiply"
+    "factorial one two three plus"
+    "mod four five six minus"
+    "xpowery seven eight nine equal"
+    "ans dot zero clearentry equal";
 `;
 
 const NumberPad = () => {
   let GRID_AREA = {
     "(": "leftparan",
     ")": "rightparan",
-    "/": "divide",
-    x: "multiply",
+    " ÷ ": "divide",
+    " × ": "multiply",
     1: "one",
     2: "two",
     3: "three",
-    "+": "plus",
+    " + ": "plus",
     4: "four",
     5: "five",
     6: "six",
-    "-": "minus",
+    " - ": "minus",
     7: "seven",
     8: "eight",
     9: "nine",
@@ -38,6 +38,11 @@ const NumberPad = () => {
     ".": "dot",
     0: "zero",
     CE: "clearentry",
+    AC: "allclear",
+    "!": "factorial",
+    "%": "mod",
+    xʸ: "xpowery",
+    A: "ans",
   };
 
   return (
