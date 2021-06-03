@@ -31,17 +31,15 @@ const Expression = () => {
   const { setexpression, expression } = React.useContext(CalculatorContext);
 
   const handleExpression = (e) => {
-    setexpression(e.target.value);
+    setexpression(e.target.value.replace(/x/gi, "×").replace(/[/]/g, "÷"));
   };
 
   return (
     <ExpressionContainer>
       <StyledInput
         name="expression"
-        value={expression.replace(/X|x/g, "×").replace(/[/]/g, "÷")}
+        value={expression}
         onChange={handleExpression}
-        // eslint-disable-next-line jsx-a11y/no-autofocus
-        // autoFocus
       />
     </ExpressionContainer>
   );
