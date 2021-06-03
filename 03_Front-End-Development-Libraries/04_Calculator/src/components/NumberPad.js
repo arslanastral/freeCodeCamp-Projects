@@ -41,7 +41,7 @@ const NumberPad = () => {
     AC: "allclear",
     "!": "factorial",
     "%": "mod",
-    xʸ: "xpowery",
+    "^": "xpowery",
     A: "ans",
   };
 

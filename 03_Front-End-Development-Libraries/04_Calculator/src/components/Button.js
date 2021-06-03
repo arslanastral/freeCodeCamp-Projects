@@ -53,19 +53,13 @@ const Button = ({ name, gridarea }) => {
   //         .replace(/([-+×÷])[-+×÷]+/gi, "$1")
 
   const handleMouseDown = () => {
-    if (name === "CE") {
-      setexpression(expression.substring(0, expression.length - 1).trim());
-    } else if (name === "xʸ" && !expression[expression.length - 1] === "^") {
-      setexpression(`${expression}^`);
-      // If the expression box is empty then append 0 if button pressed is an operator to make a valid math expression
-    } else if (expression.length === 0 && /[×+÷\-=.]/g.test(name)) {
+    if (expression.length === 0 && /[×^+÷!\-=.]/g.test(name)) {
       setexpression(`0${name}`);
       // Do not repeat operator
-    } else if (expression[expression.length - 1] === name) {
-      setexpression(`${expression}`);
-      // If the last character in expression is an operator and different than current pressed operator (and not a number) than replace it with current
+    } else if (name === "CE") {
+      setexpression(expression.substring(0, expression.length - 1).trim());
     } else if (
-      /[×÷+-]/g.test(expression[expression.length - 1]) &&
+      /[×÷+\-!^]/g.test(expression[expression.length - 1]) &&
       !/[0-9]/g.test(name)
     ) {
       setexpression(`${expression.slice(0, -1)}${name}`);

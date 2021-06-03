@@ -31,7 +31,11 @@ const Expression = () => {
   const { setexpression, expression } = React.useContext(CalculatorContext);
 
   const handleExpression = (e) => {
-    setexpression(e.target.value.replace(/x/gi, "×").replace(/[/]/g, "÷"));
+    if (expression.length === 0 && /[×+÷\-=.]/g.test(e.target.value)) {
+      setexpression(`0${e.target.value}`);
+      // Do not repeat operator
+    } else
+      setexpression(e.target.value.replace(/x/gi, "×").replace(/[/]/g, "÷"));
   };
 
   return (
