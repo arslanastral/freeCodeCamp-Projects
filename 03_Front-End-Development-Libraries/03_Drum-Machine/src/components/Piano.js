@@ -41,11 +41,8 @@ const Piano = () => {
     setCurrentNote(note);
     Tone.loaded().then(() => {
       if (isRecording) {
-        // setrecordedNote([
-        //   ...recordedNote,
-        //   [parseFloat(Tone.now().toFixed(3)), note],
-        // ]);
-        setrecordedNote([...recordedNote, note]);
+        setrecordedNote([...recordedNote, [Tone.Transport.seconds, note]]);
+        // setrecordedNote([...recordedNote, note]);
       }
       // Tone.Transport.seconds.toFixed(3)
       piano.triggerAttack(Tone.Frequency(note));
