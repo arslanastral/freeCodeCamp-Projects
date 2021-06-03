@@ -47,7 +47,7 @@ const Answer = () => {
         setanswer(`=${evaluate(newExpression, scope)}`);
       } else if (
         !isValidMathExpression(newExpression) &&
-        /[*)%(+\-=]$/g.test(newExpression[newExpression.length - 1]) &&
+        /[/*)%(+\-=]$/g.test(newExpression[newExpression.length - 1]) &&
         !/([-+×÷])[-+×÷]+/gi.test(newExpression)
       ) {
         setanswer(
