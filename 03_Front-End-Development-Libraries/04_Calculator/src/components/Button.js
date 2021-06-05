@@ -23,7 +23,12 @@ const CalculatorButton = styled.button`
 `;
 
 const Button = ({ name, gridarea }) => {
-  const { setexpression, expression } = React.useContext(CalculatorContext);
+  const {
+    setexpression,
+    expression,
+    setequalPressed,
+    setexpressionPressed,
+  } = React.useContext(CalculatorContext);
   let icon;
 
   if (name === "CE") {
@@ -53,18 +58,22 @@ const Button = ({ name, gridarea }) => {
   //         .replace(/([-+×÷])[-+×÷]+/gi, "$1")
 
   const handleMouseDown = () => {
-    if (expression.length === 0 && /[×^+÷!\-=.]/g.test(name)) {
+    if (expression.length === 0 && /[×^+÷!\-.]/g.test(name)) {
       setexpression(`0${name}`);
       // Do not repeat operator
     } else if (name === "CE") {
       setexpression(expression.substring(0, expression.length - 1).trim());
+    } else if (name === "=") {
+      setequalPressed(true);
+      setexpressionPressed(false);
     } else if (
-      /[×÷+\-!^]/g.test(expression[expression.length - 1]) &&
+      /[÷+\-!×^%]/g.test(expression[expression.length - 1]) &&
       !/[0-9]/g.test(name)
     ) {
       setexpression(`${expression.slice(0, -1)}${name}`);
     } else {
       setexpression(`${expression}${name}`);
+      console.log(expression);
     }
   };
 

@@ -33,6 +33,8 @@ export const CalculatorContext = React.createContext();
 function CalculatorProvider({ children }) {
   const [expression, setexpression] = useState("");
   const [answer, setanswer] = useState("0");
+  const [equalPressed, setequalPressed] = useState(false);
+  const [expressionPressed, setexpressionPressed] = useState(true);
 
   return (
     <CalculatorContext.Provider
@@ -41,6 +43,10 @@ function CalculatorProvider({ children }) {
         setexpression,
         answer,
         setanswer,
+        equalPressed,
+        setequalPressed,
+        expressionPressed,
+        setexpressionPressed,
       }}
     >
       {children}
