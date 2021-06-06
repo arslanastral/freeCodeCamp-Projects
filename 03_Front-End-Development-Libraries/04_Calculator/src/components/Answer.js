@@ -4,7 +4,7 @@ import { CalculatorContext } from "./CalculatorBoard";
 import { evaluate, parse } from "mathjs";
 
 const AnswerContainer = styled.div`
-  margin: 2px 15px 0px 0px;
+  margin: 0px 15px 0px 0px;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -13,15 +13,24 @@ const AnswerContainer = styled.div`
   height: 60%;
 `;
 
-const AnswerExpression = styled.span`
+const AnswerExpression = styled.input`
   font-family: "Inter", sans-serif;
   color: ${(props) =>
     props.expression.length === 0 || props.equalPressed ? "black" : "#333"};
   font-size: ${(props) =>
     props.expression.length === 0 || props.equalPressed ? "42px" : "32px"};
-  width: 100%;
+  border: 0;
+  background: none;
+  min-width: 0;
+  max-width: 100%;
+  height: 100%;
   text-align: right;
   transition: all ease-out 0.07s;
+
+  &:focus {
+    outline: none;
+    border: 0;
+  }
 `;
 
 const Answer = () => {
@@ -32,11 +41,11 @@ const Answer = () => {
     expressionPressed,
     setexpressionPressed,
     equalPressed,
+    scope,
     setequalPressed,
   } = React.useContext(CalculatorContext);
 
   useEffect(() => {
-    // let scope = {};
     let newExpression = expression
       .replace(/X|x|×/g, "*")
       .replace(/÷/g, "/")
@@ -44,17 +53,15 @@ const Answer = () => {
 
     if (newExpression) {
       try {
-        parse(newExpression);
-        setanswer(`=${evaluate(newExpression)}`);
+        parse(newExpression, scope);
+        setanswer(`${evaluate(newExpression, scope)}`);
+        console.log(scope);
       } catch (error) {
+        console.log(error.message);
         if (
-          /[/*+\-=^]$/g.test(newExpression[newExpression.length - 1]) &&
-          !/([-+×÷])[-+×÷]+/gi.test(newExpression)
+          !/[/*+\-=^]$/g.test(newExpression[newExpression.length - 1]) ||
+          /([-+×÷])[-+×÷]+/gi.test(newExpression)
         ) {
-          setanswer(
-            `=${evaluate(newExpression.replace(/[/*)%(+\-=^]$/g, ""))}`
-          );
-        } else {
           setanswer(`Error`);
         }
 
@@ -63,7 +70,7 @@ const Answer = () => {
     } else {
       setanswer("0");
     }
-  }, [expression, setanswer]);
+  }, [expression, setanswer, scope]);
 
   const handleEqualPress = () => {
     if (expressionPressed === false) {
@@ -77,12 +84,13 @@ const Answer = () => {
   return (
     <AnswerContainer>
       <AnswerExpression
+        name="answer"
+        value={`=${answer}`}
         expression={expression}
-        onClick={handleEqualPress}
+        onMouseDown={handleEqualPress}
         equalPressed={equalPressed}
-      >
-        {answer}
-      </AnswerExpression>
+        readOnly
+      />
     </AnswerContainer>
   );
 };

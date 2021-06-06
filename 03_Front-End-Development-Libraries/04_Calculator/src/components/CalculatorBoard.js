@@ -7,7 +7,8 @@ const CalculatorContainer = styled.div`
   background: blue;
   border-radius: 18px;
   height: 682px;
-  width: 465px;
+  width: 365px;
+  overflow: hidden;
 `;
 
 const CalculatorBoard = () => {
@@ -35,6 +36,9 @@ function CalculatorProvider({ children }) {
   const [answer, setanswer] = useState("0");
   const [equalPressed, setequalPressed] = useState(false);
   const [expressionPressed, setexpressionPressed] = useState(true);
+  const [isExpanded, setisExpanded] = useState(false);
+  const [scope, setscope] = useState({});
+  const [history, sethistory] = useState([]);
 
   return (
     <CalculatorContext.Provider
@@ -47,6 +51,12 @@ function CalculatorProvider({ children }) {
         setequalPressed,
         expressionPressed,
         setexpressionPressed,
+        isExpanded,
+        setisExpanded,
+        scope,
+        history,
+        sethistory,
+        setscope,
       }}
     >
       {children}

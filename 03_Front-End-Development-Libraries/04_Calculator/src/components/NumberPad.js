@@ -1,24 +1,51 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import React from "react";
+import { CalculatorContext } from "./CalculatorBoard";
 import Button from "./Button";
+
+const EXPANDED_GRID_NAMES = `
+"allclear log ln pi numbere"
+"cos sin tan inverse degreeradian"
+"squareroot leftparan rightparan dot divide"
+"factorial one two three multiply"
+"mod four five six plus"
+"xpowery seven eight nine minus"
+"expand ans zero clearentry equal";
+`;
+const DEFAULT_GRID_NAMES = `
+"leftparan rightparan dot divide"
+"one two three multiply"
+"four five six plus"
+"seven eight nine minus"
+"expand zero clearentry equal";
+`;
 
 const NumpadContainer = styled.div`
   display: grid;
   margin-top: 20px;
   justify-content: center;
-  grid-column-gap: 18px;
-  grid-row-gap: 20px;
-  grid-template-columns: repeat(4, minmax(0, 63px));
-  grid-template-areas:
-    "allclear leftparan rightparan divide multiply"
-    "factorial one two three plus"
-    "mod four five six minus"
-    "xpowery seven eight nine equal"
-    "ans dot zero clearentry equal";
+  grid-column-gap: ${(props) => (props.isExpanded ? "20px" : "18px")};
+  grid-row-gap: ${(props) => (props.isExpanded ? "12px" : "20px")};
+  grid-template-columns: ${(props) =>
+    props.isExpanded
+      ? "repeat(4, minmax(0, 47px))"
+      : "repeat(4, minmax(0, 63px))"};
+  grid-template-areas: ${(props) =>
+    props.isExpanded
+      ? css`
+          ${EXPANDED_GRID_NAMES}
+        `
+      : css`
+          ${DEFAULT_GRID_NAMES}
+        `};
+
+  transition: all ease-out 0.1s;
 `;
 
 const NumberPad = () => {
-  let GRID_AREA = {
+  const { isExpanded } = React.useContext(CalculatorContext);
+
+  let DEFAULT_GRID_AREA = {
     "(": "leftparan",
     ")": "rightparan",
     "÷": "divide",
@@ -34,19 +61,36 @@ const NumberPad = () => {
     7: "seven",
     8: "eight",
     9: "nine",
-    "=": "equal",
-    ".": "dot",
+    ex: "expand",
     0: "zero",
+    ".": "dot",
     CE: "clearentry",
-    AC: "allclear",
+    "=": "equal",
+  };
+
+  let EXPANDED_GRID_AREA = {
+    ...DEFAULT_GRID_AREA,
+    C: "allclear",
     "!": "factorial",
     "%": "mod",
     "^": "xpowery",
     A: "ans",
+    "√": "squareroot",
+    "log(": "log",
+    "㏑": "ln",
+    π: "pi",
+    "𝑒": "numbere",
+    "cos(": "cos",
+    "sin(": "sin",
+    "tan(": "tan",
+    inv: "inverse",
+    "°/c": "degreeradian",
   };
 
+  let GRID_AREA = isExpanded ? EXPANDED_GRID_AREA : DEFAULT_GRID_AREA;
+
   return (
-    <NumpadContainer>
+    <NumpadContainer isExpanded={isExpanded}>
       {Object.entries(GRID_AREA).map((keys, i) => (
         <Button key={i} name={keys[0]} gridarea={keys[1]} />
       ))}
