@@ -41,21 +41,19 @@ const History = () => {
   const {
     isHistoryToggled,
     history,
-    answer,
     expression,
     setexpression,
-    setanswer,
+    setexpressionPressed,
+    setisHistoryToggled,
+    setequalPressed,
   } = React.useContext(CalculatorContext);
 
-  const handleHistoryExpressionClick = (expr) => {
+  const handleHistoryClick = (expr) => {
     if (expr !== expression) {
-      setexpression(expression);
-    }
-  };
-
-  const handleHistoryAnswerClick = (ans) => {
-    if (ans !== answer) {
-      setanswer(ans);
+      setexpression(expr);
+      setexpressionPressed(true);
+      setequalPressed(false);
+      setisHistoryToggled(false);
     }
   };
 
@@ -67,15 +65,11 @@ const History = () => {
       {" "}
       {history.map((calc, i) => (
         <HistoryItemContainer key={i}>
-          <HistoryItem
-            onMouseDown={() => handleHistoryExpressionClick(calc.expression)}
-          >
+          <HistoryItem onMouseDown={() => handleHistoryClick(calc.expression)}>
             {calc.expression}
           </HistoryItem>{" "}
           <span>{` = `}</span>
-          <HistoryItem
-            onMouseDown={() => handleHistoryAnswerClick(calc.answer)}
-          >
+          <HistoryItem onMouseDown={() => handleHistoryClick(calc.answer)}>
             {" "}
             {calc.answer}
           </HistoryItem>
