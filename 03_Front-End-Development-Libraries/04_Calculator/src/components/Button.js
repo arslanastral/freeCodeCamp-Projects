@@ -32,6 +32,7 @@ const Button = ({ name, gridarea }) => {
     setexpressionPressed,
     isExpanded,
     setisExpanded,
+    equalPressed,
     history,
     sethistory,
   } = React.useContext(CalculatorContext);
@@ -67,21 +68,23 @@ const Button = ({ name, gridarea }) => {
       >
         <path
           d="M26 20.4416V9.33048C25.9995 8.84337 25.8709 8.36494 25.6271 7.94321C25.3834 7.52148 25.033 7.17127 24.6111 6.92771L14.8889 1.37215C14.4666 1.12835 13.9876 1 13.5 1C13.0124 1 12.5334 1.12835 12.1111 1.37215L2.38889 6.92771C1.96703 7.17127 1.61664 7.52148 1.37286 7.94321C1.12909 8.36494 1.0005 8.84337 1 9.33048V20.4416C1.0005 20.9287 1.12909 21.4071 1.37286 21.8289C1.61664 22.2506 1.96703 22.6008 2.38889 22.8444L12.1111 28.3999C12.5334 28.6437 13.0124 28.7721 13.5 28.7721C13.9876 28.7721 14.4666 28.6437 14.8889 28.3999L24.6111 22.8444C25.033 22.6008 25.3834 22.2506 25.6271 21.8289C25.8709 21.4071 25.9995 20.9287 26 20.4416Z"
-          stroke="#333333"
+          stroke="blue"
+          fill="white"
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
         <path
           d="M1.375 7.88605L13.5 14.8999L25.625 7.88605"
-          stroke="#333333"
+          stroke="blue"
+          fill="white"
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
         <path
           d="M13.5 28.886V14.886"
-          stroke="#333333"
+          stroke="blue"
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -147,11 +150,12 @@ const Button = ({ name, gridarea }) => {
       }
     } else if (
       /[÷+\-!×^%]/g.test(expression[expression.length - 1]) &&
+      !equalPressed &&
       !/[0-9]/g.test(name)
     ) {
       setexpression(`${expression.slice(0, -1)}${name}`);
     } else {
-      setexpression(`${expression}${name}`);
+      setexpression(`${equalPressed ? name : `${expression}${name}`}`);
       setexpressionPressed(true);
       setequalPressed(false);
 

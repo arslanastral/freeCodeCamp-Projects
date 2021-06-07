@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { CalculatorContext } from "./CalculatorBoard";
 
 const HistoryToggleButton = styled.button`
   border: 0;
@@ -16,9 +17,17 @@ const HistoryToggleButton = styled.button`
 const HistoryToggleContainer = styled.div``;
 
 const HistoryButton = () => {
+  const { isHistoryToggled, setisHistoryToggled } = React.useContext(
+    CalculatorContext
+  );
+
+  const handleHistoryToggle = () => {
+    isHistoryToggled ? setisHistoryToggled(false) : setisHistoryToggled(true);
+  };
+
   return (
     <HistoryToggleContainer>
-      <HistoryToggleButton>
+      <HistoryToggleButton onMouseDown={handleHistoryToggle}>
         <svg
           width="27"
           height="25"

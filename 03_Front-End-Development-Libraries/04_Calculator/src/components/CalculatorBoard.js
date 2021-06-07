@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import React, { useState } from "react";
 import Screen from "./Screen";
+import History from "./History";
 import NumberPad from "./NumberPad";
 
 const CalculatorContainer = styled.div`
@@ -8,6 +9,7 @@ const CalculatorContainer = styled.div`
   border-radius: 18px;
   height: 682px;
   width: 365px;
+  position: relative;
   overflow: hidden;
 `;
 
@@ -25,6 +27,7 @@ const CalculatorWrapper = React.memo(() => {
     <CalculatorContainer>
       <Screen />
       <NumberPad />
+      <History />
     </CalculatorContainer>
   );
 });
@@ -37,6 +40,7 @@ function CalculatorProvider({ children }) {
   const [equalPressed, setequalPressed] = useState(false);
   const [expressionPressed, setexpressionPressed] = useState(true);
   const [isExpanded, setisExpanded] = useState(false);
+  const [isHistoryToggled, setisHistoryToggled] = useState(false);
   const [scope, setscope] = useState({});
   const [history, sethistory] = useState([]);
 
@@ -51,6 +55,8 @@ function CalculatorProvider({ children }) {
         setequalPressed,
         expressionPressed,
         setexpressionPressed,
+        isHistoryToggled,
+        setisHistoryToggled,
         isExpanded,
         setisExpanded,
         scope,
