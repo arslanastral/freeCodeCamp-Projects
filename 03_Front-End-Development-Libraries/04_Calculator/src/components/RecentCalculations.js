@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import React from "react";
+import "animate.css";
 import { CalculatorContext } from "./CalculatorBoard";
 
 const RecentCalculationsContainer = styled.div`
@@ -22,6 +23,8 @@ const Calculation = styled.span`
   font-size: 20px;
   color: #989898;
   white-space: nowrap;
+  animation: backInLeft;
+  animation-duration: 0.7s;
 `;
 
 const RecentCalculations = () => {
@@ -30,8 +33,8 @@ const RecentCalculations = () => {
   const recentHistory = history.slice(-2);
   return (
     <RecentCalculationsContainer>
-      {recentHistory.map((calc, i) => (
-        <Calculation key={i}>
+      {recentHistory.map((calc) => (
+        <Calculation key={calc.expression}>
           {calc.expression} = {calc.answer}
         </Calculation>
       ))}

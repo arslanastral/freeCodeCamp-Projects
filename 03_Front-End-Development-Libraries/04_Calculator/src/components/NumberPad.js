@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import React from "react";
 import { CalculatorContext } from "./CalculatorBoard";
+import "animate.css";
 import Button from "./Button";
 
 const EXPANDED_GRID_NAMES = `
@@ -39,7 +40,8 @@ const NumpadContainer = styled.div`
           ${DEFAULT_GRID_NAMES}
         `};
 
-  transition: all ease-out 0.1s;
+  animation: zoomIn;
+  animation-duration: 0.4s;
 `;
 
 const NumberPad = () => {
@@ -90,7 +92,10 @@ const NumberPad = () => {
   let GRID_AREA = isExpanded ? EXPANDED_GRID_AREA : DEFAULT_GRID_AREA;
 
   return (
-    <NumpadContainer isExpanded={isExpanded}>
+    <NumpadContainer
+      key={Object.entries(GRID_AREA).length}
+      isExpanded={isExpanded}
+    >
       {Object.entries(GRID_AREA).map((keys, i) => (
         <Button key={i} name={keys[0]} gridarea={keys[1]} />
       ))}
