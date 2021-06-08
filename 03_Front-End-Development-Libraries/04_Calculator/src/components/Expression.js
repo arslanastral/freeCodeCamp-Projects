@@ -13,13 +13,12 @@ const ExpressionContainer = styled.div`
 
 const StyledInput = styled.input`
   font-family: "Inter", sans-serif;
-  color: ${(props) => (props.expressionPressed ? "black" : "#333")};
-  font-size: ${(props) => (props.expressionPressed ? "42px" : "32px")};
+  color: ${(props) => (props.expressionPressed ? "black" : "#6c4f4f")};
+  font-size: ${(props) => (props.expressionPressed ? "40px" : "32px")};
+  font-weight: ${(props) => (props.expressionPressed ? "600" : "400")};
   background: none;
   border: 0;
-  min-width: 0;
   max-width: 100%;
-  /* height: 90%; */
   text-align: right;
   transition: all ease-out 0.07s;
 

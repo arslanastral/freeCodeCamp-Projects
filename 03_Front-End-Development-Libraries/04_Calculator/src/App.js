@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import CalculatorBoard from "./components/CalculatorBoard";
 const AppContainer = styled.div`
-  /* background-color: black; */
+  background-color: black;
   display: flex;
   justify-content: center;
   align-items: center;

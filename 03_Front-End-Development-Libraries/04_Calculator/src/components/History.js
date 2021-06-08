@@ -7,9 +7,10 @@ const HistoryContainer = styled.div`
   flex-direction: column;
   background-color: white;
   box-shadow: inset 2px 2px 8px 4px rgba(0, 0, 0, 0.03);
+  border-radius: 18px;
   width: 100%;
   height: 61%;
-  bottom: 0px;
+  bottom: 4px;
   /* display: ${(props) => (props.isHistoryToggled ? "" : "none")}; */
   visibility: ${(props) => (props.isHistoryToggled ? "visible" : "hidden")};
   position: absolute;
@@ -25,16 +26,28 @@ const HistoryItem = styled.button`
   margin-top: 10px;
   padding: 0;
   background: none;
-  border: 0.2px solid blue;
+  border: 1px solid #dfe1e5;
+  border-radius: 4px;
   border-radius: 5px;
-  padding: 5px;
+  padding: 6px 12px;
+  font-size: 14px;
   cursor: pointer;
-  color: #333;
+  color: #1a73e8;
+
+  &:hover {
+    background-color: rgba(60, 64, 67, 0.04);
+  }
 `;
 
 const HistoryItemContainer = styled.div`
   /* margin-bottom: 5px; */
   margin: 10px 0px 5px 15px;
+`;
+
+const Equals = styled.span`
+  margin: 0px 5px 0px 5px;
+  font-family: "Inter", sans-serif;
+  color: #666b70;
 `;
 
 const History = () => {
@@ -68,7 +81,7 @@ const History = () => {
           <HistoryItem onMouseDown={() => handleHistoryClick(calc.expression)}>
             {calc.expression}
           </HistoryItem>{" "}
-          <span>{` = `}</span>
+          <Equals>{` = `}</Equals>
           <HistoryItem onMouseDown={() => handleHistoryClick(calc.answer)}>
             {" "}
             {calc.answer}

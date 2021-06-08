@@ -4,7 +4,7 @@ import "animate.css";
 import { CalculatorContext } from "./CalculatorBoard";
 
 const RecentCalculationsContainer = styled.div`
-  margin: 0px 15px 0px 0px;
+  margin: -10px 18px 0px 0px;
   width: 90%;
   height: 100%;
   display: flex;
@@ -18,10 +18,11 @@ const RecentCalculationsContainer = styled.div`
 const Calculation = styled.span`
   /* margin: 10px; */
   font-family: "Inter", sans-serif;
+  font-weight: 200;
   margin-bottom: 4px;
-  font-style: italic;
-  font-size: 20px;
-  color: #989898;
+  /* font-style: italic; */
+  font-size: 17px;
+  color: #8a8585;
   white-space: nowrap;
   animation: backInLeft;
   animation-duration: 0.7s;

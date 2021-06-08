@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { CalculatorContext } from "./CalculatorBoard";
 
 const CalculatorButton = styled.button`
-  @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+  @import url("https://fonts.googleapis.com/css2?family=Inter:wght@200;400;600&display=swap");
   font-family: "Inter", sans-serif;
   font-size: ${(props) => (props.isExpanded ? "23px" : "33px")};
   user-select: none;

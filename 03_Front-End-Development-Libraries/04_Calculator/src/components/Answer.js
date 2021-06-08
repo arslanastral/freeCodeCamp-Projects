@@ -16,12 +16,13 @@ const AnswerContainer = styled.div`
 const AnswerExpression = styled.input`
   font-family: "Inter", sans-serif;
   color: ${(props) =>
-    props.expression.length === 0 || props.equalPressed ? "black" : "#333"};
+    props.expression.length === 0 || props.equalPressed ? "black" : "#6c4f4f"};
   font-size: ${(props) =>
-    props.expression.length === 0 || props.equalPressed ? "42px" : "32px"};
+    props.expression.length === 0 || props.equalPressed ? "40px" : "32px"};
+  font-weight: ${(props) =>
+    props.expression.length === 0 || props.equalPressed ? "600" : "400"};
   border: 0;
   background: none;
-  min-width: 0;
   max-width: 100%;
   height: 100%;
   text-align: right;
