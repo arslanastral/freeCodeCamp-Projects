@@ -4,7 +4,7 @@ import { CalculatorContext } from "./CalculatorBoard";
 import { evaluate, parse } from "mathjs";
 
 const AnswerContainer = styled.div`
-  margin: 0px 15px 0px 0px;
+  margin: 0 15px 0 0;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -21,7 +21,7 @@ const AnswerExpression = styled.input`
     props.expression.length === 0 || props.equalPressed ? "40px" : "32px"};
   font-weight: ${(props) =>
     props.expression.length === 0 || props.equalPressed ? "600" : "400"};
-  border: 0px;
+  border: 0;
   background: none;
   max-width: 100%;
   height: 100%;
@@ -30,7 +30,7 @@ const AnswerExpression = styled.input`
 
   &:focus {
     outline: none;
-    border: 0px;
+    border: 0;
   }
 `;
 

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { CalculatorContext } from "./CalculatorBoard";
 
 const ExpressionContainer = styled.div`
-  margin: 0px 15px 0px 0px;
+  margin: 0 15px 0 0;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -17,14 +17,14 @@ const StyledInput = styled.input`
   font-size: ${(props) => (props.expressionPressed ? "40px" : "32px")};
   font-weight: ${(props) => (props.expressionPressed ? "600" : "400")};
   background: none;
-  border: 0px;
+  border: 0;
   max-width: 100%;
   text-align: right;
   transition: all ease-out 0.07s;
 
   &:focus {
     outline: none;
-    border: 0px;
+    border: 0;
   }
 `;
 

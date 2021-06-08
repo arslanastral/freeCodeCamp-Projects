@@ -41,7 +41,7 @@ const HistoryItem = styled.button`
 
 const HistoryItemContainer = styled.div`
   /* margin-bottom: 5px; */
-  margin: 10px 0px 5px 15px;
+  margin: 10px 0 5px 15px;
 `;
 
 const Equals = styled.span`

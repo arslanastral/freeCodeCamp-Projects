@@ -4,7 +4,7 @@ import "animate.css";
 import { CalculatorContext } from "./CalculatorBoard";
 
 const RecentCalculationsContainer = styled.div`
-  margin: -10px 18px 0px 0px;
+  margin: -10px 18px 0 0;
   width: 90%;
   height: 100%;
   display: flex;
