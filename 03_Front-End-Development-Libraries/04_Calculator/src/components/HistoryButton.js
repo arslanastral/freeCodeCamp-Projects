@@ -27,7 +27,10 @@ const HistoryButton = () => {
 
   return (
     <HistoryToggleContainer>
-      <HistoryToggleButton onMouseDown={handleHistoryToggle}>
+      <HistoryToggleButton
+        aria-label="toggle history"
+        onMouseDown={handleHistoryToggle}
+      >
         <svg
           width="27"
           height="25"

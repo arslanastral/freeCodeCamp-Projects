@@ -17,14 +17,14 @@ const StyledInput = styled.input`
   font-size: ${(props) => (props.expressionPressed ? "40px" : "32px")};
   font-weight: ${(props) => (props.expressionPressed ? "600" : "400")};
   background: none;
-  border: 0;
+  border: 0px;
   max-width: 100%;
   text-align: right;
   transition: all ease-out 0.07s;
 
   &:focus {
     outline: none;
-    border: 0;
+    border: 0px;
   }
 `;
 
@@ -61,6 +61,7 @@ const Expression = () => {
     <ExpressionContainer>
       <StyledInput
         name="expression"
+        aria-label={"expression input"}
         onMouseDown={handleExpressionPress}
         expressionPressed={expressionPressed}
         value={expression.replace(/[x*]/gi, "×").replace(/[/]/g, "÷")}

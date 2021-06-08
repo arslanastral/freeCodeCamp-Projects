@@ -21,7 +21,7 @@ const AnswerExpression = styled.input`
     props.expression.length === 0 || props.equalPressed ? "40px" : "32px"};
   font-weight: ${(props) =>
     props.expression.length === 0 || props.equalPressed ? "600" : "400"};
-  border: 0;
+  border: 0px;
   background: none;
   max-width: 100%;
   height: 100%;
@@ -30,7 +30,7 @@ const AnswerExpression = styled.input`
 
   &:focus {
     outline: none;
-    border: 0;
+    border: 0px;
   }
 `;
 
@@ -86,6 +86,7 @@ const Answer = () => {
     <AnswerContainer>
       <AnswerExpression
         name="answer"
+        aria-label={"answer"}
         value={`=${answer}`}
         expression={expression}
         onMouseDown={handleEqualPress}

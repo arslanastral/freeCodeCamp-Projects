@@ -168,6 +168,7 @@ const Button = ({ name, gridarea }) => {
       isExpanded={isExpanded}
       onMouseDown={handleMouseDown}
       gridarea={gridarea}
+      aria-label={`${gridarea} button`}
     >
       {icon}
     </CalculatorButton>
