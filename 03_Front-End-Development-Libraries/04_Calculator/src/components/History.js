@@ -3,16 +3,14 @@ import React from "react";
 import { CalculatorContext } from "./CalculatorBoard";
 
 const HistoryContainer = styled.div`
-  display: flex;
+  display: ${(props) => (props.isHistoryToggled ? "flex" : "none")};
   flex-direction: column;
-  background-color: white;
+  background: white;
   box-shadow: inset 2px 2px 8px 4px rgba(0, 0, 0, 0.03);
   border-radius: 18px;
   width: 100%;
   height: 61%;
   bottom: 4px;
-  /* display: ${(props) => (props.isHistoryToggled ? "" : "none")}; */
-  visibility: ${(props) => (props.isHistoryToggled ? "visible" : "hidden")};
   position: absolute;
   animation: ${(props) =>
     props.isHistoryToggled ? "fadeInUp" : "fadeOutDown"};
@@ -50,6 +48,14 @@ const Equals = styled.span`
   color: #666b70;
 `;
 
+const HistoryEmptyIndicator = styled.div`
+  font-family: "Inter", sans-serif;
+  font-size: 1.2rem;
+  line-height: 1.4;
+  color: #70757a;
+  margin: 20px 10px 0px 25px;
+`;
+
 const History = () => {
   const {
     isHistoryToggled,
@@ -71,23 +77,28 @@ const History = () => {
   };
 
   return (
-    <HistoryContainer
-      key={isHistoryToggled.toString()}
-      isHistoryToggled={isHistoryToggled}
-    >
-      {" "}
-      {history.map((calc, i) => (
-        <HistoryItemContainer key={i}>
-          <HistoryItem onMouseDown={() => handleHistoryClick(calc.expression)}>
-            {calc.expression}
-          </HistoryItem>{" "}
-          <Equals>{` = `}</Equals>
-          <HistoryItem onMouseDown={() => handleHistoryClick(calc.answer)}>
-            {" "}
-            {calc.answer}
-          </HistoryItem>
-        </HistoryItemContainer>
-      ))}
+    <HistoryContainer isHistoryToggled={isHistoryToggled}>
+      {history.length === 0 ? (
+        <HistoryEmptyIndicator>
+          Nothing here yet. Make some calculations & your results will appear
+          here when you hit equal which you can reuse later.
+        </HistoryEmptyIndicator>
+      ) : (
+        history.map((calc, i) => (
+          <HistoryItemContainer key={i}>
+            <HistoryItem
+              onMouseDown={() => handleHistoryClick(calc.expression)}
+            >
+              {calc.expression}
+            </HistoryItem>{" "}
+            <Equals>{` = `}</Equals>
+            <HistoryItem onMouseDown={() => handleHistoryClick(calc.answer)}>
+              {" "}
+              {calc.answer}
+            </HistoryItem>
+          </HistoryItemContainer>
+        ))
+      )}
     </HistoryContainer>
   );
 };

@@ -5,12 +5,12 @@ import "animate.css";
 import Button from "./Button";
 
 const EXPANDED_GRID_NAMES = `
-"allclear log ln pi numbere"
-"cos sin tan inverse degreeradian"
-"squareroot leftparan rightparan dot divide"
-"factorial one two three multiply"
-"mod four five six plus"
-"xpowery seven eight nine minus"
+"allclear log degreeradian pi numbere"
+"cos sin tan inverse divide"
+"squareroot leftparan rightparan dot multiply"
+"factorial one two three plus"
+"mod four five six minus"
+"xpowery seven eight nine equal"
 "expand ans zero clearentry equal";
 `;
 const DEFAULT_GRID_NAMES = `
@@ -40,12 +40,12 @@ const NumpadContainer = styled.div`
           ${DEFAULT_GRID_NAMES}
         `};
 
-  animation: zoomIn;
+  animation: ${(props) => (props.isExpanded ? "fadeInUp" : "zoomIn")};
   animation-duration: 0.4s;
 `;
 
 const NumberPad = () => {
-  const { isExpanded } = React.useContext(CalculatorContext);
+  const { isExpanded, isInverseToggled } = React.useContext(CalculatorContext);
 
   let DEFAULT_GRID_AREA = {
     "(": "leftparan",
@@ -77,16 +77,15 @@ const NumberPad = () => {
     "%": "mod",
     "^": "xpowery",
     A: "ans",
-    "√": "squareroot",
-    "log(": "log",
-    "㏑": "ln",
-    π: "pi",
-    "𝑒": "numbere",
-    "cos(": "cos",
-    "sin(": "sin",
-    "tan(": "tan",
+    "sqrt(": "squareroot",
+    [isInverseToggled ? "log10(" : "log("]: "log",
+    pi: "pi",
+    e: "numbere",
+    [isInverseToggled ? "acos(" : "cos("]: "cos",
+    [isInverseToggled ? "asin(" : "sin("]: "sin",
+    [isInverseToggled ? "atan(" : "tan("]: "tan",
     inv: "inverse",
-    "°/c": "degreeradian",
+    deg: "degreeradian",
   };
 
   let GRID_AREA = isExpanded ? EXPANDED_GRID_AREA : DEFAULT_GRID_AREA;

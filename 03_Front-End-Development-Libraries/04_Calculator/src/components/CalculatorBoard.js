@@ -1,11 +1,15 @@
 import styled from "styled-components";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Screen from "./Screen";
 import History from "./History";
 import NumberPad from "./NumberPad";
 
 const CalculatorContainer = styled.div`
   background: blue;
+  /* background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    url("https://images.unsplash.com/photo-1605106715994-18d3fecffb98")
+      no-repeat center center fixed; */
+  /* background-size: cover; */
   border-radius: 18px;
   height: 682px;
   width: 365px;
@@ -41,8 +45,10 @@ function CalculatorProvider({ children }) {
   const [expressionPressed, setexpressionPressed] = useState(true);
   const [isExpanded, setisExpanded] = useState(false);
   const [isHistoryToggled, setisHistoryToggled] = useState(false);
-  const [scope, setscope] = useState({});
+  const [isInverseToggled, setisInverseToggled] = useState(false);
   const [history, sethistory] = useState([]);
+
+  const inputRef = useRef();
 
   return (
     <CalculatorContext.Provider
@@ -57,12 +63,13 @@ function CalculatorProvider({ children }) {
         setexpressionPressed,
         isHistoryToggled,
         setisHistoryToggled,
+        isInverseToggled,
+        setisInverseToggled,
         isExpanded,
         setisExpanded,
-        scope,
         history,
         sethistory,
-        setscope,
+        inputRef,
       }}
     >
       {children}

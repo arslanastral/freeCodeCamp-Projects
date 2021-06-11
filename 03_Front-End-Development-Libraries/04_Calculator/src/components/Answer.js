@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import React, { useEffect } from "react";
 import { CalculatorContext } from "./CalculatorBoard";
-import { evaluate, parse } from "mathjs";
+import { evaluate } from "mathjs";
 
 const AnswerContainer = styled.div`
   margin: 0 15px 0 0;
@@ -42,36 +42,31 @@ const Answer = () => {
     expressionPressed,
     setexpressionPressed,
     equalPressed,
-    scope,
     setequalPressed,
   } = React.useContext(CalculatorContext);
 
   useEffect(() => {
-    let newExpression = expression
-      .replace(/X|x|×/g, "*")
-      .replace(/÷/g, "/")
-      .replace(/\s/g, "");
+    let newExpression = expression.replace(/X|x|×/g, "*").replace(/÷/g, "/");
 
     if (newExpression) {
       try {
-        parse(newExpression, scope);
-        setanswer(`${evaluate(newExpression, scope)}`);
-        console.log(scope);
+        let currentAnswer = evaluate(newExpression);
+        if (typeof currentAnswer !== "function") {
+          setanswer(`${currentAnswer}`);
+        }
       } catch (error) {
         console.log(error.message);
         if (
-          !/[/*+\-=^]$/g.test(newExpression[newExpression.length - 1]) ||
+          !/[/*+\-=^]$/g.test(newExpression) ||
           /([-+×÷])[-+×÷]+/gi.test(newExpression)
         ) {
           setanswer(`Error`);
         }
-
-        // setanswer(`Error`);
       }
     } else {
       setanswer("0");
     }
-  }, [expression, setanswer, scope]);
+  }, [expression, setanswer]);
 
   const handleEqualPress = () => {
     if (expressionPressed === false) {
