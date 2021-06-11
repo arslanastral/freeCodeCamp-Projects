@@ -106,6 +106,7 @@ const Button = ({ name, gridarea }) => {
     } else if (name === "C") {
       setexpression("");
       setanswer("0");
+      sethistory([]);
     } else if (name === "inv") {
       isInverseToggled ? setisInverseToggled(false) : setisInverseToggled(true);
     } else if (name === "=") {

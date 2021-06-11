@@ -46,7 +46,7 @@ function CalculatorProvider({ children }) {
   const [isExpanded, setisExpanded] = useState(false);
   const [isHistoryToggled, setisHistoryToggled] = useState(false);
   const [isInverseToggled, setisInverseToggled] = useState(false);
-  const [history, sethistory] = useState([]);
+  const [history, sethistory] = useLocalStorageState([], "Calculator History");
 
   const inputRef = useRef();
 
@@ -76,5 +76,16 @@ function CalculatorProvider({ children }) {
     </CalculatorContext.Provider>
   );
 }
+
+const useLocalStorageState = (defaultValue, key) => {
+  const [value, setValue] = React.useState(() => {
+    const stickyValue = window.localStorage.getItem(key);
+    return stickyValue !== null ? JSON.parse(stickyValue) : defaultValue;
+  });
+  React.useEffect(() => {
+    window.localStorage.setItem(key, JSON.stringify(value));
+  }, [key, value]);
+  return [value, setValue];
+};
 
 export default CalculatorBoard;
