@@ -15,29 +15,57 @@ const RecentCalculationsContainer = styled.div`
   overflow-y: hidden;
 `;
 
-const Calculation = styled.span`
+const Calculation = styled.input`
   /* margin: 10px; */
   font-family: "Inter", sans-serif;
+  background: none;
   font-weight: 200;
-  margin-bottom: 4px;
+  /* margin-bottom: 4px; */
   /* font-style: italic; */
   font-size: 17px;
   color: #8a8585;
   white-space: nowrap;
-  animation: backInLeft;
+  animation: fadeInDown;
   animation-duration: 0.7s;
+  cursor: pointer;
+  text-align: right;
+  max-width: 100%;
+  border: none;
+
+  &:focus {
+    outline: none;
+    border: 0;
+  }
 `;
 
 const RecentCalculations = () => {
-  const { history } = React.useContext(CalculatorContext);
+  const {
+    history,
+    expression,
+    setexpression,
+    setequalPressed,
+    setexpressionPressed,
+  } = React.useContext(CalculatorContext);
+
+  const handleRecentCalClick = (expr) => {
+    if (expr !== expression) {
+      setexpression(expr);
+      setexpressionPressed(true);
+      setequalPressed(false);
+    }
+  };
 
   const recentHistory = history.slice(-2);
   return (
     <RecentCalculationsContainer>
       {recentHistory.map((calc) => (
-        <Calculation key={calc.expression}>
-          {calc.expression} = {calc.answer}
-        </Calculation>
+        <Calculation
+          key={calc.expression}
+          value={` ${calc.expression} = ${calc.answer}`}
+          size={calc.expression.length + calc.answer.length + 3}
+          onMouseDown={() => handleRecentCalClick(calc.expression)}
+          readOnly
+        />
       ))}
     </RecentCalculationsContainer>
   );

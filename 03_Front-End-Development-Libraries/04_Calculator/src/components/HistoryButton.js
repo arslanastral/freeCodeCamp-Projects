@@ -8,6 +8,7 @@ const HistoryToggleButton = styled.button`
   margin: 10px;
   background: none;
   transition: all ease-out 0.07s;
+  cursor: pointer;
 
   &:active {
     transform: scale(0.9);
