@@ -40,6 +40,9 @@ const Expression = () => {
   } = React.useContext(CalculatorContext);
 
   const handleExpression = (e) => {
+    let currentTargetValue = e.target.value
+      .replace(/[x*]/gi, "×")
+      .replace(/[/]/g, "÷");
     // if (
     //   /[÷+\-!×^%]/g.test(e.target.value[e.target.value.length - 1]) &&
     //   !equalPressed &&
@@ -51,24 +54,20 @@ const Expression = () => {
     //     }`
     //   );
     // } else
-    if (/=/g.test(e.target.value)) {
+    if (/=/g.test(currentTargetValue)) {
       return;
-    } else if (/\s/g.test(e.target.value)) {
-      setexpression(`${e.target.value.replace(/\s/g, "")}`);
-    } else if (/([-+x^×/÷])[-+x^×/]+/gi.test(e.target.value)) {
+    } else if (/\s+/g.test(currentTargetValue)) {
+      setexpression(`${currentTargetValue.replace(/\s+/gi, " ")}`);
+    } else if (/([x^×/÷])[x^×/]+/gi.test(currentTargetValue)) {
       // setexpression(`${expression.replace(/([-+x×/÷])[-+x×/÷]+\1/gi, "$1")}`);
       return;
     } else {
-      setexpression(e.target.value);
-      console.log(`Current Target Value: ${e.target.value}`);
+      setexpression(currentTargetValue);
+      console.log(`Current Target Value: ${currentTargetValue}`);
     }
   };
 
-  // .replace(/([-+×÷])[-+×÷]+\1/gi, "$1")
-
   const handleExpressionPress = () => {
-    console.log(`Cursor Start Position: ${inputRef.current.selectionStart}`);
-    console.log(`Cursor End Position: ${inputRef.current.selectionEnd}`);
     if (equalPressed === false) {
       setexpressionPressed(true);
     } else if (equalPressed === true) {
@@ -85,8 +84,10 @@ const Expression = () => {
         aria-label={"expression input"}
         onMouseDown={handleExpressionPress}
         expressionPressed={expressionPressed}
-        value={expression.replace(/[x*]/gi, "×").replace(/[/]/g, "÷")}
+        value={expression}
         onChange={handleExpression}
+        // eslint-disable-next-line jsx-a11y/no-autofocus
+        autoFocus
       />
     </ExpressionContainer>
   );

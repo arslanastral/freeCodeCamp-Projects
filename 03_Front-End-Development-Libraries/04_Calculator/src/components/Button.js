@@ -98,7 +98,9 @@ const Button = ({ name, gridarea }) => {
     icon = name;
   }
 
-  const handleMouseDown = () => {
+  const handleMouseDown = (e) => {
+    e.preventDefault();
+    inputRef.current.focus();
     if (expression.length === 0 && /[×^÷!\\.]/g.test(name)) {
       setexpression(`0${name}`);
     } else if (name === "CE") {
@@ -126,9 +128,9 @@ const Button = ({ name, gridarea }) => {
     ) {
       setexpression(
         `${
-          expression.substr(0, inputRef.current.selectionStart - 1) +
+          expression.substring(0, inputRef.current.selectionStart - 1) +
           name +
-          expression.substr(inputRef.current.selectionStart)
+          expression.substring(inputRef.current.selectionStart)
         }`
       );
     } else {
@@ -137,15 +139,22 @@ const Button = ({ name, gridarea }) => {
           equalPressed
             ? name
             : `${
-                expression.substr(0, inputRef.current.selectionStart) +
+                expression.substring(0, inputRef.current.selectionStart) +
                 name +
-                expression.substr(inputRef.current.selectionEnd)
+                expression.substring(inputRef.current.selectionEnd)
               }`
         }`
       );
+      moveInputCaretToEnd(inputRef.current);
       setexpressionPressed(true);
       setequalPressed(false);
-      console.log(expression);
+    }
+  };
+
+  const moveInputCaretToEnd = (el) => {
+    if (typeof el.selectionStart == "number") {
+      el.focus();
+      el.setSelectionRange(el.value.length, el.value.length);
     }
   };
 
@@ -171,19 +180,21 @@ const Button = ({ name, gridarea }) => {
       inputRef.current.selectionStart === inputRef.current.selectionEnd &&
       inputRef.current.selectionStart === inputRef.current.value.length
     ) {
-      setexpression(expression.substr(0, inputRef.current.selectionStart - 1));
+      setexpression(
+        expression.substring(0, inputRef.current.selectionStart - 1).trim()
+      );
     } else if (
       inputRef.current.selectionStart === inputRef.current.selectionEnd &&
       inputRef.current.selectionStart !== inputRef.current.value.length
     ) {
       setexpression(
-        expression.substr(0, inputRef.current.selectionStart - 1) +
-          expression.substr(inputRef.current.selectionEnd)
+        expression.substring(0, inputRef.current.selectionStart - 1) +
+          expression.substring(inputRef.current.selectionEnd)
       );
     } else {
       setexpression(
-        expression.substr(0, inputRef.current.selectionStart) +
-          expression.substr(inputRef.current.selectionEnd)
+        expression.substring(0, inputRef.current.selectionStart) +
+          expression.substring(inputRef.current.selectionEnd)
       );
     }
   };

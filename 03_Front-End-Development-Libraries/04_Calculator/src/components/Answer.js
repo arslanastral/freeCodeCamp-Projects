@@ -23,7 +23,7 @@ const AnswerExpression = styled.input`
     props.expression.length === 0 || props.equalPressed ? "600" : "400"};
   border: 0;
   background: none;
-  max-width: 100%;
+  width: 100%;
   height: 100%;
   text-align: right;
   transition: all ease-out 0.07s;
@@ -55,7 +55,6 @@ const Answer = () => {
           setanswer(`${currentAnswer}`);
         }
       } catch (error) {
-        console.log(error.message);
         if (
           !/[/*+\-=^]$/g.test(newExpression) ||
           /([-+×÷])[-+×÷]+/gi.test(newExpression)

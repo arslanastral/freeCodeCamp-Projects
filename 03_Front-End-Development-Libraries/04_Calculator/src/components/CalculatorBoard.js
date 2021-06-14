@@ -43,11 +43,14 @@ function CalculatorProvider({ children }) {
   const [answer, setanswer] = useState("0");
   const [equalPressed, setequalPressed] = useState(false);
   const [expressionPressed, setexpressionPressed] = useState(true);
-  const [isExpanded, setisExpanded] = useState(false);
+  const [isExpanded, setisExpanded] = useLocalStorageState(
+    false,
+    "isExpanded?"
+  );
   const [isHistoryToggled, setisHistoryToggled] = useState(false);
   const [isInverseToggled, setisInverseToggled] = useState(false);
   const [history, sethistory] = useLocalStorageState([], "Calculator History");
-
+  const [easterEgg, seteasterEgg] = useState(false);
   const inputRef = useRef();
 
   return (
@@ -69,6 +72,8 @@ function CalculatorProvider({ children }) {
         setisExpanded,
         history,
         sethistory,
+        easterEgg,
+        seteasterEgg,
         inputRef,
       }}
     >
