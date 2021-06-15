@@ -145,14 +145,17 @@ const Button = ({ name, gridarea }) => {
   const handleHistory = () => {
     if (expression && answer !== 0 && answer !== "Error") {
       if (history.length >= 1) {
-        if (
-          expression !== history[history.length - 1].expression &&
-          answer !== history[history.length - 1].answer
-        ) {
-          sethistory([...history, { expression: expression, answer: answer }]);
+        if (expression !== history[history.length - 1].expression) {
+          sethistory([
+            ...history,
+            { expression: expression.replace(/\s/g, ""), answer: answer },
+          ]);
         }
       } else {
-        sethistory([...history, { expression: expression, answer: answer }]);
+        sethistory([
+          ...history,
+          { expression: expression.replace(/\s/g, ""), answer: answer },
+        ]);
       }
     }
   };
