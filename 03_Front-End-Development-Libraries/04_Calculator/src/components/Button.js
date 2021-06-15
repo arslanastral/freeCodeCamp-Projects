@@ -101,6 +101,12 @@ const Button = ({ name, gridarea }) => {
   const handleMouseDown = (e) => {
     e.preventDefault();
     inputRef.current.focus();
+    let el = inputRef.current;
+    console.log("before", el.selectionStart, el.selectionEnd);
+    let start = el.selectionStart;
+    let end = el.selectionEnd;
+    let text = el.value;
+
     if (expression.length === 0 && /[×^÷!\\.]/g.test(name)) {
       setexpression(`0${name}`);
     } else if (name === "CE") {
@@ -112,6 +118,7 @@ const Button = ({ name, gridarea }) => {
     } else if (name === "inv") {
       isInverseToggled ? setisInverseToggled(false) : setisInverseToggled(true);
     } else if (name === "=") {
+      inputRef.current.blur();
       setequalPressed(true);
       setexpressionPressed(false);
       handleHistory();
@@ -121,40 +128,17 @@ const Button = ({ name, gridarea }) => {
       if (history.length >= 1) {
         setexpression(`${expression}${history[history.length - 1].answer}`);
       }
-    } else if (
-      /[÷+\-^%]/g.test(expression[inputRef.current.selectionStart - 1]) &&
-      !equalPressed &&
-      !/[a-z0-9]/gi.test(name)
-    ) {
-      setexpression(
-        `${
-          expression.substring(0, inputRef.current.selectionStart - 1) +
-          name +
-          expression.substring(inputRef.current.selectionStart)
-        }`
-      );
     } else {
-      setexpression(
-        `${
-          equalPressed
-            ? name
-            : `${
-                expression.substring(0, inputRef.current.selectionStart) +
-                name +
-                expression.substring(inputRef.current.selectionEnd)
-              }`
-        }`
-      );
-      moveInputCaretToEnd(inputRef.current);
+      let before = text.substring(0, start);
+      let after = text.substring(end, text.length);
+      el.value = `${equalPressed ? name : `${before + name + after}`}`;
+      setexpression(`${equalPressed ? name : `${before + name + after}`}`);
+      console.log("after", el.selectionStart, el.selectionEnd);
+      el.focus();
+      start = end = start + name.length;
+      el.setSelectionRange(start, end);
       setexpressionPressed(true);
       setequalPressed(false);
-    }
-  };
-
-  const moveInputCaretToEnd = (el) => {
-    if (typeof el.selectionStart == "number") {
-      el.focus();
-      el.setSelectionRange(el.value.length, el.value.length);
     }
   };
 
@@ -174,28 +158,29 @@ const Button = ({ name, gridarea }) => {
   };
 
   const handleBackSpace = () => {
+    let el = inputRef.current;
+    console.log("before", el.selectionStart, el.selectionEnd);
+    let start = el.selectionStart;
+    let end = el.selectionEnd;
+    let text = el.value;
     setequalPressed(false);
     setexpressionPressed(true);
-    if (
-      inputRef.current.selectionStart === inputRef.current.selectionEnd &&
-      inputRef.current.selectionStart === inputRef.current.value.length
-    ) {
-      setexpression(
-        expression.substring(0, inputRef.current.selectionStart - 1).trim()
-      );
-    } else if (
-      inputRef.current.selectionStart === inputRef.current.selectionEnd &&
-      inputRef.current.selectionStart !== inputRef.current.value.length
-    ) {
-      setexpression(
-        expression.substring(0, inputRef.current.selectionStart - 1) +
-          expression.substring(inputRef.current.selectionEnd)
-      );
+
+    if (start === end && start === text.length) {
+      el.value = text.substring(0, start - 1).trim();
+      setexpression(text.substring(0, start - 1).trim());
+    } else if (start === end && start !== text.length) {
+      el.value = text.substring(0, start - 1) + text.substring(end);
+      setexpression(text.substring(0, start - 1) + text.substring(end));
+      el.focus();
+      start = end = start - 1;
+      el.setSelectionRange(start, end);
     } else {
-      setexpression(
-        expression.substring(0, inputRef.current.selectionStart) +
-          expression.substring(inputRef.current.selectionEnd)
-      );
+      el.value = text.substring(0, start) + text.substring(end);
+      setexpression(text.substring(0, start) + text.substring(end));
+      el.focus();
+      start = end = start;
+      el.setSelectionRange(start, end);
     }
   };
 

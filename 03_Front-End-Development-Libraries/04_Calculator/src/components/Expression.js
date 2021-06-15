@@ -40,31 +40,19 @@ const Expression = () => {
   } = React.useContext(CalculatorContext);
 
   const handleExpression = (e) => {
+    let caret = e.target.selectionStart;
+    let element = e.target;
+
+    window.requestAnimationFrame(() => {
+      element.selectionStart = caret;
+      element.selectionEnd = caret;
+    });
     let currentTargetValue = e.target.value
       .replace(/[x*]/gi, "×")
-      .replace(/[/]/g, "÷");
-    // if (
-    //   /[÷+\-!×^%]/g.test(e.target.value[e.target.value.length - 1]) &&
-    //   !equalPressed &&
-    //   !/[0-9]/g.test(e.target.value[e.target.value.length - 1])
-    // ) {
-    //   setexpression(
-    //     `${e.target.value.slice(0, -1)}${
-    //       e.target.value[e.target.value.length - 1]
-    //     }`
-    //   );
-    // } else
-    if (/=/g.test(currentTargetValue)) {
-      return;
-    } else if (/\s+/g.test(currentTargetValue)) {
-      setexpression(`${currentTargetValue.replace(/\s+/gi, " ")}`);
-    } else if (/([x^×/÷])[x^×/]+/gi.test(currentTargetValue)) {
-      // setexpression(`${expression.replace(/([-+x×/÷])[-+x×/÷]+\1/gi, "$1")}`);
-      return;
-    } else {
-      setexpression(currentTargetValue);
-      console.log(`Current Target Value: ${currentTargetValue}`);
-    }
+      .replace(/[/]/g, "÷")
+      .replace(/[\s]{2,}/g, "  ");
+
+    setexpression(currentTargetValue);
   };
 
   const handleExpressionPress = () => {
@@ -86,8 +74,6 @@ const Expression = () => {
         expressionPressed={expressionPressed}
         value={expression}
         onChange={handleExpression}
-        // eslint-disable-next-line jsx-a11y/no-autofocus
-        autoFocus
       />
     </ExpressionContainer>
   );

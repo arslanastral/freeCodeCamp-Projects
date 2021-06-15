@@ -51,7 +51,10 @@ const Answer = () => {
     if (newExpression) {
       try {
         let currentAnswer = evaluate(newExpression);
-        if (typeof currentAnswer !== "function") {
+        if (
+          typeof currentAnswer !== "function" &&
+          typeof currentAnswer !== "undefined"
+        ) {
           setanswer(`${currentAnswer}`);
         }
       } catch (error) {
