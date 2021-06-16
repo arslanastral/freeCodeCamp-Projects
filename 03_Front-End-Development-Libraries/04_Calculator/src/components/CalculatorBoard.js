@@ -6,10 +6,6 @@ import NumberPad from "./NumberPad";
 
 const CalculatorContainer = styled.div`
   background: blue;
-  /* background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
-    url("https://images.unsplash.com/photo-1605106715994-18d3fecffb98")
-      no-repeat center center fixed; */
-  /* background-size: cover; */
   border-radius: 18px;
   height: 682px;
   width: 365px;
@@ -50,7 +46,7 @@ function CalculatorProvider({ children }) {
   const [isHistoryToggled, setisHistoryToggled] = useState(false);
   const [isInverseToggled, setisInverseToggled] = useState(false);
   const [history, sethistory] = useLocalStorageState([], "Calculator History");
-  const [easterEgg, seteasterEgg] = useState(false);
+  const scope = useRef({});
   const inputRef = useRef();
 
   return (
@@ -62,6 +58,7 @@ function CalculatorProvider({ children }) {
         setanswer,
         equalPressed,
         setequalPressed,
+        scope,
         expressionPressed,
         setexpressionPressed,
         isHistoryToggled,
@@ -72,8 +69,6 @@ function CalculatorProvider({ children }) {
         setisExpanded,
         history,
         sethistory,
-        easterEgg,
-        seteasterEgg,
         inputRef,
       }}
     >

@@ -25,7 +25,7 @@ const CalculatorButton = styled.button`
   }};
   background-color: ${(props) => (props.gridarea === "equal" ? "yellow" : "")};
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-  transition: all ease-out 0.05s;
+  transition: all ease-out 0.08s;
 
   &:active {
     transform: scale(0.9);
@@ -126,7 +126,6 @@ const Button = ({ name, gridarea }) => {
       let after = text.substring(end, text.length);
       input.value = `${equalPressed ? name : `${before + name + after}`}`; //Fixes caret jumping because of react state being async.
       setexpression(`${equalPressed ? name : `${before + name + after}`}`);
-      console.log("after", input.selectionStart, input.selectionEnd);
       input.focus();
       start = end = start + name.length;
       input.setSelectionRange(start, end);

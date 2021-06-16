@@ -39,13 +39,6 @@ const Expression = () => {
     inputRef,
   } = React.useContext(CalculatorContext);
 
-  React.useEffect(() => {
-    console.log("mounted expression");
-    return () => {
-      console.log("unmounted expression");
-    };
-  }, []);
-
   const handleExpression = (e) => {
     let caret = e.target.selectionStart;
     let element = e.target;

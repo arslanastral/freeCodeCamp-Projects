@@ -43,6 +43,7 @@ const Answer = () => {
     setexpressionPressed,
     equalPressed,
     setequalPressed,
+    scope,
   } = React.useContext(CalculatorContext);
 
   useEffect(() => {
@@ -50,7 +51,7 @@ const Answer = () => {
 
     if (newExpression) {
       try {
-        let currentAnswer = evaluate(newExpression);
+        let currentAnswer = evaluate(newExpression, scope.current);
         if (
           typeof currentAnswer !== "function" &&
           typeof currentAnswer !== "undefined"
@@ -58,17 +59,12 @@ const Answer = () => {
           setanswer(`${currentAnswer}`);
         }
       } catch (error) {
-        if (
-          !/[/*+\-=^]$/g.test(newExpression) ||
-          /([-+×÷])[-+×÷]+/gi.test(newExpression)
-        ) {
-          setanswer(`Error`);
-        }
+        setanswer(`Error`);
       }
     } else {
       setanswer("0");
     }
-  }, [expression, setanswer]);
+  }, [expression, setanswer, scope]);
 
   const handleEqualPress = () => {
     if (expressionPressed === false) {

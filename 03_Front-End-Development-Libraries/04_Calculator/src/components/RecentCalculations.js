@@ -16,12 +16,9 @@ const RecentCalculationsContainer = styled.div`
 `;
 
 const Calculation = styled.input`
-  /* margin: 10px; */
   font-family: "Inter", sans-serif;
   background: none;
   font-weight: 200;
-  /* margin-bottom: 4px; */
-  /* font-style: italic; */
   font-size: 17px;
   color: #8a8585;
   white-space: nowrap;
