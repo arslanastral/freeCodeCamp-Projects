@@ -39,6 +39,13 @@ const Expression = () => {
     inputRef,
   } = React.useContext(CalculatorContext);
 
+  React.useEffect(() => {
+    console.log("mounted expression");
+    return () => {
+      console.log("unmounted expression");
+    };
+  }, []);
+
   const handleExpression = (e) => {
     let caret = e.target.selectionStart;
     let element = e.target;
@@ -74,6 +81,8 @@ const Expression = () => {
         expressionPressed={expressionPressed}
         value={expression}
         onChange={handleExpression}
+        // eslint-disable-next-line jsx-a11y/no-autofocus
+        autoFocus
       />
     </ExpressionContainer>
   );

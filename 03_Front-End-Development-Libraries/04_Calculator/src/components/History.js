@@ -16,7 +16,6 @@ const HistoryContainer = styled.div`
     props.isHistoryToggled ? "fadeInUp" : "fadeOutDown"};
   animation-duration: 0.3s;
   overflow: auto;
-  /* text-overflow: ellipsis; */
   scrollbar-color: #f0f0f0 white;
 `;
 

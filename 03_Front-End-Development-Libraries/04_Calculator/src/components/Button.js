@@ -98,15 +98,8 @@ const Button = ({ name, gridarea }) => {
     icon = name;
   }
 
-  const handleMouseDown = (e) => {
-    e.preventDefault();
-    inputRef.current.focus();
-    let el = inputRef.current;
-    console.log("before", el.selectionStart, el.selectionEnd);
-    let start = el.selectionStart;
-    let end = el.selectionEnd;
-    let text = el.value;
-
+  const handleMouseDown = () => {
+    let [text, start, end, input] = caretPosition(inputRef.current);
     if (expression.length === 0 && /[×^÷!\\.]/g.test(name)) {
       setexpression(`0${name}`);
     } else if (name === "CE") {
@@ -131,12 +124,12 @@ const Button = ({ name, gridarea }) => {
     } else {
       let before = text.substring(0, start);
       let after = text.substring(end, text.length);
-      el.value = `${equalPressed ? name : `${before + name + after}`}`;
+      input.value = `${equalPressed ? name : `${before + name + after}`}`; //Fixes caret jumping because of react state being async.
       setexpression(`${equalPressed ? name : `${before + name + after}`}`);
-      console.log("after", el.selectionStart, el.selectionEnd);
-      el.focus();
+      console.log("after", input.selectionStart, input.selectionEnd);
+      input.focus();
       start = end = start + name.length;
-      el.setSelectionRange(start, end);
+      input.setSelectionRange(start, end);
       setexpressionPressed(true);
       setequalPressed(false);
     }
@@ -161,36 +154,42 @@ const Button = ({ name, gridarea }) => {
   };
 
   const handleBackSpace = () => {
-    let el = inputRef.current;
-    console.log("before", el.selectionStart, el.selectionEnd);
-    let start = el.selectionStart;
-    let end = el.selectionEnd;
-    let text = el.value;
+    let [text, start, end, input] = caretPosition(inputRef.current);
     setequalPressed(false);
     setexpressionPressed(true);
 
     if (start === end && start === text.length) {
-      el.value = text.substring(0, start - 1).trim();
+      input.value = text.substring(0, start - 1).trim();
       setexpression(text.substring(0, start - 1).trim());
     } else if (start === end && start !== text.length) {
-      el.value = text.substring(0, start - 1) + text.substring(end);
+      input.value = text.substring(0, start - 1) + text.substring(end);
       setexpression(text.substring(0, start - 1) + text.substring(end));
-      el.focus();
+      input.focus();
       start = end = start - 1;
-      el.setSelectionRange(start, end);
+      input.setSelectionRange(start, end);
     } else {
-      el.value = text.substring(0, start) + text.substring(end);
+      input.value = text.substring(0, start) + text.substring(end);
       setexpression(text.substring(0, start) + text.substring(end));
-      el.focus();
+      input.focus();
       start = end = start;
-      el.setSelectionRange(start, end);
+      input.setSelectionRange(start, end);
     }
+  };
+
+  const caretPosition = (inputRef) => {
+    let input = inputRef;
+    let start = input.selectionStart;
+    let end = input.selectionEnd;
+    let text = input.value;
+
+    return [text, start, end, input];
   };
 
   return (
     <CalculatorButton
       isExpanded={isExpanded}
       onMouseDown={handleMouseDown}
+      onMouseUp={() => inputRef.current.focus()}
       gridarea={gridarea}
       aria-label={`${gridarea} button`}
     >
