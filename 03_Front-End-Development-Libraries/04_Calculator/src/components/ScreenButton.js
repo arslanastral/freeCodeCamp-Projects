@@ -1,11 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import { CalculatorContext } from "./CalculatorBoard";
+import { IoMdColorWand } from "react-icons/io";
 
 const HistoryToggleButton = styled.button`
   border: 0;
   padding: 0;
-  margin: 10px;
+  margin: 10px 0 0 10px;
   background: none;
   transition: all ease-out 0.07s;
   cursor: pointer;
@@ -15,19 +16,49 @@ const HistoryToggleButton = styled.button`
   }
 `;
 
-const HistoryToggleContainer = styled.div``;
+const AppearanceToggleButton = styled.button`
+  border: 0;
+  padding: 0;
+  margin: 0 0 0 10px;
+  background: none;
+  transition: all ease-out 0.07s;
+  cursor: pointer;
 
-const HistoryButton = () => {
-  const { isHistoryToggled, setisHistoryToggled } = React.useContext(
-    CalculatorContext
-  );
+  &:active {
+    transform: scale(0.9);
+  }
+`;
+
+const ScreenButtonsContainer = styled.div``;
+
+const ScreenButton = () => {
+  const {
+    isHistoryToggled,
+    setisHistoryToggled,
+    isAppearanceToggled,
+    setisAppearanceToggled,
+  } = React.useContext(CalculatorContext);
 
   const handleHistoryToggle = () => {
-    isHistoryToggled ? setisHistoryToggled(false) : setisHistoryToggled(true);
+    if (isHistoryToggled) {
+      setisHistoryToggled(false);
+    } else if (!isHistoryToggled) {
+      setisHistoryToggled(true);
+      setisAppearanceToggled(false);
+    }
+  };
+
+  const handleAppearanceToggle = () => {
+    if (isAppearanceToggled) {
+      setisAppearanceToggled(false);
+    } else if (!isAppearanceToggled) {
+      setisAppearanceToggled(true);
+      setisHistoryToggled(false);
+    }
   };
 
   return (
-    <HistoryToggleContainer>
+    <ScreenButtonsContainer>
       <HistoryToggleButton
         aria-label="toggle history"
         onMouseDown={handleHistoryToggle}
@@ -46,8 +77,18 @@ const HistoryButton = () => {
           />
         </svg>
       </HistoryToggleButton>
-    </HistoryToggleContainer>
+
+      <AppearanceToggleButton onMouseDown={handleAppearanceToggle}>
+        <IoMdColorWand
+          style={{
+            width: "25px",
+            height: "27px",
+            color: `${isAppearanceToggled ? "blue" : "#999999"}`,
+          }}
+        />
+      </AppearanceToggleButton>
+    </ScreenButtonsContainer>
   );
 };
 
-export default HistoryButton;
+export default ScreenButton;

@@ -84,7 +84,7 @@ const History = () => {
       {history.length === 0 ? (
         <HistoryEmptyIndicator>
           Nothing here yet. Make some calculations & your results will appear
-          here when you hit equal which you can reuse later.
+          here when you hit equal.
         </HistoryEmptyIndicator>
       ) : (
         history.map((calc, i) => (

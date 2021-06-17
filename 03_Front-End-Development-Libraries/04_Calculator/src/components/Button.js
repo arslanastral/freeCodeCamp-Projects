@@ -7,13 +7,21 @@ import { CalculatorContext } from "./CalculatorBoard";
 const CalculatorButton = styled.button`
   @import url("https://fonts.googleapis.com/css2?family=Inter:wght@200;400;600&display=swap");
   font-family: "Inter", sans-serif;
-  font-size: ${(props) => (props.isExpanded ? "23px" : "33px")};
+  font-size: ${({ isExpanded }) => (isExpanded ? "23px" : "33px")};
   user-select: none;
-  grid-area: ${(props) => props.gridarea};
+  grid-area: ${({ gridarea }) => gridarea};
   border: 0;
   padding: 0;
-  border-radius: 40px;
-  width: ${(props) => (props.isExpanded ? "47px" : "63px")};
+  color: ${({ gridarea, currentButtonColor }) => {
+    if (currentButtonColor === "black" && gridarea !== "equal") {
+      return "white";
+    } else {
+      return "black";
+    }
+  }};
+  border-radius: ${({ gridarea }) => (gridarea === "equal" ? "40px" : "50%")};
+  cursor: pointer;
+  width: ${({ isExpanded }) => (isExpanded ? "47px" : "63px")};
   height: ${({ isExpanded, gridarea }) => {
     if (gridarea === "equal") {
       return "100%";
@@ -23,12 +31,18 @@ const CalculatorButton = styled.button`
       return "63px";
     }
   }};
-  background-color: ${(props) => (props.gridarea === "equal" ? "yellow" : "")};
+  background-color: ${({ gridarea, currentButtonColor }) =>
+    gridarea === "equal" ? "yellow" : currentButtonColor};
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   transition: all ease-out 0.08s;
 
   &:active {
     transform: scale(0.9);
+  }
+
+  &:hover {
+    background: ${({ gridarea }) => (gridarea === "allclear" ? "red" : "")};
+    color: ${({ gridarea }) => (gridarea === "allclear" ? "white" : "")};
   }
 `;
 
@@ -48,12 +62,18 @@ const Button = ({ name, gridarea }) => {
     inputRef,
     isInverseToggled,
     setisInverseToggled,
+    currentTheme,
   } = React.useContext(CalculatorContext);
 
   let icon;
 
   if (name === "CE") {
-    icon = <IoBackspaceOutline style={{ marginTop: "7px" }} color={"black"} />;
+    icon = (
+      <IoBackspaceOutline
+        style={{ marginTop: "7px" }}
+        color={currentTheme.button === "black" ? "white" : "black"}
+      />
+    );
   } else if (name === "ex") {
     icon = <BiLayerPlus style={{ marginTop: "7px" }} color={"blue"} />;
   } else if (name === "!") {
@@ -63,7 +83,7 @@ const Button = ({ name, gridarea }) => {
   } else if (gridarea === "log") {
     icon = (
       <span style={{ fontSize: "0.72em" }}>
-        {isInverseToggled ? "㏒₁₀" : "㏒"}
+        {isInverseToggled ? "log₁₀" : "log"}
       </span>
     );
   } else if (name === "pi") {
@@ -188,6 +208,7 @@ const Button = ({ name, gridarea }) => {
     <CalculatorButton
       isExpanded={isExpanded}
       onMouseDown={handleMouseDown}
+      currentButtonColor={currentTheme.button}
       onMouseUp={() => inputRef.current.focus()}
       gridarea={gridarea}
       aria-label={`${gridarea} button`}

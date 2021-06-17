@@ -1,13 +1,14 @@
 /* eslint-disable no-unused-vars */
 import styled from "styled-components";
 import React, { useState } from "react";
-import HistoryButton from "./HistoryButton";
+import ScreenButton from "./ScreenButton";
 import RecentCalculations from "./RecentCalculations";
 import Expression from "./Expression";
 import Answer from "./Answer";
+import { CalculatorContext } from "./CalculatorBoard";
 
 const ScreenContainer = styled.div`
-  background-color: white;
+  background-color: ${({ currentScreenColor }) => currentScreenColor};
   border-radius: 18px;
   margin: 80px auto 0px auto;
   width: 342px;
@@ -31,10 +32,11 @@ const CalculationsWrapper = styled.div`
 `;
 
 const Screen = () => {
+  const { currentTheme } = React.useContext(CalculatorContext);
   return (
-    <ScreenContainer>
+    <ScreenContainer currentScreenColor={currentTheme.screen}>
       <HistoryWrapper>
-        <HistoryButton />
+        <ScreenButton />
         <RecentCalculations />
       </HistoryWrapper>
       <CalculationsWrapper>

@@ -2,10 +2,11 @@ import styled from "styled-components";
 import React, { useState, useRef } from "react";
 import Screen from "./Screen";
 import History from "./History";
+import Appearance from "./Appearance";
 import NumberPad from "./NumberPad";
 
 const CalculatorContainer = styled.div`
-  background: blue;
+  background: ${({ currentBodyColor }) => currentBodyColor};
   border-radius: 18px;
   height: 682px;
   width: 365px;
@@ -23,11 +24,14 @@ const CalculatorBoard = () => {
 
 // eslint-disable-next-line react/display-name
 const CalculatorWrapper = React.memo(() => {
+  const { currentTheme } = React.useContext(CalculatorContext);
+  console.log(currentTheme);
   return (
-    <CalculatorContainer>
+    <CalculatorContainer currentBodyColor={currentTheme.body}>
       <Screen />
       <NumberPad />
       <History />
+      <Appearance />
     </CalculatorContainer>
   );
 });
@@ -43,10 +47,14 @@ function CalculatorProvider({ children }) {
     false,
     "isExpanded?"
   );
+  const [currentTheme, setcurrentTheme] = useLocalStorageState(
+    { body: "blue", screen: "black", button: "black" },
+    "Calculator Theme"
+  );
   const [isHistoryToggled, setisHistoryToggled] = useState(false);
   const [isInverseToggled, setisInverseToggled] = useState(false);
   const [history, sethistory] = useLocalStorageState([], "Calculator History");
-  const scope = useRef({});
+  const [isAppearanceToggled, setisAppearanceToggled] = useState(false);
   const inputRef = useRef();
 
   return (
@@ -58,11 +66,14 @@ function CalculatorProvider({ children }) {
         setanswer,
         equalPressed,
         setequalPressed,
-        scope,
         expressionPressed,
         setexpressionPressed,
         isHistoryToggled,
         setisHistoryToggled,
+        currentTheme,
+        setcurrentTheme,
+        isAppearanceToggled,
+        setisAppearanceToggled,
         isInverseToggled,
         setisInverseToggled,
         isExpanded,

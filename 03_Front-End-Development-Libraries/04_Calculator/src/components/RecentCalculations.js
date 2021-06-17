@@ -60,7 +60,7 @@ const RecentCalculations = () => {
           key={calc.expression}
           value={` ${calc.expression} = ${calc.answer}`}
           size={calc.expression.length + calc.answer.length + 3}
-          onMouseDown={() => handleRecentCalClick(calc.expression)}
+          onDoubleClick={() => handleRecentCalClick(calc.expression)}
           readOnly
         />
       ))}

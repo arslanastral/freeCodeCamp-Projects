@@ -14,10 +14,10 @@ const EXPANDED_GRID_NAMES = `
 "expand ans zero clearentry equal";
 `;
 const DEFAULT_GRID_NAMES = `
-"leftparan rightparan dot divide"
-"one two three multiply"
-"four five six plus"
-"seven eight nine minus"
+"allclear divide multiply plus"
+"one two three minus"
+"four five six dot"
+"seven eight nine equal"
 "expand zero clearentry equal";
 `;
 
@@ -48,8 +48,7 @@ const NumberPad = () => {
   const { isExpanded, isInverseToggled } = React.useContext(CalculatorContext);
 
   let DEFAULT_GRID_AREA = {
-    "(": "leftparan",
-    ")": "rightparan",
+    C: "allclear",
     "÷": "divide",
     "×": "multiply",
     1: "one",
@@ -72,7 +71,9 @@ const NumberPad = () => {
 
   let EXPANDED_GRID_AREA = {
     ...DEFAULT_GRID_AREA,
-    C: "allclear",
+    "(": "leftparan",
+    ")": "rightparan",
+
     "!": "factorial",
     "%": "mod",
     "^": "xpowery",

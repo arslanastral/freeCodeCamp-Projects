@@ -13,7 +13,15 @@ const ExpressionContainer = styled.div`
 
 const StyledInput = styled.input`
   font-family: "Inter", sans-serif;
-  color: ${(props) => (props.expressionPressed ? "black" : "#6c4f4f")};
+  color: ${({ expressionPressed, currentScreenColor }) => {
+    if (currentScreenColor === "black" && expressionPressed) {
+      return "white";
+    } else if (currentScreenColor === "white" && expressionPressed) {
+      return "black";
+    } else {
+      return "#6c4f4f";
+    }
+  }};
   font-size: ${(props) => (props.expressionPressed ? "40px" : "32px")};
   font-weight: ${(props) => (props.expressionPressed ? "600" : "400")};
   background: none;
@@ -37,6 +45,7 @@ const Expression = () => {
     equalPressed,
     setequalPressed,
     inputRef,
+    currentTheme,
   } = React.useContext(CalculatorContext);
 
   const handleExpression = (e) => {
@@ -74,6 +83,7 @@ const Expression = () => {
         expressionPressed={expressionPressed}
         value={expression}
         onChange={handleExpression}
+        currentScreenColor={currentTheme.screen}
         // eslint-disable-next-line jsx-a11y/no-autofocus
         autoFocus
       />

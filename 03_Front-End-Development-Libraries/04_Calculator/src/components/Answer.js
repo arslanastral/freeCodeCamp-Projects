@@ -1,7 +1,42 @@
 import styled from "styled-components";
 import React, { useEffect } from "react";
 import { CalculatorContext } from "./CalculatorBoard";
-import { evaluate } from "mathjs";
+import { create, all } from "mathjs";
+
+const config = {
+  epsilon: 1e-12,
+  matrix: "Matrix",
+  number: "BigNumber",
+  precision: 64,
+  predictable: false,
+  randomSeed: null,
+};
+const math = create(all, config);
+const limitedEvaluate = math.evaluate;
+
+math.import(
+  {
+    import: function () {
+      throw new Error("Function import is disabled");
+    },
+    createUnit: function () {
+      throw new Error("Function createUnit is disabled");
+    },
+    evaluate: function () {
+      throw new Error("Function evaluate is disabled");
+    },
+    parse: function () {
+      throw new Error("Function parse is disabled");
+    },
+    simplify: function () {
+      throw new Error("Function simplify is disabled");
+    },
+    derivative: function () {
+      throw new Error("Function derivative is disabled");
+    },
+  },
+  { override: true }
+);
 
 const AnswerContainer = styled.div`
   margin: 0 15px 0 0;
@@ -15,12 +50,25 @@ const AnswerContainer = styled.div`
 
 const AnswerExpression = styled.input`
   font-family: "Inter", sans-serif;
-  color: ${(props) =>
-    props.expression.length === 0 || props.equalPressed ? "black" : "#6c4f4f"};
-  font-size: ${(props) =>
-    props.expression.length === 0 || props.equalPressed ? "40px" : "32px"};
-  font-weight: ${(props) =>
-    props.expression.length === 0 || props.equalPressed ? "600" : "400"};
+  color: ${({ expression, currentScreenColor, equalPressed }) => {
+    if (
+      (currentScreenColor === "black" && expression.length === 0) ||
+      equalPressed
+    ) {
+      return "white";
+    } else if (
+      (currentScreenColor === "white" && expression.length === 0) ||
+      equalPressed
+    ) {
+      return "black";
+    } else {
+      return "#6c4f4f";
+    }
+  }};
+  font-size: ${({ expression, equalPressed }) =>
+    expression.length === 0 || equalPressed ? "40px" : "32px"};
+  font-weight: ${({ expression, equalPressed }) =>
+    expression.length === 0 || equalPressed ? "600" : "400"};
   border: 0;
   background: none;
   width: 100%;
@@ -43,7 +91,7 @@ const Answer = () => {
     setexpressionPressed,
     equalPressed,
     setequalPressed,
-    scope,
+    currentTheme,
   } = React.useContext(CalculatorContext);
 
   useEffect(() => {
@@ -51,7 +99,8 @@ const Answer = () => {
 
     if (newExpression) {
       try {
-        let currentAnswer = evaluate(newExpression, scope.current);
+        let currentAnswer = limitedEvaluate(newExpression);
+
         if (
           typeof currentAnswer !== "function" &&
           typeof currentAnswer !== "undefined"
@@ -59,12 +108,13 @@ const Answer = () => {
           setanswer(`${currentAnswer}`);
         }
       } catch (error) {
+        console.log(error.message);
         setanswer(`Error`);
       }
     } else {
       setanswer("0");
     }
-  }, [expression, setanswer, scope]);
+  }, [expression, setanswer]);
 
   const handleEqualPress = () => {
     if (expressionPressed === false) {
@@ -84,6 +134,7 @@ const Answer = () => {
         expression={expression}
         onMouseDown={handleEqualPress}
         equalPressed={equalPressed}
+        currentScreenColor={currentTheme.screen}
         readOnly
       />
     </AnswerContainer>
