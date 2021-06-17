@@ -5,7 +5,8 @@ import { CalculatorContext } from "./CalculatorBoard";
 const HistoryContainer = styled.div`
   display: ${(props) => (props.isHistoryToggled ? "flex" : "none")};
   flex-direction: column;
-  background: white;
+  background: ${({ currentTheme }) =>
+    currentTheme === "#0a0a0b" ? "#111010" : "white"};
   box-shadow: inset 2px 2px 8px 4px rgba(0, 0, 0, 0.03);
   border-radius: 18px;
   width: 100%;
@@ -16,7 +17,8 @@ const HistoryContainer = styled.div`
     props.isHistoryToggled ? "fadeInUp" : "fadeOutDown"};
   animation-duration: 0.3s;
   overflow: auto;
-  scrollbar-color: #f0f0f0 white;
+  scrollbar-color: ${({ currentTheme }) =>
+    currentTheme === "#0a0a0b" ? "#171717 #131212" : "#f0f0f0 white"};
 `;
 
 const HistoryItem = styled.button`
@@ -68,6 +70,7 @@ const History = () => {
     setexpressionPressed,
     setisHistoryToggled,
     setequalPressed,
+    currentTheme,
   } = React.useContext(CalculatorContext);
 
   const handleHistoryClick = (expr) => {
@@ -80,7 +83,10 @@ const History = () => {
   };
 
   return (
-    <HistoryContainer isHistoryToggled={isHistoryToggled}>
+    <HistoryContainer
+      currentTheme={currentTheme.body}
+      isHistoryToggled={isHistoryToggled}
+    >
       {history.length === 0 ? (
         <HistoryEmptyIndicator>
           Nothing here yet. Make some calculations & your results will appear

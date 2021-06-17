@@ -4,8 +4,8 @@ import { CalculatorContext } from "./CalculatorBoard";
 
 const AppearanceContainer = styled.div`
   display: ${(props) => (props.isAppearanceToggled ? "" : "none")};
-  /* flex-direction: column; */
-  background: white;
+  background: ${({ currentTheme }) =>
+    currentTheme === "#0a0a0b" ? "#111010" : "white"};
   box-shadow: inset 2px 2px 8px 4px rgba(0, 0, 0, 0.03);
   border-radius: 18px;
   width: 100%;
@@ -31,24 +31,6 @@ const ThemeContextTitle = styled.span`
   margin: 20px 0 0 20px;
 `;
 
-let theme = {
-  body: {
-    pink: "#ff00a7",
-    blue: "blue",
-    yellow: "#FBFF4D",
-    red: "#DD4141",
-    black: "#000000",
-  },
-  screen: {
-    black: "black",
-    white: "white",
-  },
-  button: {
-    black: "black",
-    white: "white",
-  },
-};
-
 const Color = styled.button`
   margin: 10px;
   border: 0;
@@ -66,10 +48,36 @@ const Color = styled.button`
   }
 
   &:before {
-    content: "✔";
+    ${({ currentTheme, circleColor }) => {
+      if (Object.values(currentTheme).includes(circleColor)) {
+        return activeColorStyle;
+      }
+    }}
     color: ${({ circleColor }) =>
-      circleColor === "white" ? "black" : "white"};
+      circleColor === "white" || circleColor === "#fff" ? "black" : "white"};
   }
+`;
+
+let theme = {
+  body: {
+    pink: "#ff00a7",
+    blue: "blue",
+    yellow: "#FBFF4D",
+    red: "#DD4141",
+    black: "#0a0a0b",
+  },
+  screen: {
+    black: "black",
+    white: "white",
+  },
+  button: {
+    black: "#000",
+    white: "#fff",
+  },
+};
+
+let activeColorStyle = `
+content: "✔";
 `;
 
 const Appearance = () => {
@@ -77,32 +85,45 @@ const Appearance = () => {
     isAppearanceToggled,
     currentTheme,
     setcurrentTheme,
-    // setisAppearanceToggled
+    setisAppearanceToggled,
   } = React.useContext(CalculatorContext);
 
   const handleThemeColorChange = (type, color) => {
-    if (type === "body") {
+    if (type === "body" && color === "#0a0a0b") {
       let newCurrentTheme = { ...currentTheme };
       newCurrentTheme.body = color;
+      newCurrentTheme.screen = "black";
+      newCurrentTheme.button = "#000";
       setcurrentTheme(newCurrentTheme);
-    } else if (type === "screen") {
-      let newCurrentTheme = { ...currentTheme };
-      newCurrentTheme.screen = color;
-      setcurrentTheme(newCurrentTheme);
-    } else if (type === "button") {
-      let newCurrentTheme = { ...currentTheme };
-      newCurrentTheme.button = color;
-      setcurrentTheme(newCurrentTheme);
+      setisAppearanceToggled(false);
+    } else {
+      if (type === "body") {
+        let newCurrentTheme = { ...currentTheme };
+        newCurrentTheme.body = color;
+        setcurrentTheme(newCurrentTheme);
+        setisAppearanceToggled(false);
+      } else if (type === "screen") {
+        let newCurrentTheme = { ...currentTheme };
+        newCurrentTheme.screen = color;
+        setcurrentTheme(newCurrentTheme);
+      } else if (type === "button") {
+        let newCurrentTheme = { ...currentTheme };
+        newCurrentTheme.button = color;
+        setcurrentTheme(newCurrentTheme);
+      }
     }
   };
 
   return (
-    <AppearanceContainer isAppearanceToggled={isAppearanceToggled}>
+    <AppearanceContainer
+      currentTheme={currentTheme.body}
+      isAppearanceToggled={isAppearanceToggled}
+    >
       <ThemeContextTitle>Body</ThemeContextTitle>
       <ColorsContainer>
         {Object.entries(theme.body).map((color, i) => (
           <Color
-            colorType={"body"}
+            currentTheme={currentTheme}
             key={i}
             circleColor={color[1]}
             onMouseDown={() => handleThemeColorChange("body", color[1])}
@@ -113,7 +134,7 @@ const Appearance = () => {
       <ColorsContainer>
         {Object.entries(theme.screen).map((color, i) => (
           <Color
-            colorType={"screen"}
+            currentTheme={currentTheme}
             key={i}
             circleColor={color[1]}
             onMouseDown={() => handleThemeColorChange("screen", color[1])}
@@ -124,7 +145,7 @@ const Appearance = () => {
       <ColorsContainer>
         {Object.entries(theme.button).map((color, i) => (
           <Color
-            colorType={"button"}
+            currentTheme={currentTheme}
             key={i}
             circleColor={color[1]}
             onMouseDown={() => handleThemeColorChange("button", color[1])}

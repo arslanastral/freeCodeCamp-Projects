@@ -48,7 +48,7 @@ function CalculatorProvider({ children }) {
     "isExpanded?"
   );
   const [currentTheme, setcurrentTheme] = useLocalStorageState(
-    { body: "blue", screen: "black", button: "black" },
+    { body: "blue", screen: "black", button: "#fff" },
     "Calculator Theme"
   );
   const [isHistoryToggled, setisHistoryToggled] = useState(false);

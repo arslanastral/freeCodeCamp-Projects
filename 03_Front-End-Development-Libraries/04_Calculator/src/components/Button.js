@@ -13,7 +13,7 @@ const CalculatorButton = styled.button`
   border: 0;
   padding: 0;
   color: ${({ gridarea, currentButtonColor }) => {
-    if (currentButtonColor === "black" && gridarea !== "equal") {
+    if (currentButtonColor === "#000" && gridarea !== "equal") {
       return "white";
     } else {
       return "black";
@@ -38,11 +38,6 @@ const CalculatorButton = styled.button`
 
   &:active {
     transform: scale(0.9);
-  }
-
-  &:hover {
-    background: ${({ gridarea }) => (gridarea === "allclear" ? "red" : "")};
-    color: ${({ gridarea }) => (gridarea === "allclear" ? "white" : "")};
   }
 `;
 
@@ -71,7 +66,11 @@ const Button = ({ name, gridarea }) => {
     icon = (
       <IoBackspaceOutline
         style={{ marginTop: "7px" }}
-        color={currentTheme.button === "black" ? "white" : "black"}
+        color={
+          currentTheme.button === "black" || currentTheme.button === "#000"
+            ? "white"
+            : "black"
+        }
       />
     );
   } else if (name === "ex") {
@@ -131,7 +130,6 @@ const Button = ({ name, gridarea }) => {
     } else if (name === "inv") {
       isInverseToggled ? setisInverseToggled(false) : setisInverseToggled(true);
     } else if (name === "=") {
-      inputRef.current.blur();
       setequalPressed(true);
       setexpressionPressed(false);
       handleHistory();
@@ -209,7 +207,9 @@ const Button = ({ name, gridarea }) => {
       isExpanded={isExpanded}
       onMouseDown={handleMouseDown}
       currentButtonColor={currentTheme.button}
-      onMouseUp={() => inputRef.current.focus()}
+      onMouseUp={() =>
+        icon === "=" ? inputRef.current.blur() : inputRef.current.focus()
+      }
       gridarea={gridarea}
       aria-label={`${gridarea} button`}
     >
