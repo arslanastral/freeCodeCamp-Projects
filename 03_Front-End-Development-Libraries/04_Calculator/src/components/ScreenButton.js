@@ -29,8 +29,6 @@ const AppearanceToggleButton = styled.button`
   }
 `;
 
-const ScreenButtonsContainer = styled.div``;
-
 const ScreenButton = () => {
   const {
     isHistoryToggled,
@@ -58,7 +56,7 @@ const ScreenButton = () => {
   };
 
   return (
-    <ScreenButtonsContainer>
+    <div>
       <HistoryToggleButton
         aria-label="toggle history"
         onMouseDown={handleHistoryToggle}
@@ -87,7 +85,7 @@ const ScreenButton = () => {
           }}
         />
       </AppearanceToggleButton>
-    </ScreenButtonsContainer>
+    </div>
   );
 };
 

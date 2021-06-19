@@ -9,17 +9,21 @@ const AppearanceContainer = styled.div`
   box-shadow: inset 2px 2px 8px 4px rgba(0, 0, 0, 0.03);
   border-radius: 18px;
   width: 100%;
-  height: 50%;
   bottom: 4px;
   position: absolute;
   animation: ${(props) =>
     props.isAppearanceToggled ? "fadeInUp" : "fadeOutDown"};
   animation-duration: 0.3s;
   overflow: auto;
-  scrollbar-color: #f0f0f0 white;
+  scrollbar-color: ${({ currentTheme }) =>
+    currentTheme === "#0a0a0b" ? "#171717 #131212" : "#f0f0f0 white"};
 `;
 
 const ColorsContainer = styled.div`
+  display: flex;
+`;
+
+const ScreenButtonColorsContainer = styled.div`
   display: flex;
 `;
 
@@ -37,13 +41,13 @@ const Color = styled.button`
   padding: 0;
   width: 50px;
   height: 50px;
-  border: 2px solid #939090;
+  border: 2px solid #333;
   border-radius: 50%;
-  background: ${({ circleColor }) => circleColor};
+  background-color: ${({ circleColor }) => circleColor};
+  background-image: ${({ circleGradient }) => circleGradient};
   transition: all ease-out 0.08s;
 
   &:active {
-    /* filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.1)); */
     transform: scale(0.9);
   }
 
@@ -74,6 +78,28 @@ let theme = {
     black: "#000",
     white: "#fff",
   },
+  rewards: {
+    1: [
+      "#91d370",
+      "linear-gradient(319deg, #91d370 0%, #bca0ff 37%, #f2cd54 100%)",
+    ],
+    2: [
+      "#fce055",
+      "linear-gradient(319deg, #fce055 0%, #256eff 37%, #46237a 100%)",
+    ],
+    3: [
+      "#ff1493",
+      "linear-gradient(319deg, #ff1493 0%, #0000ff 37%, #ff8c00 100%)",
+    ],
+    4: [
+      "#f2dd6e",
+      "linear-gradient(319deg, #f2dd6e 0%, #cff27e 37%, #ef959d 100%)",
+    ],
+    5: [
+      "#ff7d59",
+      "linear-gradient(319deg, #ff7d59 0%, #ff583a 37%, #f4a698 100%)",
+    ],
+  },
 };
 
 let activeColorStyle = `
@@ -86,9 +112,14 @@ const Appearance = () => {
     currentTheme,
     setcurrentTheme,
     setisAppearanceToggled,
+    skinUnlocked,
   } = React.useContext(CalculatorContext);
 
-  const handleThemeColorChange = (type, color) => {
+  let unlockedContent;
+
+  const handleThemeColorChange = (type, color, gradient) => {
+    // eslint-disable-next-line no-unused-vars
+    gradient = gradient || "";
     if (type === "body" && color === "#0a0a0b") {
       let newCurrentTheme = { ...currentTheme };
       newCurrentTheme.body = color;
@@ -100,6 +131,7 @@ const Appearance = () => {
       if (type === "body") {
         let newCurrentTheme = { ...currentTheme };
         newCurrentTheme.body = color;
+        newCurrentTheme.gradient = gradient;
         setcurrentTheme(newCurrentTheme);
         setisAppearanceToggled(false);
       } else if (type === "screen") {
@@ -113,6 +145,33 @@ const Appearance = () => {
       }
     }
   };
+
+  if (skinUnlocked === "Dramatic...PAUSE!") {
+    unlockedContent = (
+      <div>
+        <ThemeContextTitle>
+          Unlocked Skins{" "}
+          <span role="img" aria-label="rewards">
+            ✨
+          </span>
+        </ThemeContextTitle>
+
+        <ColorsContainer>
+          {Object.entries(theme.rewards).map((color, i) => (
+            <Color
+              currentTheme={currentTheme}
+              key={i}
+              circleColor={color[1][0]}
+              circleGradient={color[1][1]}
+              onMouseDown={() =>
+                handleThemeColorChange("body", color[1][0], color[1][1])
+              }
+            />
+          ))}
+        </ColorsContainer>
+      </div>
+    );
+  }
 
   return (
     <AppearanceContainer
@@ -130,28 +189,36 @@ const Appearance = () => {
           />
         ))}
       </ColorsContainer>
-      <ThemeContextTitle>Screen</ThemeContextTitle>
-      <ColorsContainer>
-        {Object.entries(theme.screen).map((color, i) => (
-          <Color
-            currentTheme={currentTheme}
-            key={i}
-            circleColor={color[1]}
-            onMouseDown={() => handleThemeColorChange("screen", color[1])}
-          />
-        ))}
-      </ColorsContainer>
-      <ThemeContextTitle>Button</ThemeContextTitle>
-      <ColorsContainer>
-        {Object.entries(theme.button).map((color, i) => (
-          <Color
-            currentTheme={currentTheme}
-            key={i}
-            circleColor={color[1]}
-            onMouseDown={() => handleThemeColorChange("button", color[1])}
-          />
-        ))}
-      </ColorsContainer>
+      <ScreenButtonColorsContainer>
+        <div>
+          <ThemeContextTitle>Screen</ThemeContextTitle>
+          <ColorsContainer>
+            {Object.entries(theme.screen).map((color, i) => (
+              <Color
+                currentTheme={currentTheme}
+                key={i}
+                circleColor={color[1]}
+                onMouseDown={() => handleThemeColorChange("screen", color[1])}
+              />
+            ))}
+          </ColorsContainer>
+        </div>
+
+        <div>
+          <ThemeContextTitle>Button</ThemeContextTitle>
+          <ColorsContainer>
+            {Object.entries(theme.button).map((color, i) => (
+              <Color
+                currentTheme={currentTheme}
+                key={i}
+                circleColor={color[1]}
+                onMouseDown={() => handleThemeColorChange("button", color[1])}
+              />
+            ))}
+          </ColorsContainer>
+        </div>
+      </ScreenButtonColorsContainer>
+      {unlockedContent}
     </AppearanceContainer>
   );
 };

@@ -1,17 +1,21 @@
 import styled from "styled-components";
 import React, { useState, useRef } from "react";
 import Screen from "./Screen";
+import EasterEggCal from "./easteregg";
 import History from "./History";
 import Appearance from "./Appearance";
 import NumberPad from "./NumberPad";
 
 const CalculatorContainer = styled.div`
-  background: ${({ currentBodyColor }) => currentBodyColor};
+  display: ${({ easteregg }) => (easteregg ? "none" : "")};
+  background-color: ${({ currentBodyColor }) => currentBodyColor};
+  background-image: ${({ currentGradient }) => currentGradient};
   border-radius: 18px;
   height: 682px;
   width: 365px;
   position: relative;
   overflow: hidden;
+  transition: all ease-in 1s;
 `;
 
 const CalculatorBoard = () => {
@@ -24,15 +28,26 @@ const CalculatorBoard = () => {
 
 // eslint-disable-next-line react/display-name
 const CalculatorWrapper = React.memo(() => {
-  const { currentTheme } = React.useContext(CalculatorContext);
-  console.log(currentTheme);
+  const { currentTheme, easteregg } = React.useContext(CalculatorContext);
+  let eastereggContent;
+
+  if (easteregg) {
+    eastereggContent = <EasterEggCal />;
+  }
   return (
-    <CalculatorContainer currentBodyColor={currentTheme.body}>
-      <Screen />
-      <NumberPad />
-      <History />
-      <Appearance />
-    </CalculatorContainer>
+    <div>
+      {eastereggContent}
+      <CalculatorContainer
+        easteregg={easteregg}
+        currentBodyColor={currentTheme.body}
+        currentGradient={currentTheme.gradient}
+      >
+        <Screen />
+        <NumberPad />
+        <History />
+        <Appearance />
+      </CalculatorContainer>
+    </div>
   );
 });
 
@@ -48,13 +63,18 @@ function CalculatorProvider({ children }) {
     "isExpanded?"
   );
   const [currentTheme, setcurrentTheme] = useLocalStorageState(
-    { body: "blue", screen: "black", button: "#fff" },
+    { body: "blue", screen: "black", button: "#fff", gradient: "" },
     "Calculator Theme"
   );
   const [isHistoryToggled, setisHistoryToggled] = useState(false);
   const [isInverseToggled, setisInverseToggled] = useState(false);
   const [history, sethistory] = useLocalStorageState([], "Calculator History");
   const [isAppearanceToggled, setisAppearanceToggled] = useState(false);
+  const [easteregg, seteasteregg] = useState(false);
+  const [skinUnlocked, setskinUnlocked] = useLocalStorageState(
+    "NOOOOoOO0O!",
+    "skinUnlocked"
+  );
   const inputRef = useRef();
 
   return (
@@ -72,10 +92,14 @@ function CalculatorProvider({ children }) {
         setisHistoryToggled,
         currentTheme,
         setcurrentTheme,
+        skinUnlocked,
+        setskinUnlocked,
         isAppearanceToggled,
         setisAppearanceToggled,
         isInverseToggled,
         setisInverseToggled,
+        easteregg,
+        seteasteregg,
         isExpanded,
         setisExpanded,
         history,

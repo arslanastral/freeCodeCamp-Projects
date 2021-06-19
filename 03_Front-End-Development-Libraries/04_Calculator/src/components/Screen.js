@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
 import styled from "styled-components";
-import React, { useState } from "react";
+import React from "react";
 import ScreenButton from "./ScreenButton";
 import RecentCalculations from "./RecentCalculations";
 import Expression from "./Expression";
@@ -14,6 +13,7 @@ const ScreenContainer = styled.div`
   width: 342px;
   height: 166px;
   box-shadow: inset 2px 2px 8px 4px rgba(0, 0, 0, 0.25);
+  transition: all ease-in 1s;
 `;
 
 const HistoryWrapper = styled.div`
@@ -33,6 +33,7 @@ const CalculationsWrapper = styled.div`
 
 const Screen = () => {
   const { currentTheme } = React.useContext(CalculatorContext);
+
   return (
     <ScreenContainer currentScreenColor={currentTheme.screen}>
       <HistoryWrapper>

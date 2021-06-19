@@ -52,15 +52,15 @@ const AnswerExpression = styled.input`
   font-family: "Inter", sans-serif;
   color: ${({ expression, currentScreenColor, equalPressed }) => {
     if (
-      (currentScreenColor === "black" && expression.length === 0) ||
-      equalPressed
-    ) {
-      return "white";
-    } else if (
-      (currentScreenColor === "white" && expression.length === 0) ||
-      equalPressed
+      currentScreenColor === "white" &&
+      (expression.length === 0 || equalPressed)
     ) {
       return "black";
+    } else if (
+      currentScreenColor === "black" &&
+      (expression.length === 0 || equalPressed)
+    ) {
+      return "white";
     } else {
       return "#6c4f4f";
     }
@@ -92,6 +92,8 @@ const Answer = () => {
     equalPressed,
     setequalPressed,
     currentTheme,
+    seteasteregg,
+    skinUnlocked,
   } = React.useContext(CalculatorContext);
 
   useEffect(() => {
@@ -108,13 +110,24 @@ const Answer = () => {
           setanswer(`${currentAnswer}`);
         }
       } catch (error) {
-        console.log(error.message);
-        setanswer(`Error`);
+        if (newExpression === "calculon" && skinUnlocked === "NOOOOoOO0O!") {
+          seteasteregg(true);
+        }
+        if (newExpression === "hal") {
+          setanswer(`Human Error`);
+        } else if (
+          newExpression === "calculon" &&
+          skinUnlocked === "Dramatic...PAUSE!"
+        ) {
+          setanswer(`No! No, no, no. I don't do two takes`);
+        } else {
+          setanswer(`Error`);
+        }
       }
     } else {
       setanswer("0");
     }
-  }, [expression, setanswer]);
+  }, [expression, setanswer, seteasteregg, skinUnlocked]);
 
   const handleEqualPress = () => {
     if (expressionPressed === false) {
