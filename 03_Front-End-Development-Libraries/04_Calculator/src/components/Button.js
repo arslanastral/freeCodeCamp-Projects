@@ -12,6 +12,7 @@ const CalculatorButton = styled.button`
   grid-area: ${({ gridarea }) => gridarea};
   border: 0;
   padding: 0;
+  touch-action: manipulation;
   color: ${({ gridarea, currentButtonColor }) => {
     if (currentButtonColor === "#000" && gridarea !== "equal") {
       return "white";
@@ -207,9 +208,6 @@ const Button = ({ name, gridarea }) => {
       isExpanded={isExpanded}
       onMouseDown={handleMouseDown}
       currentButtonColor={currentTheme.button}
-      onMouseUp={() =>
-        icon === "=" ? inputRef.current.blur() : inputRef.current.focus()
-      }
       gridarea={gridarea}
       aria-label={`${gridarea} button`}
     >
