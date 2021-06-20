@@ -43,6 +43,7 @@ const ClaimRewardButton = styled.button`
   border-radius: 20px;
   color: white;
   width: 50%;
+  touch-action: manipulation;
   animation: pulse 1s;
   animation-iteration-count: infinite;
   animation-delay: 3s;
@@ -203,7 +204,13 @@ const EasterEggCal = () => {
         />
       </svg>
 
-      <ClaimRewardButton onMouseDown={handleEasterEggFound} />
+      <ClaimRewardButton
+        {...(/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(
+          navigator.userAgent
+        )
+          ? { onTouchStart: handleEasterEggFound }
+          : { onMouseDown: handleEasterEggFound })}
+      />
     </EasterEggContainer>
   );
 };

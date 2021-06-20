@@ -61,7 +61,11 @@ const ScreenButton = () => {
     <div>
       <HistoryToggleButton
         aria-label="toggle history"
-        onMouseDown={handleHistoryToggle}
+        {...(/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(
+          navigator.userAgent
+        )
+          ? { onTouchStart: handleHistoryToggle }
+          : { onMouseDown: handleHistoryToggle })}
       >
         <svg
           width="27"
@@ -78,7 +82,13 @@ const ScreenButton = () => {
         </svg>
       </HistoryToggleButton>
 
-      <AppearanceToggleButton onMouseDown={handleAppearanceToggle}>
+      <AppearanceToggleButton
+        {...(/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(
+          navigator.userAgent
+        )
+          ? { onTouchStart: handleAppearanceToggle }
+          : { onMouseDown: handleAppearanceToggle })}
+      >
         <IoMdColorWand
           style={{
             width: "25px",

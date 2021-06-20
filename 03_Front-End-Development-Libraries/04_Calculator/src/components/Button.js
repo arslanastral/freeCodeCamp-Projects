@@ -148,7 +148,7 @@ const Button = ({ name, gridarea }) => {
       let after = text.substring(end, text.length);
       input.value = `${equalPressed ? name : `${before + name + after}`}`; //Fixes caret jumping because of react state being async.
       setexpression(`${equalPressed ? name : `${before + name + after}`}`);
-      input.focus();
+      // input.focus();
       start = end = start + name.length;
       input.setSelectionRange(start, end);
       setexpressionPressed(true);
@@ -185,13 +185,13 @@ const Button = ({ name, gridarea }) => {
     } else if (start === end && start !== text.length) {
       input.value = text.substring(0, start - 1) + text.substring(end);
       setexpression(text.substring(0, start - 1) + text.substring(end));
-      input.focus();
+      // input.focus();
       start = end = start - 1;
       input.setSelectionRange(start, end);
     } else {
       input.value = text.substring(0, start) + text.substring(end);
       setexpression(text.substring(0, start) + text.substring(end));
-      input.focus();
+      // input.focus();
       start = end = start;
       input.setSelectionRange(start, end);
     }

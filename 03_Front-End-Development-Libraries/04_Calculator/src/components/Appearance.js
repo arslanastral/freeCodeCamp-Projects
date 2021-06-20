@@ -41,8 +41,6 @@ const Color = styled.button`
   padding: 0;
   width: 50px;
   height: 50px;
-  /* border: 1px solid #333; */
-
   border-radius: 50%;
   background-color: ${({ circleColor }) => circleColor};
   background-image: ${({ circleGradient }) => circleGradient};
@@ -120,7 +118,6 @@ const Appearance = () => {
   let unlockedContent;
 
   const handleThemeColorChange = (type, color, gradient) => {
-    // eslint-disable-next-line no-unused-vars
     gradient = gradient || "";
     if (type === "body" && color === "#0a0a0b") {
       let newCurrentTheme = { ...currentTheme };
