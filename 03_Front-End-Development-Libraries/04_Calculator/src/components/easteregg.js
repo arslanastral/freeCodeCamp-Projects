@@ -6,7 +6,8 @@ const EasterEggContainer = styled.div`
   width: 382px;
   height: 682px;
   margin-left: 10px;
-  animation: jackInTheBox 2s;
+  animation: ${({ skinUnlocked }) =>
+    skinUnlocked === "Dramatic...PAUSE!" ? "zoomOut 2s" : "jackInTheBox 2s"};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -42,7 +43,8 @@ const ClaimRewardButton = styled.button`
   border-radius: 20px;
   color: white;
   width: 50%;
-  animation: flash 1s;
+  animation: pulse 1s;
+  animation-iteration-count: infinite;
   animation-delay: 3s;
   transition: all ease-out 0.08s;
   cursor: pointer;
@@ -57,18 +59,24 @@ const ClaimRewardButton = styled.button`
 `;
 
 const EasterEggCal = () => {
-  const { seteasteregg, setskinUnlocked, setexpression } = React.useContext(
-    CalculatorContext
-  );
+  const {
+    seteasteregg,
+    setskinUnlocked,
+    setexpression,
+    skinUnlocked,
+  } = React.useContext(CalculatorContext);
 
   const handleEasterEggFound = () => {
     setskinUnlocked("Dramatic...PAUSE!");
     setexpression("");
-    seteasteregg(false);
+
+    setTimeout(() => {
+      seteasteregg(false);
+    }, 1000);
   };
 
   return (
-    <EasterEggContainer>
+    <EasterEggContainer skinUnlocked={skinUnlocked}>
       <EggFoundTitle>
         {`You found Calculon! Here are some shiny new skins as a reward ✨`}
       </EggFoundTitle>

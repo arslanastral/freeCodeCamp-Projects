@@ -13,7 +13,7 @@ const ScreenContainer = styled.div`
   width: 342px;
   height: 166px;
   box-shadow: inset 2px 2px 8px 4px rgba(0, 0, 0, 0.25);
-  transition: all ease-in 1s;
+  transition: all ease-out 0.5s;
 `;
 
 const HistoryWrapper = styled.div`

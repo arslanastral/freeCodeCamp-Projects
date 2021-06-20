@@ -41,12 +41,13 @@ const Color = styled.button`
   padding: 0;
   width: 50px;
   height: 50px;
-  border: 2px solid #333;
+  /* border: 1px solid #333; */
+
   border-radius: 50%;
   background-color: ${({ circleColor }) => circleColor};
   background-image: ${({ circleGradient }) => circleGradient};
   transition: all ease-out 0.08s;
-
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.15));
   &:active {
     transform: scale(0.9);
   }
@@ -104,6 +105,7 @@ let theme = {
 
 let activeColorStyle = `
 content: "✔";
+filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.35));
 `;
 
 const Appearance = () => {
