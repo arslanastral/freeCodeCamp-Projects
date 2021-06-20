@@ -95,6 +95,7 @@ const Answer = () => {
     currentTheme,
     seteasteregg,
     skinUnlocked,
+    calculaterScope,
   } = React.useContext(CalculatorContext);
 
   useEffect(() => {
@@ -102,7 +103,10 @@ const Answer = () => {
 
     if (newExpression) {
       try {
-        let currentAnswer = limitedEvaluate(newExpression);
+        let currentAnswer = limitedEvaluate(
+          newExpression,
+          calculaterScope.current
+        );
 
         if (
           typeof currentAnswer !== "function" &&
@@ -131,7 +135,7 @@ const Answer = () => {
     } else {
       setanswer("0");
     }
-  }, [expression, setanswer, seteasteregg, skinUnlocked]);
+  }, [expression, setanswer, seteasteregg, skinUnlocked, calculaterScope]);
 
   const handleEqualPress = () => {
     if (expressionPressed === false) {
