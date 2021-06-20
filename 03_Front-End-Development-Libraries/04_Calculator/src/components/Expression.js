@@ -85,6 +85,11 @@ const Expression = () => {
         value={expression}
         onChange={handleExpression}
         currentScreenColor={currentTheme.screen}
+        {...(/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(
+          navigator.userAgent
+        )
+          ? { readOnly: true }
+          : { readOnly: false })}
       />
     </ExpressionContainer>
   );
