@@ -119,7 +119,6 @@ const Button = ({ name, gridarea }) => {
   }
 
   const handleMouseDown = () => {
-    console.log(inputRef.current.readOnly);
     let [text, start, end, input] = caretPosition(inputRef.current);
     if (expression.length === 0 && /[×^÷!\\.]/g.test(name)) {
       setexpression(`0${name}`);
