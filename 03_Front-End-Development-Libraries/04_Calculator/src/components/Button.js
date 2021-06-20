@@ -119,6 +119,7 @@ const Button = ({ name, gridarea }) => {
   }
 
   const handleMouseDown = () => {
+    console.log(inputRef.current.readOnly);
     let [text, start, end, input] = caretPosition(inputRef.current);
     if (expression.length === 0 && /[×^÷!\\.]/g.test(name)) {
       setexpression(`0${name}`);
@@ -194,6 +195,10 @@ const Button = ({ name, gridarea }) => {
     }
   };
 
+  const handleMobileFocusAndBlur = () => {
+    icon === "=" ? inputRef.current.blur() : inputRef.current.focus();
+  };
+
   const caretPosition = (inputRef) => {
     let input = inputRef;
     let start = input.selectionStart;
@@ -209,8 +214,14 @@ const Button = ({ name, gridarea }) => {
       {...(/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(
         navigator.userAgent
       )
-        ? { onTouchStart: handleMouseDown }
-        : { onMouseDown: handleMouseDown })}
+        ? {
+            onTouchStart: handleMouseDown,
+            onTouchEnd: handleMobileFocusAndBlur,
+          }
+        : {
+            onMouseDown: handleMouseDown,
+            onMouseUp: handleMobileFocusAndBlur,
+          })}
       currentButtonColor={currentTheme.button}
       gridarea={gridarea}
       aria-label={`${gridarea} button`}

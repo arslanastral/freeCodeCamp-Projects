@@ -111,13 +111,16 @@ const Answer = () => {
           setanswer(`${currentAnswer}`);
         }
       } catch (error) {
-        if (newExpression === "calculon" && skinUnlocked === "NOOOOoOO0O!") {
+        if (
+          /\bcalculon\b/gi.test(newExpression) &&
+          skinUnlocked === "NOOOOoOO0O!"
+        ) {
           seteasteregg(true);
         }
-        if (newExpression === "hal") {
+        if (/\bhal\b/gi.test(newExpression)) {
           setanswer(`Human Error`);
         } else if (
-          newExpression === "calculon" &&
+          /\bcalculon\b/gi.test(newExpression) &&
           skinUnlocked === "Dramatic...PAUSE!"
         ) {
           setanswer(`No! No, no, no. I don't do two takes`);

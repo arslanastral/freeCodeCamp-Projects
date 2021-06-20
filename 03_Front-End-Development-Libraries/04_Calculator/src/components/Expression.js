@@ -47,6 +47,8 @@ const Expression = () => {
     setequalPressed,
     inputRef,
     currentTheme,
+    isinputReadOnly,
+    setisinputReadOnly,
   } = React.useContext(CalculatorContext);
 
   const handleExpression = (e) => {
@@ -88,8 +90,12 @@ const Expression = () => {
         {...(/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(
           navigator.userAgent
         )
-          ? { readOnly: true }
-          : { readOnly: false })}
+          ? {
+              readOnly: isinputReadOnly,
+              onDoubleClick: () => setisinputReadOnly(false),
+              onBlur: () => setisinputReadOnly(true),
+            }
+          : {})}
       />
     </ExpressionContainer>
   );

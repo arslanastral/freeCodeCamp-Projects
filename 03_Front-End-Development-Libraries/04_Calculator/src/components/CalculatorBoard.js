@@ -72,6 +72,7 @@ function CalculatorProvider({ children }) {
   const [isInverseToggled, setisInverseToggled] = useState(false);
   const [history, sethistory] = useLocalStorageState([], "Calculator History");
   const [isAppearanceToggled, setisAppearanceToggled] = useState(false);
+  const [isinputReadOnly, setisinputReadOnly] = useState(true);
   const [easteregg, seteasteregg] = useState(false);
   const [skinUnlocked, setskinUnlocked] = useLocalStorageState(
     "NOOOOoOO0O!",
@@ -91,6 +92,8 @@ function CalculatorProvider({ children }) {
         expressionPressed,
         setexpressionPressed,
         isHistoryToggled,
+        isinputReadOnly,
+        setisinputReadOnly,
         setisHistoryToggled,
         currentTheme,
         setcurrentTheme,
