@@ -125,6 +125,7 @@ const Appearance = () => {
       newCurrentTheme.body = color;
       newCurrentTheme.screen = "black";
       newCurrentTheme.button = "#000";
+      newCurrentTheme.gradient = gradient;
       setcurrentTheme(newCurrentTheme);
       setisAppearanceToggled(false);
     } else {
