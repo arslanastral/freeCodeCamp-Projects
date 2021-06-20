@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import React from "react";
-import { CalculatorContext } from "./CalculatorBoard";
+import { CalculatorContext, useClickOutside } from "./CalculatorBoard";
 
 const HistoryContainer = styled.div`
   display: ${(props) => (props.isHistoryToggled ? "flex" : "none")};
@@ -74,6 +74,16 @@ const History = () => {
     currentTheme,
   } = React.useContext(CalculatorContext);
 
+  const clickRef = React.useRef();
+
+  const handleClickOutside = () => {
+    if (isHistoryToggled) {
+      setisHistoryToggled(false);
+    }
+  };
+
+  useClickOutside(clickRef, handleClickOutside);
+
   const handleHistoryClick = (expr) => {
     if (expr !== expression) {
       setexpression(expr);
@@ -85,6 +95,7 @@ const History = () => {
 
   return (
     <HistoryContainer
+      ref={clickRef}
       currentTheme={currentTheme.body}
       isHistoryToggled={isHistoryToggled}
     >

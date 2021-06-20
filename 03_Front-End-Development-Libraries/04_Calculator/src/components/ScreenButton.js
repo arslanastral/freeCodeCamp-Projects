@@ -40,20 +40,16 @@ const ScreenButton = () => {
   } = React.useContext(CalculatorContext);
 
   const handleHistoryToggle = () => {
-    if (isHistoryToggled) {
-      setisHistoryToggled(false);
-    } else if (!isHistoryToggled) {
+    if (!isHistoryToggled) {
       setisHistoryToggled(true);
-      setisAppearanceToggled(false);
+      // setisAppearanceToggled(false);
     }
   };
 
   const handleAppearanceToggle = () => {
-    if (isAppearanceToggled) {
-      setisAppearanceToggled(false);
-    } else if (!isAppearanceToggled) {
+    if (!isAppearanceToggled) {
       setisAppearanceToggled(true);
-      setisHistoryToggled(false);
+      // setisHistoryToggled(false);
     }
   };
 

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { CalculatorContext } from "./CalculatorBoard";
+import { CalculatorContext, useClickOutside } from "./CalculatorBoard";
 
 const AppearanceContainer = styled.div`
   display: ${(props) => (props.isAppearanceToggled ? "" : "none")};
@@ -116,6 +116,15 @@ const Appearance = () => {
     skinUnlocked,
   } = React.useContext(CalculatorContext);
 
+  const clickRef = React.useRef();
+
+  const handleClickOutside = () => {
+    if (isAppearanceToggled) {
+      setisAppearanceToggled(false);
+    }
+  };
+
+  useClickOutside(clickRef, handleClickOutside);
   let unlockedContent;
 
   const handleThemeColorChange = (type, color, gradient) => {
@@ -185,6 +194,7 @@ const Appearance = () => {
 
   return (
     <AppearanceContainer
+      ref={clickRef}
       currentTheme={currentTheme.body}
       isAppearanceToggled={isAppearanceToggled}
     >
