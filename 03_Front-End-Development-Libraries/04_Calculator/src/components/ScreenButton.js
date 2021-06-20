@@ -83,6 +83,7 @@ const ScreenButton = () => {
       </HistoryToggleButton>
 
       <AppearanceToggleButton
+        aria-label="toggle theme settings"
         {...(/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(
           navigator.userAgent
         )

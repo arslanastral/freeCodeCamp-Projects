@@ -151,7 +151,7 @@ const Appearance = () => {
       <div>
         <ThemeContextTitle>
           Unlocked Skins{" "}
-          <span role="img" aria-label="rewards">
+          <span role="img" aria-label="rewards title emoji">
             ✨
           </span>
         </ThemeContextTitle>
@@ -161,6 +161,7 @@ const Appearance = () => {
             <Color
               currentTheme={currentTheme}
               key={i}
+              aria-label="unlocked themes"
               circleColor={color[1][0]}
               circleGradient={color[1][1]}
               {...(/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(
@@ -192,6 +193,7 @@ const Appearance = () => {
           <Color
             currentTheme={currentTheme}
             key={i}
+            aria-label={`calculator body color: ${color[1]}`}
             circleColor={color[1]}
             {...(/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(
               navigator.userAgent
@@ -211,6 +213,7 @@ const Appearance = () => {
               <Color
                 currentTheme={currentTheme}
                 key={i}
+                aria-label={`calculator screen color: ${color[1]}`}
                 circleColor={color[1]}
                 {...(/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(
                   navigator.userAgent
@@ -235,6 +238,7 @@ const Appearance = () => {
               <Color
                 currentTheme={currentTheme}
                 key={i}
+                aria-label={`calculator buttons color: ${color[1]}`}
                 circleColor={color[1]}
                 {...(/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(
                   navigator.userAgent

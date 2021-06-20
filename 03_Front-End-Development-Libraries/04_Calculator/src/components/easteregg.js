@@ -78,7 +78,7 @@ const EasterEggCal = () => {
 
   return (
     <EasterEggContainer skinUnlocked={skinUnlocked}>
-      <EggFoundTitle>
+      <EggFoundTitle aria-label="easteregg found title">
         {`You found Calculon! Here are some shiny new skins as a reward ✨`}
       </EggFoundTitle>
       <svg
@@ -205,6 +205,7 @@ const EasterEggCal = () => {
       </svg>
 
       <ClaimRewardButton
+        aria-label="claim reward"
         {...(/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(
           navigator.userAgent
         )
