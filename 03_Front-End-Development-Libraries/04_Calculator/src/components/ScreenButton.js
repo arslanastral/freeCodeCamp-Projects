@@ -9,6 +9,7 @@ const HistoryToggleButton = styled.button`
   margin: 10px 0 0 10px;
   background: none;
   transition: all ease-out 0.07s;
+  touch-action: manipulation;
   cursor: pointer;
 
   &:active {
@@ -22,6 +23,7 @@ const AppearanceToggleButton = styled.button`
   margin: 0 0 0 10px;
   background: none;
   transition: all ease-out 0.07s;
+  touch-action: manipulation;
   cursor: pointer;
 
   &:active {

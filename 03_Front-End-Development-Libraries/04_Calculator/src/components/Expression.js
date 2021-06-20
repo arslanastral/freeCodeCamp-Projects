@@ -28,6 +28,7 @@ const StyledInput = styled.input`
   border: 0;
   max-width: 100%;
   text-align: right;
+  touch-action: manipulation;
   transition: all ease-out 0.07s;
 
   &:focus {

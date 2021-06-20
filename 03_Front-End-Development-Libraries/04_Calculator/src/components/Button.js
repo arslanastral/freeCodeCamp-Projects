@@ -119,6 +119,9 @@ const Button = ({ name, gridarea }) => {
   }
 
   const handleMouseDown = () => {
+    console.log(
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)
+    );
     let [text, start, end, input] = caretPosition(inputRef.current);
     if (expression.length === 0 && /[×^÷!\\.]/g.test(name)) {
       setexpression(`0${name}`);
@@ -206,7 +209,11 @@ const Button = ({ name, gridarea }) => {
   return (
     <CalculatorButton
       isExpanded={isExpanded}
-      onMouseDown={handleMouseDown}
+      {...(/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(
+        navigator.userAgent
+      )
+        ? { onTouchStart: handleMouseDown }
+        : { onMouseDown: handleMouseDown })}
       currentButtonColor={currentTheme.button}
       gridarea={gridarea}
       aria-label={`${gridarea} button`}
