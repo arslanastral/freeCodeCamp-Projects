@@ -41,6 +41,7 @@ const Color = styled.button`
   padding: 0;
   width: 50px;
   height: 50px;
+  touch-action: manipulation;
   border-radius: 50%;
   background-color: ${({ circleColor }) => circleColor};
   background-image: ${({ circleGradient }) => circleGradient};
@@ -162,9 +163,17 @@ const Appearance = () => {
               key={i}
               circleColor={color[1][0]}
               circleGradient={color[1][1]}
-              onMouseDown={() =>
-                handleThemeColorChange("body", color[1][0], color[1][1])
-              }
+              {...(/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(
+                navigator.userAgent
+              )
+                ? {
+                    onTouchStart: () =>
+                      handleThemeColorChange("body", color[1][0], color[1][1]),
+                  }
+                : {
+                    onMouseDown: () =>
+                      handleThemeColorChange("body", color[1][0], color[1][1]),
+                  })}
             />
           ))}
         </ColorsContainer>
@@ -184,7 +193,13 @@ const Appearance = () => {
             currentTheme={currentTheme}
             key={i}
             circleColor={color[1]}
-            onMouseDown={() => handleThemeColorChange("body", color[1])}
+            {...(/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(
+              navigator.userAgent
+            )
+              ? { onTouchStart: () => handleThemeColorChange("body", color[1]) }
+              : {
+                  onMouseDown: () => handleThemeColorChange("body", color[1]),
+                })}
           />
         ))}
       </ColorsContainer>
@@ -197,7 +212,17 @@ const Appearance = () => {
                 currentTheme={currentTheme}
                 key={i}
                 circleColor={color[1]}
-                onMouseDown={() => handleThemeColorChange("screen", color[1])}
+                {...(/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(
+                  navigator.userAgent
+                )
+                  ? {
+                      onTouchStart: () =>
+                        handleThemeColorChange("screen", color[1]),
+                    }
+                  : {
+                      onMouseDown: () =>
+                        handleThemeColorChange("screen", color[1]),
+                    })}
               />
             ))}
           </ColorsContainer>
@@ -211,7 +236,17 @@ const Appearance = () => {
                 currentTheme={currentTheme}
                 key={i}
                 circleColor={color[1]}
-                onMouseDown={() => handleThemeColorChange("button", color[1])}
+                {...(/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(
+                  navigator.userAgent
+                )
+                  ? {
+                      onTouchStart: () =>
+                        handleThemeColorChange("button", color[1]),
+                    }
+                  : {
+                      onMouseDown: () =>
+                        handleThemeColorChange("button", color[1]),
+                    })}
               />
             ))}
           </ColorsContainer>

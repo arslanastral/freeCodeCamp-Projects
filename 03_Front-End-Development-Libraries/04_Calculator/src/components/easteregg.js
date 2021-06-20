@@ -20,7 +20,7 @@ const CalculonEyes = styled.rect`
 
 const EggFoundTitle = styled.span`
   font-family: "Inter", sans-serif;
-  margin: 40px 0 80px 0;
+  margin: 0 0 40px 0;
   font-weight: 200;
   font-size: 1.8rem;
   height: 100px;

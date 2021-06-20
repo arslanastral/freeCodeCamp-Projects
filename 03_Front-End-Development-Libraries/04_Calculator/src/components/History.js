@@ -30,6 +30,7 @@ const HistoryItem = styled.button`
   border-radius: 4px;
   border-radius: 5px;
   padding: 6px 12px;
+  touch-action: manipulation;
   max-width: ${({ isExpression }) => (isExpression ? "200px" : "110px")};
   font-size: 14px;
   cursor: pointer;
@@ -97,14 +98,26 @@ const History = () => {
           <HistoryItemContainer key={i}>
             <HistoryItem
               isExpression={true}
-              onMouseDown={() => handleHistoryClick(calc.expression)}
+              {...(/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(
+                navigator.userAgent
+              )
+                ? { onTouchStart: () => handleHistoryClick(calc.expression) }
+                : {
+                    onMouseDown: () => handleHistoryClick(calc.expression),
+                  })}
             >
               {calc.expression}
             </HistoryItem>{" "}
             <Equals>{` = `}</Equals>
             <HistoryItem
               isExpression={false}
-              onMouseDown={() => handleHistoryClick(calc.answer)}
+              {...(/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(
+                navigator.userAgent
+              )
+                ? { onTouchStart: () => handleHistoryClick(calc.answer) }
+                : {
+                    onMouseDown: () => handleHistoryClick(calc.answer),
+                  })}
             >
               {" "}
               {calc.answer}

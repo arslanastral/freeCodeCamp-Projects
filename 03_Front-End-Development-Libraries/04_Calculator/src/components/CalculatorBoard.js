@@ -15,6 +15,7 @@ const CalculatorContainer = styled.div`
   width: 365px;
   position: relative;
   overflow: hidden;
+  touch-action: manipulation;
   transition: all ease-out 0.5s;
   animation: zoomIn 0.5s;
 `;
