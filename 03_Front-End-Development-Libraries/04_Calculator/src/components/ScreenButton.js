@@ -42,14 +42,12 @@ const ScreenButton = () => {
   const handleHistoryToggle = () => {
     if (!isHistoryToggled) {
       setisHistoryToggled(true);
-      // setisAppearanceToggled(false);
     }
   };
 
   const handleAppearanceToggle = () => {
     if (!isAppearanceToggled) {
       setisAppearanceToggled(true);
-      // setisHistoryToggled(false);
     }
   };
 
@@ -57,11 +55,7 @@ const ScreenButton = () => {
     <div>
       <HistoryToggleButton
         aria-label="toggle history"
-        {...(/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(
-          navigator.userAgent
-        )
-          ? { onTouchStart: handleHistoryToggle }
-          : { onMouseDown: handleHistoryToggle })}
+        onClick={handleHistoryToggle}
       >
         <svg
           width="27"
@@ -80,11 +74,7 @@ const ScreenButton = () => {
 
       <AppearanceToggleButton
         aria-label="toggle theme settings"
-        {...(/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(
-          navigator.userAgent
-        )
-          ? { onTouchStart: handleAppearanceToggle }
-          : { onMouseDown: handleAppearanceToggle })}
+        onClick={handleAppearanceToggle}
       >
         <IoMdColorWand
           style={{
