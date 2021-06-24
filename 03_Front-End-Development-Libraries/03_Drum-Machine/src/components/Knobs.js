@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { DrumMachineContext } from "./DrumMachine";
-import { Dial, Toggle } from "react-nexusui";
+import { Dial } from "react-nexusui";
 
 const DawContainer = styled.div`
   display: flex;
@@ -84,7 +84,7 @@ const Knobs = () => {
           ></Dial>
 
           <KnobTitle>Volume</KnobTitle>
-          <Toggle size={[20, 20]} />
+          {/* <Toggle size={[20, 20]} /> */}
         </KnobWrapper>
         <KnobWrapper>
           <Dial
@@ -97,7 +97,7 @@ const Knobs = () => {
             onChange={setrelease}
           ></Dial>
           <KnobTitle>Release</KnobTitle>
-          <Toggle size={[20, 20]} />
+          {/* <Toggle size={[20, 20]} /> */}
         </KnobWrapper>
         <KnobWrapper>
           <Dial
@@ -111,7 +111,7 @@ const Knobs = () => {
           ></Dial>
 
           <KnobTitle>{audioEffects[0].name}</KnobTitle>
-          <Toggle size={[20, 20]} />
+          {/* <Toggle size={[20, 20]} /> */}
         </KnobWrapper>
         <KnobWrapper>
           <Dial
@@ -125,7 +125,7 @@ const Knobs = () => {
           ></Dial>
 
           <KnobTitle>{audioEffects[1].name}</KnobTitle>
-          <Toggle size={[20, 20]} />
+          {/* <Toggle size={[20, 20]} /> */}
         </KnobWrapper>
 
         <KnobWrapper>
@@ -140,7 +140,7 @@ const Knobs = () => {
           ></Dial>
 
           <KnobTitle>{audioEffects[2].name}</KnobTitle>
-          <Toggle size={[20, 20]} />
+          {/* <Toggle size={[20, 20]} /> */}
         </KnobWrapper>
 
         <KnobWrapper>
@@ -155,7 +155,7 @@ const Knobs = () => {
           ></Dial>
 
           <KnobTitle>{audioEffects[3].name}</KnobTitle>
-          <Toggle size={[20, 20]} />
+          {/* <Toggle size={[20, 20]} /> */}
         </KnobWrapper>
 
         <KnobWrapper>
@@ -170,7 +170,7 @@ const Knobs = () => {
           ></Dial>
 
           <KnobTitle>{audioEffects[4].name}</KnobTitle>
-          <Toggle size={[20, 20]} />
+          {/* <Toggle size={[20, 20]} /> */}
         </KnobWrapper>
 
         <KnobWrapper>
@@ -185,7 +185,7 @@ const Knobs = () => {
           ></Dial>
 
           <KnobTitle>{audioEffects[5].name}</KnobTitle>
-          <Toggle size={[20, 20]} />
+          {/* <Toggle size={[20, 20]} /> */}
         </KnobWrapper>
 
         <KnobWrapper>
@@ -200,7 +200,7 @@ const Knobs = () => {
           ></Dial>
 
           <KnobTitle>{audioEffects[6].name}</KnobTitle>
-          <Toggle size={[20, 20]} />
+          {/* <Toggle size={[20, 20]} /> */}
         </KnobWrapper>
 
         <KnobWrapper>
@@ -215,7 +215,7 @@ const Knobs = () => {
           ></Dial>
 
           <KnobTitle>{"Detune"}</KnobTitle>
-          <Toggle size={[20, 20]} />
+          {/* <Toggle size={[20, 20]} /> */}
         </KnobWrapper>
       </KnobsContainer>
     </DawContainer>

@@ -84,39 +84,43 @@ const Octaves = () => {
     setOctave(newOctave);
   };
 
-  const recordNote = () => {
-    if (isRecording) {
-      return;
-    }
+  // const recordNote = () => {
+  //   if (isRecording) {
+  //     return;
+  //   }
 
-    setisRecording(true);
-    Tone.Transport.start();
-  };
+  //   setisRecording(true);
+  //   Tone.Transport.start();
+  // };
 
-  const stopNoteRecord = () => {
-    setisRecording(false);
-  };
+  // const stopNoteRecord = () => {
+  //   setisRecording(false);
+  // };
 
-  const pausePlayTransport = () => {
-    if (Tone.Transport.state === "started") {
-      console.log("Stopping Playback...");
-      Tone.Transport.pause();
-    } else {
-      console.log("Starting Playback...");
-      Tone.Transport.start();
-    }
-  };
+  // const pausePlayTransport = () => {
+  //   if (Tone.Transport.state === "started") {
+  //     console.log("Stopping Playback...");
+  //     Tone.Transport.pause();
+  //   } else {
+  //     console.log("Starting Playback...");
+  //     Tone.Transport.start();
+  //   }
+  // };
 
-  const resetRecordedNotes = () => {
-    setrecordedNote([]);
-  };
+  // const resetRecordedNotes = () => {
+  //   setrecordedNote([]);
+  // };
 
-  const playRecNotes = () => {
-    console.log(recordedNote);
-    if (!recordedNote.length) {
-      console.log("Nothing to play!");
-      return;
-    }
+  // const playRecNotes = () => {
+  //   console.log(recordedNote);
+  //   if (!recordedNote.length) {
+  //     console.log("Nothing to play!");
+  //     return;
+  //   }
+
+
+
+
 
     // const seq = new Tone.Sequence((time, note) => {
     //   piano.triggerAttackRelease(Tone.Frequency(note), 0.1, time);
@@ -131,15 +135,20 @@ const Octaves = () => {
 
     // console.log(diff);
 
-    const part = new Tone.Part((time, note) => {
-      piano.triggerAttackRelease(note, "16n", time);
-    }, recordedNote).start();
-    part.loop = true;
-    part.loopStart = recordedNote[0][0];
-    part.loopEnd = recordedNote[recordedNote.length - 1][0];
+
+
+
+
+
+    // const part = new Tone.Part((time, note) => {
+    //   piano.triggerAttackRelease(note, "16n", time);
+    // }, recordedNote).start();
+    // part.loop = true;
+    // part.loopStart = recordedNote[0][0];
+    // part.loopEnd = recordedNote[recordedNote.length - 1][0];
 
     // Tone.Transport.start();
-  };
+  // };
 
   useKey("-", updateNegativeOctaveHandler, octave, setOctave);
   useKey("=", updatePositiveOctaveHandler, octave, setOctave);
@@ -158,13 +167,13 @@ const Octaves = () => {
         >
           +
         </OctaveButton>
-        <OctaveButton onClick={recordNote}>⏺</OctaveButton>
+        {/* <OctaveButton onClick={recordNote}>⏺</OctaveButton>
         <OctaveButton onClick={stopNoteRecord}>⏹</OctaveButton>
         <OctaveButton onClick={playRecNotes}>▶</OctaveButton>
         <OctaveButton onClick={pausePlayTransport}>⏯</OctaveButton>
-        <OctaveButton onClick={resetRecordedNotes}>🗑️</OctaveButton>
+        <OctaveButton onClick={resetRecordedNotes}>🗑️</OctaveButton> */}
       </ButtonContainer>
-      <Slider
+      {/* <Slider
         size={[70, 30]}
         mode="relative"
         min={0}
@@ -172,7 +181,7 @@ const Octaves = () => {
         step={10}
         value={transportBPM}
         onChange={settransportBPM}
-      />
+      /> */}
     </OctavesContainer>
   );
 };

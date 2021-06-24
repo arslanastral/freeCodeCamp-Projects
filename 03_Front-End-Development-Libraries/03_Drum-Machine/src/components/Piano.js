@@ -22,7 +22,7 @@ const Piano = () => {
     // currentInstrument,
     audioEffects,
     octave,
-    isRecording,
+    // isRecording,
     recordedNote,
     setrecordedNote,
   } = React.useContext(DrumMachineContext);
@@ -37,13 +37,12 @@ const Piano = () => {
   }, [audioEffects, piano]);
 
   const playNote = (note) => {
-    console.log(Tone.Transport.seconds);
+    // console.log(Tone.Transport.seconds);
     setCurrentNote(note);
     Tone.loaded().then(() => {
-      if (isRecording) {
-        setrecordedNote([...recordedNote, [Tone.Transport.seconds, note]]);
-        // setrecordedNote([...recordedNote, note]);
-      }
+      // if (isRecording) {
+      //   setrecordedNote([...recordedNote, [Tone.Transport.seconds, note]]);
+      // }
       // Tone.Transport.seconds.toFixed(3)
       piano.triggerAttack(Tone.Frequency(note));
     });
