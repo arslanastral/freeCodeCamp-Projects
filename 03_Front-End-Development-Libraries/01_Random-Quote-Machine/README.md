@@ -1,6 +1,6 @@
 # Random Quote Machine ✔
 
-Live Demo: [https://5q4pq.csb.app/](https://5q4pq.csb.app/)
+Live Demo: [https://quotesy.netlify.app/](https://quotesy.netlify.app/)
 
 Random quote machine for freeCodeCamp Project. Animations done using react-spring library.
 
