@@ -1,0 +1,26 @@
+import React from "react";
+import styled from "styled-components";
+import MainClock from "./MainClock";
+import Timers from "./Timers";
+
+const ClockContainer = styled.div`
+  width: min(34rem, 90vw);
+  height: max(45rem, 90vh);
+
+  background: linear-gradient(
+    180deg,
+    rgba(22, 46, 252, 0.8) 4.69%,
+    rgba(250, 255, 0, 0) 100%
+  );
+`;
+
+const ClockBoard = () => {
+  return (
+    <ClockContainer>
+      <MainClock />
+      <Timers />
+    </ClockContainer>
+  );
+};
+
+export default ClockBoard;

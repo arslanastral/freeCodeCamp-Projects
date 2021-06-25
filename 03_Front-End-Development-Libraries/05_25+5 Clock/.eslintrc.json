@@ -12,6 +12,9 @@
     "react/react-in-jsx-scope": 0
   },
   "plugins": ["react", "import", "jsx-a11y"],
+  "parserOptions": {
+    "sourceType": "module"
+  },
   "env": {
     "es6": true,
     "browser": true,
@@ -20,6 +23,11 @@
   "settings": {
     "react": {
       "version": "detect"
+    },
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx"]
+      }
     }
   }
 }
