@@ -1,4 +1,6 @@
 import React from "react";
+import UpButton from "./buttons/Up";
+import DownButton from "./buttons/Down";
 import styled from "styled-components";
 
 const TimerBoxContainer = styled.div`
@@ -10,7 +12,6 @@ const TimerBoxContainer = styled.div`
   height: clamp(1rem, 25vw + 1rem, 126.4px);
   background: #ffffff;
   border: 1px solid #000000;
-  /* border-radius: 18px; */
   border-radius: 13.5%;
   position: relative;
 `;
@@ -25,7 +26,7 @@ const TaskName = styled.div`
   font-style: normal;
   font-weight: 600;
 
-  font-size: clamp(1rem, 1vw + 1rem, 21px);
+  font-size: clamp(5px, 1.5vw + 1rem, 21px);
   letter-spacing: -0.04em;
   color: #000000;
   position: inherit;
@@ -45,7 +46,7 @@ const Minutes = styled.div`
   font-family: Inter;
   font-style: normal;
   font-weight: 600;
-  font-size: clamp(2rem, 4vw + 1rem, 49px);
+  font-size: clamp(8px, 6vw + 1rem, 49px);
   letter-spacing: -0.04em;
   color: #000000;
   margin-left: 9px;
@@ -54,19 +55,22 @@ const Minutes = styled.div`
 
 const MinutesUnit = styled.span`
   font-weight: 500;
-  font-size: 35px;
+  font-size: clamp(3px, 3vw + 1rem, 35px);
 `;
 
 const TimerControlPanelContainer = styled.div`
   position: absolute;
   width: 30%;
-  height: 80%;
-
+  height: 75%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
   background: #ffffff;
   border: 1px solid #000000;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
-  right: -18px;
+  right: -15%;
 `;
 
 const TimerBox = ({ time, task }) => {
@@ -80,7 +84,10 @@ const TimerBox = ({ time, task }) => {
         {time}
         <MinutesUnit>m</MinutesUnit>
       </Minutes>
-      <TimerControlPanelContainer />
+      <TimerControlPanelContainer>
+        <UpButton />
+        <DownButton />
+      </TimerControlPanelContainer>
     </TimerBoxContainer>
   );
 };
