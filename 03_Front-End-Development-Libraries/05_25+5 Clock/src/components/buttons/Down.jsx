@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 
 const UpButtonSVG = styled.svg`
-  /* transform: scale(3); */
   width: clamp(12px, 6.5vw, 28px);
   height: clamp(12px, 6.5vw, 28px);
 `;
@@ -20,8 +19,6 @@ const DownButton = ({ onClick }) => {
   return (
     <UpButtonWrapper onClick={onClick}>
       <UpButtonSVG
-        // width="26"
-        // height="26"
         viewBox="0 0 26 26"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

@@ -2,6 +2,7 @@ import React from "react";
 import UpButton from "./buttons/Up";
 import DownButton from "./buttons/Down";
 import styled from "styled-components";
+import Tasks from "./Tasks";
 
 const TimerBoxContainer = styled.div`
   display: flex;
@@ -21,24 +22,11 @@ const TaskNameContainer = styled.div`
   margin-left: 10px;
 `;
 
-const TaskName = styled.div`
-  font-family: Inter;
-  font-style: normal;
-  font-weight: 600;
-
-  font-size: clamp(5px, 1.5vw + 1rem, 21px);
-  letter-spacing: -0.04em;
-  color: #000000;
-  position: inherit;
-  z-index: 1;
-  user-select: none;
-`;
-
 const TaskNameUnderline = styled.div`
   position: absolute;
-  background: linear-gradient(0deg, #ffd12d, #ffd12d), #ff2070;
+  background: ${({ type }) => (type === "break" ? "#FFD12D" : "#FF2070")};
   height: 20%;
-  width: 100%;
+  width: ${({ type }) => (type === "break" ? "100%" : "75%")};
   bottom: 16%;
 `;
 
@@ -73,12 +61,12 @@ const TimerControlPanelContainer = styled.div`
   right: -15%;
 `;
 
-const TimerBox = ({ time, task }) => {
+const TimerBox = ({ time, type }) => {
   return (
     <TimerBoxContainer>
       <TaskNameContainer>
-        <TaskName>{task}</TaskName>
-        <TaskNameUnderline />
+        <Tasks type={type} />
+        <TaskNameUnderline type={type} />
       </TaskNameContainer>
       <Minutes>
         {time}
