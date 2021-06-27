@@ -17,7 +17,9 @@ const TasksDropdownContainer = styled.div`
   /* width: 10px; */
 `;
 
-const SelectedTask = styled.div``;
+const SelectedTask = styled.div`
+  text-transform: capitalize;
+`;
 const TaskListContainer = styled.div`
   position: absolute;
   width: 90px;
@@ -40,6 +42,7 @@ const Task = styled.li`
   font-size: 16px;
   list-style: none;
   padding: 5px 0 5px 5px;
+  text-transform: capitalize;
 
   &:first-child:hover {
     border-radius: 7px 7px 0 0;
@@ -70,11 +73,20 @@ const Break = styled.div`
 
 const Tasks = ({ type }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState(null);
   const clickRef = React.useRef();
 
   const toggleTasks = () => setIsOpen(!isOpen);
 
   useClickOutside(clickRef, toggleTasks);
+
+  let TASKS = ["focus", "code", "guitar", "read", "learn"];
+
+  const onOptionClicked = (value) => () => {
+    setSelectedOption(value);
+    setIsOpen(false);
+    console.log(selectedOption);
+  };
 
   if (type === "break") {
     return <Break>Break</Break>;
@@ -82,18 +94,17 @@ const Tasks = ({ type }) => {
   return (
     <TasksDropdownContainer>
       <SelectedTask onClick={toggleTasks}>
-        Focus
+        {selectedOption || "focus"}
         <TasksDropdownArrow />
       </SelectedTask>
       {isOpen && (
         <TaskListContainer ref={clickRef}>
           <TaskList>
-            <Task>Focus</Task>
-            <Task>Code</Task>
-            <Task>Guitar</Task>
-            <Task>Read</Task>
-            <Task>Learn</Task>
-            <Task>Cook</Task>
+            {TASKS.map((task, i) => (
+              <Task key={i} onClick={onOptionClicked(task)}>
+                {task}
+              </Task>
+            ))}
           </TaskList>
         </TaskListContainer>
       )}
