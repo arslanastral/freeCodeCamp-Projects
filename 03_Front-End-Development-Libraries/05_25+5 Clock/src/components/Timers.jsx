@@ -19,9 +19,9 @@ const Seperator = styled.div`
 const Timers = () => {
   return (
     <TimersContainer>
-      <TimerBox time="25" type="focus" />
+      <TimerBox type="focus" />
       <Seperator />
-      <TimerBox time="5" type="break" />
+      <TimerBox type="break" />
     </TimersContainer>
   );
 };

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-
+import { useSelector } from "react-redux";
 const MainClockContainer = styled.div`
   /* width: 100%; */
   /* background: yellow; */
@@ -25,6 +25,7 @@ const ClockTime = styled.div`
   position: inherit;
   z-index: 1;
   user-select: none;
+  animation: fadeIn 0.5s;
 `;
 
 const ClockUnderline = styled.div`
@@ -36,12 +37,12 @@ const ClockUnderline = styled.div`
 `;
 
 const MainClock = () => {
-  //   const [clock, setclock] = useState(initialState);
+  const currentTime = useSelector((state) => state.clock.currentTime);
 
   return (
     <MainClockContainer>
       <Clock>
-        <ClockTime>25:45</ClockTime>
+        <ClockTime>{currentTime}</ClockTime>
         <ClockUnderline />
       </Clock>
     </MainClockContainer>

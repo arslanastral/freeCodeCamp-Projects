@@ -9,9 +9,9 @@ const ResetButton = styled.button`
   }
 `;
 
-const Reset = () => {
+const Reset = ({ onClick }) => {
   return (
-    <ResetButton>
+    <ResetButton onClick={onClick}>
       <svg
         width="22"
         height="22"

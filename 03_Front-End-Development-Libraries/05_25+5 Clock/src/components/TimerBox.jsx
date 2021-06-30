@@ -3,6 +3,15 @@ import UpButton from "./buttons/Up";
 import DownButton from "./buttons/Down";
 import styled from "styled-components";
 import Tasks from "./Tasks";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  incrementFocusTime,
+  decrementFocusTime,
+} from "../reducers/focusTimerSlice";
+import {
+  incrementBreakTime,
+  decrementBreakTime,
+} from "../reducers/BreakTimerSlice";
 
 const TimerBoxContainer = styled.div`
   display: flex;
@@ -39,6 +48,7 @@ const Minutes = styled.div`
   color: #000000;
   margin-left: 9px;
   user-select: none;
+  animation: fadeIn 0.5s;
 `;
 
 const MinutesUnit = styled.span`
@@ -61,7 +71,27 @@ const TimerControlPanelContainer = styled.div`
   right: -15%;
 `;
 
-const TimerBox = ({ time, type }) => {
+const TimerBox = ({ type }) => {
+  const focusMinutes = useSelector((state) => state.focusTimer.value);
+  const breakMinutes = useSelector((state) => state.breakTimer.value);
+  const dispatch = useDispatch();
+
+  const handleTimerIncrement = () => {
+    if (type === "focus" && focusMinutes < 60) {
+      dispatch(incrementFocusTime());
+    } else if (type === "break" && breakMinutes < 40) {
+      dispatch(incrementBreakTime());
+    }
+  };
+
+  const handleTimerDecrement = () => {
+    if (type === "focus" && focusMinutes > 1) {
+      dispatch(decrementFocusTime());
+    } else if (type === "break" && breakMinutes > 1) {
+      dispatch(decrementBreakTime());
+    }
+  };
+
   return (
     <TimerBoxContainer>
       <TaskNameContainer>
@@ -69,12 +99,12 @@ const TimerBox = ({ time, type }) => {
         <TaskNameUnderline type={type} />
       </TaskNameContainer>
       <Minutes>
-        {time}
+        {type === "focus" ? focusMinutes : breakMinutes}
         <MinutesUnit>m</MinutesUnit>
       </Minutes>
       <TimerControlPanelContainer>
-        <UpButton />
-        <DownButton />
+        <UpButton onClick={handleTimerIncrement} />
+        <DownButton onClick={handleTimerDecrement} />
       </TimerControlPanelContainer>
     </TimerBoxContainer>
   );

@@ -10,9 +10,9 @@ const SettingsButton = styled.button`
   }
 `;
 
-const Settings = () => {
+const Settings = ({ onClick }) => {
   return (
-    <SettingsButton>
+    <SettingsButton onClick={onClick}>
       <svg
         width="21"
         height="22"

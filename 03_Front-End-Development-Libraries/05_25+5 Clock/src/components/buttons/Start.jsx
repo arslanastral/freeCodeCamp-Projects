@@ -10,9 +10,9 @@ const StartButton = styled.button`
   }
 `;
 
-const Start = () => {
+const Start = ({ onClick }) => {
   return (
-    <StartButton>
+    <StartButton onClick={onClick}>
       <svg
         width="21"
         height="21"

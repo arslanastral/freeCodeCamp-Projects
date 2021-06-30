@@ -6,6 +6,9 @@ import Stats from "./Stats";
 import ControlPanel from "./ControlPanel";
 
 const ClockContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   width: min(34rem, 90vw);
   height: max(45rem, 90vh);
   background: linear-gradient(
