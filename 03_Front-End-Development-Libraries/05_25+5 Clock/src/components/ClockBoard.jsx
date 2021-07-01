@@ -8,7 +8,7 @@ import ControlPanel from "./ControlPanel";
 const ClockContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   width: min(34rem, 90vw);
   height: max(45rem, 90vh);
   background: linear-gradient(
@@ -16,6 +16,8 @@ const ClockContainer = styled.div`
     rgba(22, 46, 252, 0.8) 4.69%,
     rgba(250, 255, 0, 0) 100%
   );
+  border-radius: 60px;
+  animation: fadeIn 0.5s;
 `;
 
 const ClockBoard = () => {

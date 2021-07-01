@@ -3,8 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 export const clockSlice = createSlice({
   name: "clock",
   initialState: {
-    currentTime: "25:00",
+    currentTime: "",
     isRunning: false,
+    isBreakTime: false,
   },
   reducers: {
     setClockRuning: (state) => {
@@ -20,6 +21,12 @@ export const clockSlice = createSlice({
     setCurrentTime: (state, action) => {
       state.currentTime = action.payload;
     },
+    setBreakStarted: (state) => {
+      state.isBreakTime = true;
+    },
+    setBreakFinished: (state) => {
+      state.isBreakTime = false;
+    },
   },
 });
 
@@ -28,6 +35,8 @@ export const {
   setClockRuning,
   setClockStopped,
   setCurrentTime,
+  setBreakStarted,
+  setBreakFinished,
 } = clockSlice.actions;
 
 export default clockSlice.reducer;

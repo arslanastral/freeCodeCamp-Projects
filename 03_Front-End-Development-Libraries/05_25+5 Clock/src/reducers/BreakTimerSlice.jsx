@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const breakTimerSlice = createSlice({
   name: "breakTimer",
   initialState: {
-    value: 5,
+    value: 2,
   },
   reducers: {
     incrementBreakTime: (state) => {

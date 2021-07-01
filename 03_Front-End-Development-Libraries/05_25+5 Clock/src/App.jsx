@@ -10,6 +10,7 @@ const AppContainer = styled.div`
     #162efc 6.25%,
     rgba(22, 46, 252, 0.67) 100%
   );
+  background: black;
   display: flex;
   justify-content: center;
   align-items: center;

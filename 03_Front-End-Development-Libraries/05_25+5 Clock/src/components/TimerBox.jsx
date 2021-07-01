@@ -48,7 +48,6 @@ const Minutes = styled.div`
   color: #000000;
   margin-left: 9px;
   user-select: none;
-  animation: fadeIn 0.5s;
 `;
 
 const MinutesUnit = styled.span`
