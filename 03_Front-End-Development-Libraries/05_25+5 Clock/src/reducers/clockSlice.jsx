@@ -5,14 +5,10 @@ export const clockSlice = createSlice({
   initialState: {
     currentTime: "",
     isRunning: false,
-    isBreakTime: false,
+    isBreakStarted: false,
   },
   reducers: {
     setClockRuning: (state) => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
       state.isRunning = true;
     },
     setClockStopped: (state) => {
@@ -22,10 +18,10 @@ export const clockSlice = createSlice({
       state.currentTime = action.payload;
     },
     setBreakStarted: (state) => {
-      state.isBreakTime = true;
+      state.isBreakStarted = true;
     },
     setBreakFinished: (state) => {
-      state.isBreakTime = false;
+      state.isBreakStarted = false;
     },
   },
 });

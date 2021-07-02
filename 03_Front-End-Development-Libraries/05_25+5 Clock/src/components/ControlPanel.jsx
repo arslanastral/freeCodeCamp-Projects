@@ -31,9 +31,11 @@ const ControlPanelContainer = styled.div`
 `;
 
 const ControlPanel = () => {
-  const clock = useSelector((state) => state.clock);
+  const isRunning = useSelector((state) => state.clock.isRunning);
+  const isBreakStarted = useSelector((state) => state.clock.isBreakStarted);
   const focusMinutes = useSelector((state) => state.focusTimer.value);
   const breakMinutes = useSelector((state) => state.breakTimer.value);
+
   const dispatch = useDispatch();
 
   let timer = 60 * focusMinutes;
@@ -41,63 +43,53 @@ const ControlPanel = () => {
   let countDownInterval = React.useRef(null);
 
   const handleTimerStart = () => {
-    console.log(clock.isBreakTime, clock);
-
-    if (!clock.isRunning) {
+    if (!isRunning) {
       dispatch(setClockRuning());
-
+      let breakStarted = false;
       let start = Date.now(),
         diff,
         minutes,
         seconds;
-      // let countdown;
-      const countdownTimer = () => {
-        console.log("timer:", timer, "breaktimer:", breakTime);
-        diff = timer - (((Date.now() - start) / 100) | 0);
+
+      const countdown = () => {
+        diff = timer - (((Date.now() - start) / 1000) | 0);
         minutes = (diff / 60) | 0;
         seconds = diff % 60 | 0;
+
+        console.log(`${minutes}:${seconds}`);
 
         minutes = minutes < 10 ? "0" + minutes : minutes;
         seconds = seconds < 10 ? "0" + seconds : seconds;
 
-        if (clock.isBreakTime) {
+        if (breakStarted) {
           document.title = `Break Time! 👉 ${minutes}:${seconds}`;
-          console.log(`Break Time! 👉 ${minutes}:${seconds}`);
-        } else if (!clock.isBreakTime) {
+        } else {
           document.title = `Focus! 💪 ${minutes}:${seconds}`;
-          console.log(`Focus! 💪 ${minutes}:${seconds}`);
         }
+
         dispatch(setCurrentTime(`${minutes}:${seconds}`));
-
-        // console.log(`${minutes}:${seconds}`);
-
         // --timer;
 
-        if (diff <= 0 && !clock.isBreakTime) {
+        if (breakStarted && diff <= 0) {
+          dispatch(setBreakFinished());
+          dispatch(setClockStopped());
+          clearInterval(countDownInterval.current);
+          document.title = "Session Finished! 🎉";
+        } else if (!breakStarted && diff <= 0) {
+          breakStarted = true;
           dispatch(setBreakStarted());
           start = Date.now();
           timer = breakTime;
-        } else if (diff <= 0) {
-          dispatch(setClockStopped());
-          dispatch(setBreakFinished());
-          clearInterval(countDownInterval.current);
+          console.log(isBreakStarted);
         }
-
-        // if (timer - 1 < 0 && clock.isBreakTime) {
-        //   dispatch(setClockStopped());
-        //   // clearInterval(countdown);
-        // } else if (timer - 1 < 0 && !clock.isBreakTime) {
-        //   dispatch(setBreakTime());
-        //   timer += breakTime;
-        //   console.log("break session started");
-        // }
       };
 
-      countdownTimer();
-      countDownInterval.current = setInterval(countdownTimer, 10);
-    } else if (clock.isRunning) {
+      countdown();
+      countDownInterval.current = setInterval(countdown, 1);
+    } else if (isRunning) {
       dispatch(setClockStopped());
       dispatch(setBreakFinished());
+      document.title = "Stopped!";
       clearInterval(countDownInterval.current);
     }
   };
@@ -105,7 +97,7 @@ const ControlPanel = () => {
   return (
     <ControlPanelWrapper>
       <ControlPanelContainer>
-        <Start onClick={handleTimerStart} isClockRunning={clock.isRunning} />
+        <Start onClick={handleTimerStart} isClockRunning={isRunning} />
         <Reset />
         <Settings />
       </ControlPanelContainer>

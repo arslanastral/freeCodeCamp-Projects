@@ -18,7 +18,7 @@ const ClockTime = styled.div`
   letter-spacing: -0.045em;
   /* margin-top: -10%; */
   color: #ffffff;
-  /* text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25); */
+  text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
   position: inherit;
   z-index: 1;
   user-select: none;
@@ -28,12 +28,13 @@ const ClockTime = styled.div`
 const ClockUnderline = styled.div`
   position: absolute;
   background: ${({ isBreakTime }) => (isBreakTime ? "#ffd12d" : "#ff2070")};
-  height: 10%;
+  height: 15%;
   width: 90%;
   border-radius: 20px;
   top: 75%;
   left: 50%;
   transform: translate(-50%, -50%);
+  transition: all ease-out 1s;
   /*  */
 `;
 
@@ -41,7 +42,7 @@ const MainClock = () => {
   const focusMinutes = useSelector((state) => state.focusTimer.value);
   const currentTime = useSelector((state) => state.clock.currentTime);
   const clockRunning = useSelector((state) => state.clock.isRunning);
-  const isBreakTime = useSelector((state) => state.clock.isBreakTime);
+  const isBreakTime = useSelector((state) => state.clock.isBreakStarted);
 
   return (
     <MainClockContainer>
