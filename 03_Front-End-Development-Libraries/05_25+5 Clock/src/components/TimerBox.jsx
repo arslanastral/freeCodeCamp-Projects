@@ -3,6 +3,7 @@ import UpButton from "./buttons/Up";
 import DownButton from "./buttons/Down";
 import styled from "styled-components";
 import Tasks from "./Tasks";
+import { Howl } from "howler";
 import { useSelector, useDispatch } from "react-redux";
 import {
   incrementFocusTime,
@@ -75,18 +76,26 @@ const TimerBox = ({ type }) => {
   const breakMinutes = useSelector((state) => state.breakTimer.value);
   const dispatch = useDispatch();
 
+  const upDownButtonSound = new Howl({
+    src: ["src/sounds/updown.mp3"],
+  });
+
   const handleTimerIncrement = () => {
     if (type === "focus" && focusMinutes < 60) {
+      upDownButtonSound.play();
       dispatch(incrementFocusTime());
     } else if (type === "break" && breakMinutes < 40) {
+      upDownButtonSound.play();
       dispatch(incrementBreakTime());
     }
   };
 
   const handleTimerDecrement = () => {
     if (type === "focus" && focusMinutes > 1) {
+      upDownButtonSound.play();
       dispatch(decrementFocusTime());
     } else if (type === "break" && breakMinutes > 1) {
+      upDownButtonSound.play();
       dispatch(decrementBreakTime());
     }
   };

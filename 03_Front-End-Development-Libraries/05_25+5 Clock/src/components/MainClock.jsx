@@ -23,6 +23,7 @@ const ClockTime = styled.div`
   z-index: 1;
   user-select: none;
   margin: 0 auto;
+  animation: ${({ clockRunning }) => (clockRunning ? "pulse 1s infinite" : "")};
 `;
 
 const ClockUnderline = styled.div`
@@ -46,7 +47,7 @@ const MainClock = () => {
 
   return (
     <MainClockContainer>
-      <ClockTime>
+      <ClockTime clockRunning={clockRunning}>
         {clockRunning && currentTime
           ? currentTime
           : `${focusMinutes < 10 ? "0" + focusMinutes : focusMinutes}:00`}

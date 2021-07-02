@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Start from "./buttons/Start";
 import Reset from "./buttons/Reset";
 import Settings from "./buttons/Settings";
+import { Howl } from "howler";
 import { useSelector, useDispatch } from "react-redux";
 import {
   setClockRuning,
@@ -38,12 +39,33 @@ const ControlPanel = () => {
 
   const dispatch = useDispatch();
 
+  const startTimerSound = new Howl({
+    src: ["src/sounds/play.mp3"],
+  });
+
+  const stopTimerSound = new Howl({
+    src: ["src/sounds/stop.mp3"],
+  });
+
+  const resetTimerSound = new Howl({
+    src: ["src/sounds/reset.mp3"],
+  });
+
+  const breakStartedSound = new Howl({
+    src: ["src/sounds/breakstarted.mp3"],
+  });
+
+  const breakFinishedSound = new Howl({
+    src: ["src/sounds/breakfinished.mp3"],
+  });
+
   let timer = 60 * focusMinutes;
   let breakTime = 60 * breakMinutes;
   let countDownInterval = React.useRef(null);
 
   const handleTimerStart = () => {
     if (!isRunning) {
+      startTimerSound.play();
       dispatch(setClockRuning());
       let breakStarted = false;
       let start = Date.now(),
@@ -68,14 +90,15 @@ const ControlPanel = () => {
         }
 
         dispatch(setCurrentTime(`${minutes}:${seconds}`));
-        // --timer;
 
         if (breakStarted && diff <= 0) {
+          breakFinishedSound.play();
           dispatch(setBreakFinished());
           dispatch(setClockStopped());
           clearInterval(countDownInterval.current);
           document.title = "Session Finished! 🎉";
         } else if (!breakStarted && diff <= 0) {
+          breakStartedSound.play();
           breakStarted = true;
           dispatch(setBreakStarted());
           start = Date.now();
@@ -87,6 +110,7 @@ const ControlPanel = () => {
       countdown();
       countDownInterval.current = setInterval(countdown, 1);
     } else if (isRunning) {
+      stopTimerSound.play();
       dispatch(setClockStopped());
       dispatch(setBreakFinished());
       document.title = "Stopped!";
