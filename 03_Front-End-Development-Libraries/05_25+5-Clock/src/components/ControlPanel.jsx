@@ -51,9 +51,11 @@ const ControlPanel = () => {
     ],
   });
 
-  // const resetTimerSound = new Howl({
-  //   src: ["https://arslanastral.github.io/freeCodeCamp-Projects/03_Front-End-Development-Libraries/05_25%2B5-Clock/src/sounds/reset.mp3"],
-  // });
+  const resetTimerSound = new Howl({
+    src: [
+      "https://arslanastral.github.io/freeCodeCamp-Projects/03_Front-End-Development-Libraries/05_25%2B5-Clock/src/sounds/reset.mp3",
+    ],
+  });
 
   const breakStartedSound = new Howl({
     src: [
@@ -71,58 +73,74 @@ const ControlPanel = () => {
   let breakTime = 60 * breakMinutes;
   let countDownInterval = React.useRef(null);
 
+  const startTimer = () => {
+    dispatch(setClockRuning());
+    let breakStarted = false;
+    let start = Date.now(),
+      diff,
+      minutes,
+      seconds;
+
+    const countdown = () => {
+      diff = timer - (((Date.now() - start) / 1000) | 0);
+      minutes = (diff / 60) | 0;
+      seconds = diff % 60 | 0;
+
+      console.log(`${minutes}:${seconds}`);
+
+      minutes = minutes < 10 ? "0" + minutes : minutes;
+      seconds = seconds < 10 ? "0" + seconds : seconds;
+
+      if (breakStarted) {
+        document.title = `Break Time! 👉 ${minutes}:${seconds}`;
+      } else {
+        document.title = `Focus! 💪 ${minutes}:${seconds}`;
+      }
+
+      dispatch(setCurrentTime(`${minutes}:${seconds}`));
+
+      if (breakStarted && diff <= 0) {
+        breakFinishedSound.play();
+        dispatch(setBreakFinished());
+        dispatch(setClockStopped());
+        clearInterval(countDownInterval.current);
+        document.title = "Session Finished! 🎉";
+      } else if (!breakStarted && diff <= 0) {
+        breakStartedSound.play();
+        breakStarted = true;
+        dispatch(setBreakStarted());
+        start = Date.now();
+        timer = breakTime;
+        console.log(isBreakStarted);
+      }
+    };
+
+    countdown();
+    countDownInterval.current = setInterval(countdown, 1);
+  };
+
+  const stopTimer = () => {
+    dispatch(setClockStopped());
+    dispatch(setBreakFinished());
+    document.title = "Stopped!";
+    clearInterval(countDownInterval.current);
+  };
+
   const handleTimerStart = () => {
     if (!isRunning) {
       startTimerSound.play();
-      dispatch(setClockRuning());
-      let breakStarted = false;
-      let start = Date.now(),
-        diff,
-        minutes,
-        seconds;
-
-      const countdown = () => {
-        diff = timer - (((Date.now() - start) / 1000) | 0);
-        minutes = (diff / 60) | 0;
-        seconds = diff % 60 | 0;
-
-        console.log(`${minutes}:${seconds}`);
-
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
-
-        if (breakStarted) {
-          document.title = `Break Time! 👉 ${minutes}:${seconds}`;
-        } else {
-          document.title = `Focus! 💪 ${minutes}:${seconds}`;
-        }
-
-        dispatch(setCurrentTime(`${minutes}:${seconds}`));
-
-        if (breakStarted && diff <= 0) {
-          breakFinishedSound.play();
-          dispatch(setBreakFinished());
-          dispatch(setClockStopped());
-          clearInterval(countDownInterval.current);
-          document.title = "Session Finished! 🎉";
-        } else if (!breakStarted && diff <= 0) {
-          breakStartedSound.play();
-          breakStarted = true;
-          dispatch(setBreakStarted());
-          start = Date.now();
-          timer = breakTime;
-          console.log(isBreakStarted);
-        }
-      };
-
-      countdown();
-      countDownInterval.current = setInterval(countdown, 1);
+      startTimer();
     } else if (isRunning) {
       stopTimerSound.play();
-      dispatch(setClockStopped());
-      dispatch(setBreakFinished());
-      document.title = "Stopped!";
-      clearInterval(countDownInterval.current);
+      stopTimer();
+    }
+  };
+
+  const handleReset = () => {
+    if (isRunning) {
+      resetTimerSound.play();
+      stopTimer();
+      startTimer();
     }
   };
 
@@ -130,7 +148,7 @@ const ControlPanel = () => {
     <ControlPanelWrapper>
       <ControlPanelContainer>
         <Start onClick={handleTimerStart} isClockRunning={isRunning} />
-        <Reset />
+        <Reset onClick={handleReset} />
         <Settings />
       </ControlPanelContainer>
     </ControlPanelWrapper>
