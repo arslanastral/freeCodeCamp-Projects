@@ -116,7 +116,7 @@ const ControlPanel = () => {
     };
 
     countdown();
-    countDownInterval.current = setInterval(countdown, 1);
+    countDownInterval.current = setInterval(countdown, 100);
   };
 
   const stopTimer = () => {
