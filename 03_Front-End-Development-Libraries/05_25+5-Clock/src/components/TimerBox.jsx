@@ -92,6 +92,7 @@ const TimerBox = ({ type }) => {
     src: [
       "https://arslanastral.github.io/freeCodeCamp-Projects/03_Front-End-Development-Libraries/05_25%2B5-Clock/src/sounds/updown.mp3",
     ],
+    volume: 0.5,
   });
 
   const handleTimerIncrement = () => {

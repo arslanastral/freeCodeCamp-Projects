@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const focusTimerSlice = createSlice({
   name: "focusTimer",
   initialState: {
-    value: 1,
+    value: 25,
   },
   reducers: {
     incrementFocusTime: (state) => {

@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Start from "./buttons/Start";
 import Reset from "./buttons/Reset";
-import Settings from "./buttons/Settings";
+// import Settings from "./buttons/Settings";
 import { Howl } from "howler";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -25,7 +25,7 @@ const ControlPanelContainer = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  width: 202px;
+  width: clamp(2rem, 35vw + 1rem, 140px);
   height: 46px;
   background: #ffffff;
   border-radius: 47px;
@@ -33,7 +33,6 @@ const ControlPanelContainer = styled.div`
 
 const ControlPanel = () => {
   const isRunning = useSelector((state) => state.clock.isRunning);
-  const isBreakStarted = useSelector((state) => state.clock.isBreakStarted);
   const focusMinutes = useSelector((state) => state.focusTimer.value);
   const breakMinutes = useSelector((state) => state.breakTimer.value);
 
@@ -43,30 +42,35 @@ const ControlPanel = () => {
     src: [
       "https://arslanastral.github.io/freeCodeCamp-Projects/03_Front-End-Development-Libraries/05_25%2B5-Clock/src/sounds/play.mp3",
     ],
+    volume: 0.5,
   });
 
   const stopTimerSound = new Howl({
     src: [
       "https://arslanastral.github.io/freeCodeCamp-Projects/03_Front-End-Development-Libraries/05_25%2B5-Clock/src/sounds/stop.mp3",
     ],
+    volume: 0.5,
   });
 
   const resetTimerSound = new Howl({
     src: [
       "https://arslanastral.github.io/freeCodeCamp-Projects/03_Front-End-Development-Libraries/05_25%2B5-Clock/src/sounds/reset.mp3",
     ],
+    volume: 0.5,
   });
 
   const breakStartedSound = new Howl({
     src: [
       "https://arslanastral.github.io/freeCodeCamp-Projects/03_Front-End-Development-Libraries/05_25%2B5-Clock/src/sounds/breakstarted.mp3",
     ],
+    volume: 0.5,
   });
 
   const breakFinishedSound = new Howl({
     src: [
       "https://arslanastral.github.io/freeCodeCamp-Projects/03_Front-End-Development-Libraries/05_25%2B5-Clock/src/sounds/breakfinished.mp3",
     ],
+    volume: 0.5,
   });
 
   let timer = 60 * focusMinutes;
@@ -85,9 +89,6 @@ const ControlPanel = () => {
       diff = timer - (((Date.now() - start) / 1000) | 0);
       minutes = (diff / 60) | 0;
       seconds = diff % 60 | 0;
-
-      console.log(`${minutes}:${seconds}`);
-
       minutes = minutes < 10 ? "0" + minutes : minutes;
       seconds = seconds < 10 ? "0" + seconds : seconds;
 
@@ -111,7 +112,6 @@ const ControlPanel = () => {
         dispatch(setBreakStarted());
         start = Date.now();
         timer = breakTime;
-        console.log(isBreakStarted);
       }
     };
 
@@ -149,7 +149,7 @@ const ControlPanel = () => {
       <ControlPanelContainer>
         <Start onClick={handleTimerStart} isClockRunning={isRunning} />
         <Reset onClick={handleReset} />
-        <Settings />
+        {/* <Settings /> */}
       </ControlPanelContainer>
     </ControlPanelWrapper>
   );
