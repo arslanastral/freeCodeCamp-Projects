@@ -3,8 +3,6 @@ import styled from "styled-components";
 import ClockBoard from "./components/ClockBoard";
 
 const AppContainer = styled.div`
-  @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap");
-
   background: linear-gradient(
     180deg,
     #162efc 6.25%,

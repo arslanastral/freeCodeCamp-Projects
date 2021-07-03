@@ -40,23 +40,31 @@ const ControlPanel = () => {
   const dispatch = useDispatch();
 
   const startTimerSound = new Howl({
-    src: ["src/sounds/play.mp3"],
+    src: [
+      "https://arslanastral.github.io/freeCodeCamp-Projects/03_Front-End-Development-Libraries/05_25%2B5-Clock/src/sounds/play.mp3",
+    ],
   });
 
   const stopTimerSound = new Howl({
-    src: ["src/sounds/stop.mp3"],
+    src: [
+      "https://arslanastral.github.io/freeCodeCamp-Projects/03_Front-End-Development-Libraries/05_25%2B5-Clock/src/sounds/stop.mp3",
+    ],
   });
 
-  const resetTimerSound = new Howl({
-    src: ["src/sounds/reset.mp3"],
-  });
+  // const resetTimerSound = new Howl({
+  //   src: ["https://arslanastral.github.io/freeCodeCamp-Projects/03_Front-End-Development-Libraries/05_25%2B5-Clock/src/sounds/reset.mp3"],
+  // });
 
   const breakStartedSound = new Howl({
-    src: ["src/sounds/breakstarted.mp3"],
+    src: [
+      "https://arslanastral.github.io/freeCodeCamp-Projects/03_Front-End-Development-Libraries/05_25%2B5-Clock/src/sounds/breakstarted.mp3",
+    ],
   });
 
   const breakFinishedSound = new Howl({
-    src: ["src/sounds/breakfinished.mp3"],
+    src: [
+      "https://arslanastral.github.io/freeCodeCamp-Projects/03_Front-End-Development-Libraries/05_25%2B5-Clock/src/sounds/breakfinished.mp3",
+    ],
   });
 
   let timer = 60 * focusMinutes;
