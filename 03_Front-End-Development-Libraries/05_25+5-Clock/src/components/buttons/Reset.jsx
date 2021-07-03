@@ -11,7 +11,7 @@ const ResetButton = styled.button`
 
 const Reset = ({ onClick }) => {
   return (
-    <ResetButton onClick={onClick}>
+    <ResetButton aria-label={"reset button"} onClick={onClick}>
       <svg
         width="22"
         height="22"

@@ -113,8 +113,22 @@ const TimerBox = ({ type }) => {
         <MinutesUnit>m</MinutesUnit>
       </Minutes>
       <TimerControlPanelContainer>
-        <UpButton onClick={handleTimerIncrement} />
-        <DownButton onClick={handleTimerDecrement} />
+        <UpButton
+          ariaLabel={
+            type === "focus"
+              ? "focus minutes increment button"
+              : "break minutes increment button"
+          }
+          onClick={handleTimerIncrement}
+        />
+        <DownButton
+          ariaLabel={
+            type === "focus"
+              ? "focus minutes decrement button"
+              : "break minutes decrement button"
+          }
+          onClick={handleTimerDecrement}
+        />
       </TimerControlPanelContainer>
     </TimerBoxContainer>
   );

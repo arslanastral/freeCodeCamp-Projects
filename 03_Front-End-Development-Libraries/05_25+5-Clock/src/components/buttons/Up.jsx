@@ -15,9 +15,9 @@ const UpButtonWrapper = styled.button`
   }
 `;
 
-const UpButton = ({ onClick }) => {
+const UpButton = ({ onClick, ariaLabel }) => {
   return (
-    <UpButtonWrapper onClick={onClick}>
+    <UpButtonWrapper aria-label={ariaLabel} onClick={onClick}>
       <UpButtonSVG
         viewBox="0 0 26 26"
         fill="none"

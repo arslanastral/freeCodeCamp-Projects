@@ -12,7 +12,7 @@ const SettingsButton = styled.button`
 
 const Settings = ({ onClick }) => {
   return (
-    <SettingsButton onClick={onClick}>
+    <SettingsButton aria-label={"toggle settings button"} onClick={onClick}>
       <svg
         width="21"
         height="22"

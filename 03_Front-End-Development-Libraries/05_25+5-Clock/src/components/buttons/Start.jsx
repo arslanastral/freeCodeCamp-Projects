@@ -13,7 +13,7 @@ const StartButton = styled.button`
 
 const Start = ({ onClick, isClockRunning }) => {
   return (
-    <StartButton onClick={onClick}>
+    <StartButton aria-label={"start pomodoro session"} onClick={onClick}>
       {!isClockRunning ? (
         <svg
           width="21"
