@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import MainClock from "./MainClock";
 import Timers from "./Timers";
-import Stats from "./Stats";
 import ControlPanel from "./ControlPanel";
 
 const ClockContainer = styled.div`
@@ -25,7 +24,6 @@ const ClockBoard = () => {
     <ClockContainer>
       <MainClock />
       <Timers />
-      <Stats />
       <ControlPanel />
     </ClockContainer>
   );

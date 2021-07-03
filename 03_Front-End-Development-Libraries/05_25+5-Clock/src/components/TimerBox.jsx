@@ -2,7 +2,6 @@ import React from "react";
 import UpButton from "./buttons/Up";
 import DownButton from "./buttons/Down";
 import styled from "styled-components";
-import Tasks from "./Tasks";
 import { Howl } from "howler";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -32,11 +31,24 @@ const TaskNameContainer = styled.div`
   margin-left: 10px;
 `;
 
+const TaskName = styled.div`
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 600;
+
+  font-size: clamp(5px, 1vw + 1rem, 21px);
+  letter-spacing: -0.04em;
+  color: #000000;
+  position: inherit;
+  z-index: 1;
+  user-select: none;
+`;
+
 const TaskNameUnderline = styled.div`
   position: absolute;
   background: ${({ type }) => (type === "break" ? "#FFD12D" : "#FF2070")};
   height: 20%;
-  width: ${({ type }) => (type === "break" ? "100%" : "75%")};
+  width: 100%;
   bottom: 16%;
 `;
 
@@ -105,7 +117,7 @@ const TimerBox = ({ type }) => {
   return (
     <TimerBoxContainer>
       <TaskNameContainer>
-        <Tasks type={type} />
+        <TaskName> {type === "focus" ? "Focus" : "Break"}</TaskName>
         <TaskNameUnderline type={type} />
       </TaskNameContainer>
       <Minutes>
