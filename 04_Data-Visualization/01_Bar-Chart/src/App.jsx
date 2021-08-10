@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import BarChart from "./components/BarChart";
 
 const AppContainer = styled.div`
   background: white;
@@ -11,7 +12,11 @@ const AppContainer = styled.div`
 `;
 
 function App() {
-  return <AppContainer>Hello!</AppContainer>;
+  return (
+    <AppContainer>
+      <BarChart />
+    </AppContainer>
+  );
 }
 
 export default App;
